@@ -3,7 +3,7 @@
 <p align="center">
 	<a href="#sobre">Sobre</a> &nbsp;|&nbsp;
 	<a href="#instalando">Instalando</a> &nbsp;|&nbsp;
-	<a href="#rodando">Rodando</a> &nbsp;|&nbsp;
+	<a href="#rodando">Rodando</a>
 </p>
 
 <h3 id="sobre">:information_source: Sobre</h3>
