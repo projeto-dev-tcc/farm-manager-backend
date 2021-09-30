@@ -8,9 +8,7 @@ from .serializers import *
 def list_fazenda(request):
     if request.method == 'GET':
         data = Fazenda.objects.all()
-
         serializer = FazendaSerializer(data, context={'request': request}, many=True)
-
         return Response(serializer.data)
 
     elif request.method == 'POST':

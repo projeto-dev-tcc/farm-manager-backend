@@ -1,12 +1,11 @@
 from rest_framework import viewsets
 from .models import *
-from django.contrib.auth.models import User
 from .serializers import *
 
 # ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class UsuarioViewSet(viewsets.ModelViewSet):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
 
 class FazendaViewSet(viewsets.ModelViewSet):
     queryset = Fazenda.objects.all()

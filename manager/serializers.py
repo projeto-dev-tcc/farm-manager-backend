@@ -1,11 +1,10 @@
-from rest_framework import serializers
+from rest_framework import fields, serializers
 from .models import *
-from django.contrib.auth.models import User
 
 # Serializers define the API representation.        
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
+        model = Usuario
         fields = ('__all__')
 
 class FazendaSerializer(serializers.HyperlinkedModelSerializer):
