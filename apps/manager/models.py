@@ -119,7 +119,7 @@ class Servico(models.Model):
     
     talhao = models.ForeignKey(Talhao, on_delete=models.CASCADE)
     maquinario = models.ForeignKey(Maquinario, on_delete=models.CASCADE)
-    # pessoa = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     tipo = models.IntegerField('Tipo de Serviço', choices=TIPO_SERVICO_CHOICE)
     data_inicio = models.DateField("Data de Inicio")
     data_termino = models.DateField("Data de Término")
