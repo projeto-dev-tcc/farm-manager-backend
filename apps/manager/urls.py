@@ -4,7 +4,6 @@ from rest_framework import routers
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'usuarios', UsuarioViewSet)
 router.register(r'fazendas', FazendaViewSet)
 router.register(r'maquinarios', MaquinarioViewSet)
 router.register(r'variedades', VariedadeViewSet)

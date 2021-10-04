@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     'home',
+    'usuarios',
     'manager',
 ]
 
@@ -150,7 +151,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
-AUTH_USER_MODEL = "manager.Usuario"
+AUTH_USER_MODEL = "usuarios.Usuario"
 
 MEDIA_URL = '/media/' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
