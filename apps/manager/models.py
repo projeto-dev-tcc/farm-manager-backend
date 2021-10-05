@@ -51,8 +51,6 @@ class Talhao(models.Model):
     def __str__(self):
         return str(self.nome)
 	
-
-#ARRUMAR DATA DE ÍNICIO E DE TÉRMINO!!!!!!!!!!
 class Servico(models.Model):
     TIPO_SERVICO_CHOICE = [
         (1, "Plantio"),
@@ -65,8 +63,8 @@ class Servico(models.Model):
     maquinario = models.ForeignKey(Maquinario, on_delete=models.CASCADE)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     tipo = models.IntegerField('Tipo de Serviço', choices=TIPO_SERVICO_CHOICE)
-    data_inicio = models.DateField("Data de Inicio")
-    data_termino = models.DateField("Data de Término")
+    data_inicio = models.DateField("Data de Inicio", auto_now = False)
+    data_termino = models.DateField("Data de Término", auto_now = False)
     observacoes = models.TextField("Observações")
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 

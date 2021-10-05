@@ -18,7 +18,7 @@ class UsuarioManager(BaseUserManager):
         usuario.save()
         return usuario
 
-    def create_superuser(self, email,  password, **kwargs):
+    def create_superuser(self, email, password, **kwargs):
         usuario = self.create_user(
             email=self.normalize_email(email),
             password=password,
