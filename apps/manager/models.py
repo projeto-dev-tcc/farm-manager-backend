@@ -16,7 +16,7 @@ class Maquinario(models.Model):
         (1, "Trator"),
         (2, "Emplemento")
     ]
-    
+
     fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda", on_delete=models.CASCADE)
     tipo = models.IntegerField('Tipo de Maquinário', choices=TIPO_MAQUINARIO_CHOICE)
     marca = models.CharField("Marca", max_length=200)

@@ -6,7 +6,7 @@ class FazendaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fazenda
         fields = ('__all__')
-        
+    
 class MaquinarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Maquinario
