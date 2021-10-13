@@ -4,11 +4,6 @@ from manager.models import Fazenda
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-
-# ViewSets define the view behavior.
-class FazendaViewSet(viewsets.ModelViewSet):
-    queryset = Fazenda.objects.all()
-    serializer_class = FazendaSerializer
     
 @api_view(['GET', 'POST'])
 def ListFazenda(request):
