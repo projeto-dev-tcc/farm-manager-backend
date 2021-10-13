@@ -7,6 +7,6 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('manager.urls')),
-    path('auth/', obtain_auth_token),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # path('auth/', obtain_auth_token),
+    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from manager.serializers import ServicoSerializer
+from manager.api.serializers import ServicoSerializer
 from manager.models import Servico
 
 # ViewSets define the view behavior.    

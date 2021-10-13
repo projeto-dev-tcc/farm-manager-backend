@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from manager.serializers import TalhaoSerializer
+from manager.api.serializers import TalhaoSerializer
 from manager.models import Talhao
 
 # ViewSets define the view behavior.    

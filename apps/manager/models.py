@@ -3,9 +3,9 @@ from usuarios.models import Usuario
 
 class Fazenda(models.Model):
     nome = models.CharField("Nome", max_length=240)
-    proprietario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="proprietario")
-    funcionarios = models.ManyToManyField(Usuario, related_name="funcionarios")
-    agronomos = models.ManyToManyField(Usuario, related_name="agronomos")
+    proprietario = models.ForeignKey(Usuario, related_name="id_proprietario", on_delete=models.CASCADE)
+    funcionarios = models.ManyToManyField(Usuario, related_name="id_funcionarios", blank=True)
+    agronomos = models.ManyToManyField(Usuario, related_name="id_agronomos", blank=True)
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
     def __str__(self):
@@ -17,7 +17,7 @@ class Maquinario(models.Model):
         (2, "Emplemento")
     ]
     
-    fazenda = models.ForeignKey(Fazenda, on_delete=models.CASCADE)
+    fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda", on_delete=models.CASCADE)
     tipo = models.IntegerField('Tipo de Maquinário', choices=TIPO_MAQUINARIO_CHOICE)
     marca = models.CharField("Marca", max_length=200)
     modelo = models.CharField("Modelo", max_length=200)
@@ -38,7 +38,7 @@ class Variedade(models.Model):
         return self.nome
 
 class Talhao(models.Model):
-    variedade = models.ManyToManyField(Variedade)
+    variedade = models.ManyToManyField(Variedade, related_name="id_variedade")
     nome = models.CharField("Nome", max_length=200)
     ano_plantio = models.CharField("Ano do plantio", max_length=10, blank=True, null=True)
     numero_covas = models.PositiveIntegerField("Numero de covas", blank=True, null=True)

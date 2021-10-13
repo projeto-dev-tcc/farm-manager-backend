@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from manager.serializers import MaquinarioSerializer
+from manager.api.serializers import MaquinarioSerializer
 from manager.models import Maquinario
 
 # ViewSets define the view behavior.

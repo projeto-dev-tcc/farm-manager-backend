@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from manager.models import Variedade
+from manager.models import Talhao
 
 # Serializers define the API representation.      
-class VariedadeSerializer(serializers.HyperlinkedModelSerializer):
+class TalhaoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Variedade
+        model = Talhao
         fields = ('__all__')
