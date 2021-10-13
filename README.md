@@ -77,6 +77,8 @@ pip install -r requirements.txt
 ```
 python manage.py makemigrations home
 
+python manage.py makemigrations usuarios
+
 python manage.py makemigrations manager
 
 python manage.py migrate
