@@ -1,4 +1,4 @@
-#!/home/f0994820/git/TCC/farm-manager-backend/env/bin/python
+#!/home/lucassantus/GIT/TCC/farm-manager-backend/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

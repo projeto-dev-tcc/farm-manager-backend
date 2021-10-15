@@ -1,4 +1,4 @@
-#!/home/f0994820/git/TCC/farm-manager-backend/env/bin/python
+#!/home/lucassantus/GIT/TCC/farm-manager-backend/env/bin/python
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
