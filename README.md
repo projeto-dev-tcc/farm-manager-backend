@@ -113,11 +113,6 @@ http://127.0.0.1:8000/admin/
 		<br />
 		Lucas Santus
 	</a>
-	<a href="https://github.com/LucasSantus">
-		<img style="border-radius: 50%;" src="https://github.com/LucasSantus.png" width="100px;" alt=""/>
-		<br />
-		Lucas Santus
-	</a>
 </div>
 <br />
 Feito com ❤️ por Lucas Santus!<br />
