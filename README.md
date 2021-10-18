@@ -3,7 +3,8 @@
 <p align="center">
 	<a href="#sobre">Sobre</a> &nbsp;|&nbsp;
 	<a href="#instalando">Instalando</a> &nbsp;|&nbsp;
-	<a href="#rodando">Rodando</a>
+	<a href="#rodando">Rodando</a> &nbsp;|&nbsp;
+	<a href="#autor">Autores</a> 
 </p>
 
 <h3 id="sobre">:information_source: Sobre</h3>
@@ -12,7 +13,7 @@
 
 A ideia é:
 
-_"Criar um Prototipo de Sistema back-end, com uma API alimentaria o sistema em si."_
+_"Criar um Prototipo de Sistema back-end para gerenciamento de uma fazenda."_
 
 --------------------------------------------------------------------------------------
 
@@ -104,9 +105,14 @@ http://127.0.0.1:8000/admin/
 
 --------------------------------------------------------------------------------------
 
-<h3 id="autor">:bust_in_silhouette: Autor</h3>
+<h3 id="autor">:bust_in_silhouette: Autores</h3>
 
 <div align="left"> 
+	<a href="https://github.com/LucasSantus">
+		<img style="border-radius: 50%;" src="https://github.com/LucasSantus.png" width="100px;" alt=""/>
+		<br />
+		Lucas Santus
+	</a>
 	<a href="https://github.com/LucasSantus">
 		<img style="border-radius: 50%;" src="https://github.com/LucasSantus.png" width="100px;" alt=""/>
 		<br />
