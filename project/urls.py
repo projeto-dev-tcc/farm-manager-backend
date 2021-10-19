@@ -1,12 +1,19 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.authtoken.views import obtain_auth_token
+from django.urls.conf import re_path
+from django.conf import settings
+from django.views.static import serve
+from django.conf.urls.static import static
 
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    # INCLUDE APPS
+    path('', include('home.urls')),
     path('', include('manager.urls')),
-    # path('auth/', obtain_auth_token),
-    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-]
+    path('', include('usuarios.urls')),
+    
+    # ARCHIVES STATIC's
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -3,13 +3,21 @@ from django.urls import reverse
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
 class UsuarioManager(BaseUserManager):
-    def create_user(self, email, password=None, **kwargs):
+    def create_user(self, email, nome, sobrenome, password=None, **kwargs):
         if not email:
-            raise ValueError('Insira um e-mail válido para continuar!')
+            raise ValueError('Insira um e-mail para continuar!')
+        if not nome:
+            raise ValueError('Insira um nome para continuar!')
+        if not sobrenome:
+            raise ValueError('Insira um sobrenome para continuar!')
 
         usuario = self.model(
             email=self.normalize_email(email),
+            nome=nome,
+            sobrenome=sobrenome,
+            **kwargs
         )
+
         usuario.is_active = True
         usuario.is_staff = False
         usuario.is_superuser = False
@@ -18,12 +26,15 @@ class UsuarioManager(BaseUserManager):
         usuario.save()
         return usuario
 
-    def create_superuser(self, email, password, **kwargs):
+    def create_superuser(self, email, nome, sobrenome, password, **kwargs):
         usuario = self.create_user(
             email=self.normalize_email(email),
+            nome=nome,
+            sobrenome=sobrenome,
             password=password,
             **kwargs
         )
+
         usuario.is_active = True
         usuario.is_staff = True
         usuario.is_superuser = True
@@ -43,6 +54,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(verbose_name = "Super usuário", default = False)
 
     USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ['nome', 'sobrenome']
 
     objects = UsuarioManager()
 
@@ -51,9 +63,11 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Usuários"
 
     def __str__(self):
-        return self.email
+        return self.nome
+    
+    def get_full_name(self):
+        return str(self.nome + " " + self.sobrenome)
 
     def get_absolute_url(self):
         return reverse('index')
         # return reverse('index', args=[str(self.id)]) CASO NECESSITASSE PASSAR ID
-
