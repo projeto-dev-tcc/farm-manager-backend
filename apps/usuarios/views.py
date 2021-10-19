@@ -5,14 +5,11 @@ from django.views.generic.edit import CreateView
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import *
-from django.utils import timezone
 import datetime
 
 def base(request):
     context = {}
     if request.user.is_authenticated:
-        user = Usuario.objects.get(pk=request.user.id)
-        print(user.get_short_name())
         date = datetime.datetime.now().date()
         context = {
             'year': date.year
