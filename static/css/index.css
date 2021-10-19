@@ -1,0 +1,13 @@
+.item-center{
+    height: auto;
+    min-height: 100%;
+    /* display: flex; */
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center; 
+}
+
+.bg-body{
+    background-color: #268d50;
+}
