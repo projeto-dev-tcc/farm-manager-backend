@@ -53,6 +53,67 @@
             <a href="{% url 'login' %}" class="modal-close bt-primary btn btn-flat z-depth-4">CONTINUAR</a>
             </div>
         </div> -->
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success'%}
+                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
+                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <img src="{% static 'images/verde.png'%}" width="24" height="24" class="rounded me-2" alt="...">
+                                <strong class="me-auto">Ebaa! Sucesso! </strong>
+                                <small>{{now}}</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                {{message}}
+                            </div>
+                        </div>
+                    </div>
+                {% elif message.tags == 'info'%}
+                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
+                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <img src="{% static 'images/azul.png'%}" width="24" height="24" class="rounded me-2" alt="...">
+                                <strong class="me-auto">Informações para você...</strong>
+                                <small>{{now}}</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                {{message}}
+                            </div>
+                        </div>
+                    </div>
+                {% elif message.tags == 'warning'%} 
+                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
+                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <img src="{% static 'images/amarelo.png'%}" width="24" height="24" class="rounded me-2" alt="...">
+                                <strong class="me-auto">Ops! Falhas a vista...</strong>
+                                <small>{{now}}</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                {{message}}
+                            </div>
+                        </div>
+                    </div>
+                {% elif message.tags == 'error'%}
+                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
+                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <img src="{% static 'images/vermelho.png'%}" width="24" height="24" class="rounded me-2" alt="...">
+                                <strong class="me-auto">Ops! Ocorreu algum erro...</strong>
+                                <small>{{now}}</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                {{message}}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </main>
 
     <footer></footer>
@@ -68,21 +129,18 @@
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
     <!-- Import JQuery Mask -->
-    <script src="{% static 'js/jquery/jquery.mask.js' %}"></script>
+    <script src="{% static 'js/jquery.mask.js' %}"></script>
 
     <!-- Import Java Script Personalizado -->
     <script type="text/javascript" src="{% static 'js/index.js' %}" defer></script>
 
     <!-- Inicialização -->
     <script>
-    $(document).ready(function(){
-        $("#btn_reset_password").attr("disabled", true);
-        $("#btn_signup_signup").attr("disabled", true);
-        $("#btn-login").attr("disabled", true);
-        
-        /* Inicialização do modal */
-        $('.modal').modal();
-    });
+        $(document).ready(function(){
+            $("#btn_reset_password").attr("disabled", true);
+            $("#btn_signup_signup").attr("disabled", true);
+            $("#btn-login").attr("disabled", true);
+        });
     </script>
 
     <!-- Mostrar e Ocultar Senha -->

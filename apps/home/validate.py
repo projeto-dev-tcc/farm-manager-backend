@@ -1,15 +1,18 @@
 from usuarios.models import Usuario
 from django.http import JsonResponse
+from django.contrib import messages
 
 # Validar se o usuário está cadastrado.
 def validate_user(request):
     print("aaaaaaaaaaaaaaa")
-    user = request.GET.get('email', None)
+    user = request.GET.get('username', None)
     data = {
         'is_user': Usuario.objects.filter(email__iexact=user).exists(),
     }
     if not data['is_user']:
+        messages.error(request, 'Este e-mail não está cadastrado!')
         data['error_message'] = 'Este e-mail não está cadastrado!'
+        print("cacete")
     return JsonResponse(data)
 
 def validate_email(request):

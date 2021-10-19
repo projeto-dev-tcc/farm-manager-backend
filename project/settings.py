@@ -20,6 +20,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+AUTH_USER_MODEL = "usuarios.Usuario"
 
 # Application definition
 
@@ -48,21 +49,6 @@ INSTALLED_APPS += [
     'home',
     'usuarios',
     'manager',
-]
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.TokenAuthentication',
-#     ),
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     )
-# }
-
-CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
 ]
 
 # Aumento TimeOut Database
@@ -148,6 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -161,8 +148,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
-AUTH_USER_MODEL = "usuarios.Usuario"
-
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "index"
 
@@ -174,4 +159,3 @@ EMAIL_HOST_USER = 'lucayasiltos@gmail.com'
 EMAIL_HOST_PASSWORD = 'iykuzqxmxiawdjtg'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Farm Manager <lucayasiltos@gmail.com>'
-
