@@ -2,31 +2,28 @@
 
 {% load static %}
 
-{% load materializecss %}
-
 {% block title %}
-  Logout | Sign UP
+    Logout | Farm Manager
 {% endblock %}
 
 {% block content %}
-
-  <div class="item-center container center">
+<div class="container center">
     <div class="container">
-      <div class="container">
-        <div class="card p-3 z-depth-4">
-          <div class="container">
-            <div class="center">
-              <h5>Para o próximo!</h5>
+        <div class="container">
+            <div class="card p-3 z-depth-4">
+                <div class="container">
+                    <div class="center">
+                    <h5>Para o próximo!</h5>
+                    </div>
+                    <div class="center">
+                        <p>Você optou por sair do painel, se preferir fazer o login novamente, basta clicar no botão abaixo para retornar à página de login.</p>
+                        <a href="{% url 'login' %}" class="btn bt-primary">
+                            <span class="text">LOGAR</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="center">
-                <p>Você optou por sair do painel, se preferir fazer o login novamente, basta clicar no botão abaixo para retornar à página de login.</p>
-                <a href="{% url 'login' %}" class="btn bt-primary">
-                    <span class="text">LOGAR</span>
-                </a>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 {% endblock %}

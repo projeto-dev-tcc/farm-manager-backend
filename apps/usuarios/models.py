@@ -48,7 +48,6 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     sobrenome = models.CharField(verbose_name = "Sobrenome", max_length = 150)
     telefone = models.CharField(verbose_name = "Telefone", max_length = 15)
     data_nascimento = models.DateField(verbose_name = "Data de nascimento", auto_now_add = False, auto_now = False, null = True)
-
     is_active = models.BooleanField(verbose_name = "Usuário ativo", default = True)
     is_staff = models.BooleanField(verbose_name = "Usuário desenvolvedor", default = False)
     is_superuser = models.BooleanField(verbose_name = "Super usuário", default = False)
@@ -64,7 +63,12 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.nome
-    
+
+    def get_short_name(self):
+        short_sobrenome = self.sobrenome.split()
+        tam = len(short_sobrenome)
+        return str(self.nome + " " + short_sobrenome[tam-1])
+
     def get_full_name(self):
         return str(self.nome + " " + self.sobrenome)
 

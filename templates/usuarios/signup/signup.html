@@ -9,12 +9,11 @@ Cadastrar | Sign UP
 {% endblock %}
 
 {% block content %}
-
-    {% if form.errors %}
+    <!-- {% if form.errors %}
         {% for error in form.non_field_errors %}
             {{error}} aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         {% endfor %}
-    {% endif %}
+    {% endif %} -->
 
     <div class="container p-5">
         <div class="card o-hidden border-0 shadow-lg">
@@ -47,7 +46,6 @@ Cadastrar | Sign UP
                                         <input type="text" class="form-control form-control-user"
                                         id="id_data_nascimento" name="data_nascimento" placeholder="Insira a data de nascimento...">
                                     </div>
-                                    
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user"
@@ -73,14 +71,12 @@ Cadastrar | Sign UP
                                             id="id_confirm_password" placeholder="Insira a confirmação de senha...">
                                     </div>
                                 </div>
-                                    
                                 <div class="form-group">
                                     <div class="form-check form-switch ms-3">
                                         <input class="form-check-input" type="checkbox" id="check_register">
                                         <label class="form-check-label" for="check_register">Mostrar senha</label>
                                     </div>
                                 </div>
-                                
                                 <button id="btn_signup_signup" class="btn btn-success btn-user btn-block">
                                     Registrar
                                 </button>
@@ -101,8 +97,7 @@ Cadastrar | Sign UP
 {% endblock %}
 
 {% block javascript %}
-    <!-- Core plugin JavaScript-->
-    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <!-- Import JQuery Mask -->
     <script src="{% static 'js/jquery.mask.js' %}"></script>
 
     <!-- Inicialização da Página -->

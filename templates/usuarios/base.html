@@ -1,149 +1,149 @@
 {% load static %}
 
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-    <meta name="description" content="O Objetivo deste website é realizar a gestão de uma fazenda.">
-    <meta name="author" content="Lucas Eduardo de Oliveira Santos, Albert Allan Ramos, Fernanda Thomaz Telles Nogueira Cravo">
-   
-    <!-- Let browser know website is optimized for mobile -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    
-    <!-- Import Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta name="description" content="O Objetivo deste website é realizar a gestão de uma fazenda.">
+        <meta name="author" content="Lucas Eduardo de Oliveira Santos, Albert Allan Ramos, Fernanda Thomaz Telles de Nogueira Cravo">
 
-    <!-- Import Custom fonts for this template-->
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <!-- Let browser know website is optimized for mobile -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 
-    <!-- Custom styles for this template-->
-    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+        <!-- Import Material Icons -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Import CSS Personalizado -->
-    <link type="text/css" rel="stylesheet" href="{% static 'css/index.css' %}">
+        <!-- Import Custom fonts for this template-->
+        <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-    {% block css %}
-    {% endblock %}
+        <!-- Custom styles for this template-->
+        <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
-    <title>
-    {% block title %}
-        Registrar no sistema
-    {% endblock %}
-    </title>
-</head>
+        <!-- Import CSS Personalizado -->
+        <link type="text/css" rel="stylesheet" href="{% static 'css/index.css' %}">
 
-<body class="bg-body">
-    <header></header>
-    <main>
-        {% block content %}
+        {% block css %}
         {% endblock %}
 
-        {% if messages %}
-            {% for message in messages %}
-                {% if message.tags == 'success'%}
-                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
-                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="toast-header">
-                                <img src="{% static 'images/verde.png'%}" width="24" height="24" class="rounded me-2" alt="...">
-                                <strong class="me-auto">Ebaa! Sucesso! </strong>
-                                <small>{{now}}</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body">
-                                {{message}}
-                            </div>
-                        </div>
-                    </div>
-                {% elif message.tags == 'info'%}
-                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
-                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="toast-header">
-                                <img src="{% static 'images/azul.png'%}" width="24" height="24" class="rounded me-2" alt="...">
-                                <strong class="me-auto">Informações para você...</strong>
-                                <small>{{now}}</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body">
-                                {{message}}
-                            </div>
-                        </div>
-                    </div>
-                {% elif message.tags == 'warning'%} 
-                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
-                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="toast-header">
-                                <img src="{% static 'images/amarelo.png'%}" width="24" height="24" class="rounded me-2" alt="...">
-                                <strong class="me-auto">Ops! Falhas a vista...</strong>
-                                <small>{{now}}</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body">
-                                {{message}}
+        <title>
+            {% block title %}
+                Farm Manager
+            {% endblock %}
+        </title>
+    </head>
+
+    <body class="bg-body">
+        <header></header>
+        <main>
+            {% block content %}
+            {% endblock %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'success'%}
+                        <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
+                            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+                                    <img src="{% static 'images/verde.png'%}" width="24" height="24" class="rounded me-2" alt="...">
+                                    <strong class="me-auto">Ebaa! Sucesso! </strong>
+                                    <small>{{now}}</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    {{message}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% elif message.tags == 'error'%}
-                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
-                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="toast-header">
-                                <img src="{% static 'images/vermelho.png'%}" width="24" height="24" class="rounded me-2" alt="...">
-                                <strong class="me-auto">Ops! Ocorreu algum erro...</strong>
-                                <small>{{now}}</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body">
-                                {{message}}
+                    {% elif message.tags == 'info'%}
+                        <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
+                            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+                                    <img src="{% static 'images/azul.png'%}" width="24" height="24" class="rounded me-2" alt="...">
+                                    <strong class="me-auto">Informações para você...</strong>
+                                    <small>{{now}}</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    {{message}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    </main>
+                    {% elif message.tags == 'warning'%} 
+                        <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
+                            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+                                    <img src="{% static 'images/amarelo.png'%}" width="24" height="24" class="rounded me-2" alt="...">
+                                    <strong class="me-auto">Ops! Falhas a vista...</strong>
+                                    <small>{{now}}</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    {{message}}
+                                </div>
+                            </div>
+                        </div>
+                    {% elif message.tags == 'error'%}
+                        <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
+                            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+                                    <img src="{% static 'images/vermelho.png'%}" width="24" height="24" class="rounded me-2" alt="...">
+                                    <strong class="me-auto">Ops! Ocorreu algum erro...</strong>
+                                    <small>{{now}}</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    {{message}}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </main>
 
-    <footer></footer>
+        <footer></footer>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
-    <!-- Import JQuery Mask -->
-    <script src="{% static 'js/jquery.mask.js' %}"></script>
+        <!-- Import JQuery Mask -->
+        <script src="{% static 'js/jquery.mask.js' %}"></script>
 
-    <!-- Import Java Script Personalizado -->
-    <script type="text/javascript" src="{% static 'js/index.js' %}" defer></script>
+        <!-- Import Java Script Personalizado -->
+        <script type="text/javascript" src="{% static 'js/index.js' %}" defer></script>
 
-    <!-- Inicialização -->
-    <script>
-        $(document).ready(function(){
-            $("#btn_reset_password").attr("disabled", true);
-            $("#btn_signup_signup").attr("disabled", true);
-            $("#btn-login").attr("disabled", true);
-        });
-    </script>
+        <!-- Inicialização -->
+        <script>
+            $(document).ready(function(){
+                $("#btn_reset_password").attr("disabled", true);
+                $("#btn_signup_signup").attr("disabled", true);
+                $("#btn-login").attr("disabled", true);
+            });
+        </script>
 
-    <!-- Mostrar e Ocultar Senha -->
-    <script>
-        $('#check_login').click(function () {
-        if($(this).is(':checked')){
-            $("#id_new_password1").attr("type", "text");
-            $("#id_new_password2").attr("type", "text");
-        }
-        else {
-            $("#id_new_password1").attr("type", "password");
-            $("#id_new_password2").attr("type", "password");
-        }
-        })
-    </script>
+        <!-- Mostrar e Ocultar Senha -->
+        <script>
+            $('#check_login').click(function () {
+                if($(this).is(':checked')){
+                    $("#id_new_password1").attr("type", "text");
+                    $("#id_new_password2").attr("type", "text");
+                }
+                else {
+                    $("#id_new_password1").attr("type", "password");
+                    $("#id_new_password2").attr("type", "password");
+                }
+            })
+        </script>
 
-    {% block javascript %}
-    {% endblock %}
-</body>
+        {% block javascript %}
+        {% endblock %}
+    </body>
 </html>

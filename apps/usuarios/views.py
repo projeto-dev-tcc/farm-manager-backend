@@ -2,14 +2,28 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.views.generic.edit import CreateView
-from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import *
+from django.utils import timezone
+import datetime
+
+def base(request):
+    context = {}
+    if request.user.is_authenticated:
+        user = Usuario.objects.get(pk=request.user.id)
+        print(user.get_short_name())
+        date = datetime.datetime.now().date()
+        context = {
+            'year': date.year
+        }
+    return context
 
 class SignUpView(CreateView):
     template_name = 'usuarios/signup/signup.html'
     form_class = UsuarioForm
 
-def perfil_usuario(request):
+def perfil(request):
     usuario = request.user
     form = UsuarioForm(instance=usuario)
     if request.method == "POST":
@@ -22,4 +36,4 @@ def perfil_usuario(request):
         'form': form,
     }
 
-    return render(request, "usuarios/perfil/perfil.html", context)
+    return render(request, "usuarios/profile/perfil.html", context)

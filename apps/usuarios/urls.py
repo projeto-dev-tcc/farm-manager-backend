@@ -4,7 +4,7 @@ from .views import *
 
 urlpatterns = [
     # Perfil
-    # path("perfil/", perfil_usuario, name="perfil_usuario"),
+    path("perfil/", perfil, name="perfil"),
 
     #SIGN UP
     path('signup/', SignUpView.as_view(), name='signup'),
