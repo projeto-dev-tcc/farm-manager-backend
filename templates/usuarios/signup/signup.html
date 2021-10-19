@@ -101,105 +101,84 @@ Cadastrar | Sign UP
 {% endblock %}
 
 {% block javascript %}
-<!-- Inicialização da Página -->
-<script>
-    /* Inicialização do datepicker */
-    $(document).ready(function(){
-        $('.datepicker').datepicker({
-            i18n: {
-            months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
-            weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-            weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-            today: 'Hoje',
-            clear: 'LIMPAR',
-            cancel: 'SAIR',
-            done: 'CONTINUAR',
-            labelMonthNext: 'Próximo mês',
-            labelMonthPrev: 'Mês anterior',
-            labelMonthSelect: 'Selecione um mês',
-            labelYearSelect: 'Selecione um ano',
-            selectMonths: true,
-            selectYears: 15,
-            },
-            format: 'yyyy-mm-dd',
-            container: 'body',
-            yearRange: 10,
-            maxDate: new Date(),
-        }); 
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mask.js' %}"></script>
 
-        $("#id_telefone").mask("(99) 9 9999-9999");
+    <!-- Inicialização da Página -->
+    <script>
+        /* Inicialização do datepicker */
+        $(document).ready(function(){
+            $("#id_telefone").mask("(99) 9 9999-9999");
 
-        $("#id_password").attr("type", "password");
-        $("#id_confirm_password").attr("type", "password");
-        
-    });
-</script>
-
-<!-- Mostrar/Ocultar Senha -->
-<script>
-    $('#check_register').click(function () {
-        if($(this).is(':checked')){
-            $("#id_password").attr("type", "text");
-            $("#id_confirm_password").attr("type", "text");
-        } 
-        else {
             $("#id_password").attr("type", "password");
             $("#id_confirm_password").attr("type", "password");
-        }
-    })
-</script>
-
-<!-- Validar a Confirmação de Senha -->
-<script>
-    $("#id_confirm_password").change(function () {
-    var password = $("#id_password").val();
-    var confirm_password = $("#id_confirm_password").val();
-    var password_size = password.length;
-
-    let regex = /^(?=.*[@!#$%^&*()/\\])[@!#$%^&*()/\\a-zA-Z0-9]{8,16}$/;
-
-    if (password != "" && confirm_password != "" && password === confirm_password){
-        if(!regex.test(password)){
-            $("#btn_signup_signup").attr("disabled", true);
-        }
-
-        if(password_size < 8){
-            M.toast({html: "Quantidade mínima de caracteres: 8"})
-        }
-        else if(password_size > 16){
-            M.toast({html: "Quantidade máxima de caracteres: 16"})
-        }
-        else if(regex.test(password)){
-            $("#btn_signup_signup").attr("disabled", false);
-        }
-    }
-    else{
-        M.toast({html: "Os campos não se identificam!"})
-        $('#id_password').val('');
-        $('#id_confirm_password').val('');
-        $('#id_password').focus();
-    }
-    });
-</script>
-
-<!-- Validação do E-mail -->
-<script>
-    $("#id_email").change(function () {
-    var form = $(this).closest("form");
-        $.ajax({
-            url: "{% url 'validate_email' %}",
-            data: form.serialize(),
-            dataType: 'json',
-            success: function (data) {
-            if(data.is_email){
-                M.toast({html: data.error_message})
-                $('#id_email').val("");
-                $('#id_email').focus();
-            }
-            }
         });
-    });
-</script>
+    </script>
+
+    <!-- Mostrar/Ocultar Senha -->
+    <script>
+        $('#check_register').click(function () {
+            if($(this).is(':checked')){
+                $("#id_password").attr("type", "text");
+                $("#id_confirm_password").attr("type", "text");
+            } 
+            else {
+                $("#id_password").attr("type", "password");
+                $("#id_confirm_password").attr("type", "password");
+            }
+        })
+    </script>
+
+    <!-- Validar a Confirmação de Senha -->
+    <script>
+        $("#id_confirm_password").change(function () {
+        var password = $("#id_password").val();
+        var confirm_password = $("#id_confirm_password").val();
+        var password_size = password.length;
+
+        let regex = /^(?=.*[@!#$%^&*()/\\])[@!#$%^&*()/\\a-zA-Z0-9]{8,16}$/;
+
+        if (password != "" && confirm_password != "" && password === confirm_password){
+            if(!regex.test(password)){
+                $("#btn_signup_signup").attr("disabled", true);
+            }
+
+            if(password_size < 8){
+                M.toast({html: "Quantidade mínima de caracteres: 8"})
+            }
+            else if(password_size > 16){
+                M.toast({html: "Quantidade máxima de caracteres: 16"})
+            }
+            else if(regex.test(password)){
+                $("#btn_signup_signup").attr("disabled", false);
+            }
+        }
+        else{
+            M.toast({html: "Os campos não se identificam!"})
+            $('#id_password').val('');
+            $('#id_confirm_password').val('');
+            $('#id_password').focus();
+        }
+        });
+    </script>
+
+    <!-- Validação do E-mail -->
+    <script>
+        $("#id_email").change(function () {
+        var form = $(this).closest("form");
+            $.ajax({
+                url: "{% url 'validate_email' %}",
+                data: form.serialize(),
+                dataType: 'json',
+                success: function (data) {
+                if(data.is_email){
+                    M.toast({html: data.error_message})
+                    $('#id_email').val("");
+                    $('#id_email').focus();
+                }
+                }
+            });
+        });
+    </script>
 {% endblock %}

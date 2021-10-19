@@ -20,9 +20,6 @@
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
-    <!--Import Font Awesome-->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-
     <!-- Import CSS Personalizado -->
     <link type="text/css" rel="stylesheet" href="{% static 'css/index.css' %}">
 
@@ -42,17 +39,6 @@
         {% block content %}
         {% endblock %}
 
-        <!-- Modal Structure -->
-        <!-- <div id="modal-back" class="modal">
-            <div class="modal-content">
-            <h4>Voltar para Login</h4>
-            <p>Você realmente deseja continuar esta ação?</p>
-            </div>
-            <div class="modal-footer">
-            <a href="" class="modal-close bt-secondary btn btn-flat z-depth-4">SAIR</a>
-            <a href="{% url 'login' %}" class="modal-close bt-primary btn btn-flat z-depth-4">CONTINUAR</a>
-            </div>
-        </div> -->
         {% if messages %}
             {% for message in messages %}
                 {% if message.tags == 'success'%}
