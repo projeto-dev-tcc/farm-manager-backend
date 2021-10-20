@@ -12,7 +12,7 @@ def validate_user(request):
     if not data['is_user']:
         messages.error(request, 'Este e-mail não está cadastrado!')
         data['error_message'] = 'Este e-mail não está cadastrado!'
-        print("cacete")
+
     return JsonResponse(data)
 
 def validate_email(request):
@@ -26,7 +26,6 @@ def validate_email(request):
     return JsonResponse(data)
 
 def validate_email_registered(request):
-    print("ccccccccccccccccccc")
     email = request.GET.get('email', None)
     data = {
         'is_email_registered': Usuario.objects.filter(email__iexact=email).exists(),
@@ -34,4 +33,5 @@ def validate_email_registered(request):
     
     if not data['is_email_registered']:
         data['error_message'] = 'Este e-mail não está cadastrado no sistema!'
+    
     return JsonResponse(data)
