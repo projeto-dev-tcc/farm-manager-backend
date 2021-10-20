@@ -16,13 +16,6 @@ class UsuarioForm(forms.ModelForm):
         model = Usuario
         fields = ('__all__')
 
-        label = {
-            'email': 'E-mail',
-            'nome': '',
-            'sobrenome': '',
-            'data_nascimento': '',
-        }
-
         error_messages = {
             "email":{
                 "required": "O e-mail é obrigatório para o registro!",

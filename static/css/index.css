@@ -8,12 +8,14 @@
     justify-content: center; 
 }
 
-/* .bg-body{
-    background-color: #43a047;
-} */
+.bg-body{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("../img/unnamed.jpg");
+}
 
 .bg-primary{
-    background-color: #43a047 !important;
+    background-color: #66bb6a !important;
 }
 
 .bt-primary{
