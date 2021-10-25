@@ -6,5 +6,8 @@ urlpatterns = [
     # FAZENDA
     # path('api/fazendas/', ListFazenda),
     # path('api/fazendas/<int:pk>', DetailFazenda),
+    
+    # VARIEDADE
+    path("registrar/variedade/", registrar_variedade, name="registrar_variedade"),
 ]
 
