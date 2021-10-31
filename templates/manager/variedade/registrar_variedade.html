@@ -10,39 +10,27 @@
 
 {% block content %}
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Variedade</h1>
+    <h1 class="h3 mb-4 text-gray-800">Registrar Variedade</h1>
 
-    <!-- Default Card Example -->
-    <div class="card mb-4">
-        <div class="card-header">
-            Registrar Variedade
-        </div>
-        <div class="card-body">
-            <!-- Nested Row within Card Body -->
-            <form class="user" method="POST">
-                {% csrf_token %}
-                {{form|bootstrap}}
-                {% if form.errors %}
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <div class="alert alert-danger">
-                                <strong>{{ error|escape }}</strong>
-                            </div>
-                        {% endfor %}
-                    {% endfor %}
-                    
-                    {% for error in form.non_field_errors %}
-                        <div class="alert alert-danger">
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
+    <!-- Nested Row within Card Body -->
+    <form class="user" method="POST">
+        {% csrf_token %}
+        {{form|bootstrap}}
+        <button class="btn bt-primary">
+            {{action}}
+        </button>
+        <a href="
+            {% if action == 'Registrar' %}
+                {% url 'listar_variedades' %}
+            {% else %}
+                {% if variedade %}
+                    {% url 'visualizar_variedade' variedade.id %}
                 {% endif %}
-                <button class="btn bt-primary">
-                    Registrar Variedade
-                </button>
-            </form> 
-        </div>
-    </div>
+            {% endif %}
+        " class="btn bt-float">
+            Retornar
+        </a>
+    </form> 
 {% endblock %}
 
 {% block javascript %}

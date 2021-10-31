@@ -25,6 +25,9 @@
         <!-- Import CSS Personalizado -->
         <link type="text/css" rel="stylesheet" href="{% static 'css/index.css' %}">
 
+        <!-- Import CSS Personalizado -->
+        <link type="text/css" rel="stylesheet" href="{% static 'css/custom.css' %}">
+
         {% block css %}
         {% endblock %}
 
@@ -39,19 +42,16 @@
         <!-- Page Wrapper -->
         <div id="wrapper">
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                        <i class="fas fa-laugh-wink"></i>
-                    </div>
-                    <div class="sidebar-brand-text mx-3">Farm Manager</sup></div>
-                </a>
+            <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item active">
+                <li class="nav-item 
+                    {% if url_active %} 
+                        {% if url_active == '/' %}active{% endif %}
+                    {% endif %}
+                ">
                     <a class="nav-link" href="/">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
@@ -61,17 +61,25 @@
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Fazenda -->
-                <li class="nav-item">
+                <li class="nav-item 
+                    {% if url_active %} 
+                        {% if url_active == 'fazenda' %}active{% endif %}
+                    {% endif %}
+                ">
                     <a class="nav-link" href="/">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Fazenda</span></a>
+                        <span>Fazendas</span></a>
                 </li>
 
                 <!-- Nav Item - Variedade -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'registrar_variedade' %}">
+                <li class="nav-item 
+                    {% if url_active %} 
+                        {% if url_active == 'variedade' %}active{% endif %}
+                    {% endif %}
+                ">
+                    <a class="nav-link" href="{% url 'listar_variedades' %}">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Variedade</span></a>
+                        <span>Variedades</span></a>
                 </li>
 
                 <!-- Divider -->
@@ -81,7 +89,6 @@
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
-
             </ul>
             <!-- End of Sidebar -->
             <!-- Content Wrapper -->
@@ -90,24 +97,8 @@
                 <div id="content">
                     <!-- Topbar -->
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                        <!-- Topbar Search -->
-                        <form
-                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                    aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-
+                        <span class="ps-2 fs-5">Farm Manager</span>
+                    
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -237,7 +228,7 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>&copy; Copyright 2021 {% if year %}{% ifequal year 2021 %}{% else %}- {{year}} {% endifequal %}{% endif %}| Farm Manager, Todos os direitos reservados.</span>
+                            <span class="fs-6">&copy; Copyright 2021 {% if year %}{% ifequal year 2021 %}{% else %}- {{year}} {% endifequal %}{% endif %}| Farm Manager, Todos os direitos reservados.</span>
                         </div>
                     </div>
                 </footer>

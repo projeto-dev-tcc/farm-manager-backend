@@ -50,7 +50,7 @@ class Talhao(models.Model):
 
     def __str__(self):
         return str(self.nome)
-	
+
 class Servico(models.Model):
     TIPO_SERVICO_CHOICE = [
         (1, "Plantio"),

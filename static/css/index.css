@@ -1,43 +1,5 @@
-.item-center{
-    height: auto;
-    min-height: 100%;
-    display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center; 
-}
-
-.bg-body{
+/* .bg-body{
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url("../img/unnamed.jpg");
-}
-
-.bg-primary{
-    background-color: #66bb6a !important;
-}
-
-.bt-primary{
-    background-color: #4caf50;
-    border-color: #43a047;
-    color: white;
-}
-
-.bt-primary:hover{
-    opacity: 0.7;
-    border-color: #2e7d32;
-    color: white;
-}
-
-.bt-primary:focus, .bt-primary.focus {
-    color: #fff;
-    background-color: #4caf50;
-    border-color: #43a047;
-    box-shadow: 0 0 0 0.2rem #dfe4df;
-}
-
-.bt-primary.disabled, .bt-primary:disabled {
-    color: #fff;
-    opacity: 0.7;
-}
+} */

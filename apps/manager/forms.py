@@ -8,7 +8,7 @@ class VariedadeForm(forms.ModelForm):
 
         error_messages = {
             "nome":{
-                "required": "Por favor, insira o nome é para validar o registro!",
+                "required": "Por favor, insira um nome para validar o registro!",
                 "invalid": "Por favor, insira um nome válido!",
             }
         }
