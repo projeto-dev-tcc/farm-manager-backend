@@ -20,8 +20,14 @@
         <!-- Custom styles for this template-->
         <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
+        <!-- Importando função de carregamento -->
+        <link rel="stylesheet" href="{% static 'css/HoldOn/holdon.min.css' %}">
+
         <!-- Import CSS Personalizado -->
         <link type="text/css" rel="stylesheet" href="{% static 'css/index.css' %}">
+
+        <!-- Import CSS Personalizado -->
+        <link type="text/css" rel="stylesheet" href="{% static 'css/custom.css' %}">
 
         {% block css %}
         {% endblock %}
@@ -33,15 +39,11 @@
         </title>
     </head>
 
-    <body class="bg-gray-500">
-        <header></header>
-        
+    <body style="background-color: #f5f5f5;">
         <main>
             {% block content %}
             {% endblock %}
         </main>
-
-        <footer></footer>
 
         <!-- Bootstrap core JavaScript -->
         <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
@@ -50,6 +52,9 @@
         
         <!-- Core plugin JavaScript-->
         <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+        <!-- Importando função de carregamento -->
+        <script src="{% static 'js/HoldOn/holdon.min.js' %}"></script>
 
         <!-- Custom scripts for all pages-->
         <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
@@ -60,9 +65,23 @@
         <!-- Inicialização -->
         <script>
             $(document).ready(function(){
+                $("#btn-login").attr("disabled", true);
+
                 $("#btn_reset_password").attr("disabled", true);
                 $("#btn_signup_signup").attr("disabled", true);
-                $("#btn-login").attr("disabled", true);
+
+                $(window).bind('beforeunload', function() {
+                    var options = {
+                        theme: "sk-cube-grid",
+                        message: 'Por favor, aguarde...',
+                        backgroundColor: "#1847B1k",
+                        textColor: "white"
+                    };
+                    HoldOn.open(options);
+                });
+                $(window).load(function() {
+                    HoldOn.close();
+                });
             });
 
             $(function () {
@@ -84,65 +103,69 @@
             })
         </script>
 
-        {% if messages %}
+       {% if messages %}
             {% for message in messages %}
                 {% if message.tags == 'success'%}
-                    <div class="alert alert-primary" role="alert">
-                        A simple primary alert—check it out!
-                    </div>
-
-                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
-                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
+                        <div id="toast_message_success" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
                             <div class="toast-header">
-                                <img src="{% static 'images/verde.png'%}" width="24" height="24" class="rounded me-2" alt="...">
-                                <strong class="me-auto">Ebaa! Sucesso! </strong>
-                                <small>{{now}}</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                <strong class="mr-auto text-success">Opa, Sucesso...</strong>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                             <div class="toast-body">
-                                {{message}}
+                                <div class="text-success p-1">
+                                    {{message}}
+                                </div>
                             </div>
                         </div>
                     </div>
-                {% elif message.tags == 'info' %}
-                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
-                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                {% elif message.tags == 'info'%}
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
+                        <div id="toast_message_info" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
                             <div class="toast-header">
-                                <img src="{% static 'images/azul.png'%}" width="24" height="24" class="rounded me-2" alt="...">
-                                <strong class="me-auto">Informações para você...</strong>
-                                <small>{{now}}</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                <strong class="mr-auto text-info">Informações para você...</strong>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                             <div class="toast-body">
-                                {{message}}
+                                <div class="text-info p-1">
+                                    {{message}}
+                                </div>
                             </div>
                         </div>
                     </div>
-                {% elif message.tags == 'warning' %} 
-                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
-                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                {% elif message.tags == 'warning'%} 
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
+                        <div id="toast_message_warning" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
                             <div class="toast-header">
-                                <img src="{% static 'images/amarelo.png'%}" width="24" height="24" class="rounded me-2" alt="...">
-                                <strong class="me-auto">Ops! Falhas a vista...</strong>
-                                <small>{{now}}</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                <strong class="mr-auto text-warning">Ops! Falhas a vista....</strong>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                             <div class="toast-body">
-                                {{message}}
+                                <div class="text-warning p-1">
+                                    {{message}}
+                                </div>
                             </div>
                         </div>
                     </div>
-                {% elif message.tags == 'error' %}
-                    <div class="position-fixed bottom-25 end-0 mt-9 p-5" style="z-index: 11">
-                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                {% elif message.tags == 'error'%}
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
+                        <div id="toast_message_error" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
                             <div class="toast-header">
-                                <img src="{% static 'images/vermelho.png'%}" width="24" height="24" class="rounded me-2" alt="...">
-                                <strong class="me-auto">Ops! Ocorreu algum erro...</strong>
-                                <small>{{now}}</small>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                <strong class="mr-auto text-danger">Ops! Ocorreu algum erro....</strong>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                             <div class="toast-body">
-                                {{message}}
+                                <div class="text-danger p-1">
+                                    {{message}}
+                                </div>
                             </div>
                         </div>
                     </div>
