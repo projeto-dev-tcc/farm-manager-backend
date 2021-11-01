@@ -5,12 +5,12 @@
 {% load bootstrap %}
 
 {% block title %}
-    Variedade | Farm Manager
+    Listar Maquinários | Farm Manager
 {% endblock %}
 
 {% block content %}
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Listagem de Variedades</h1>
+    <h1 class="h3 mb-4 text-gray-800">Listagem de Maquinários</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -23,13 +23,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for variedade in variedades %}
+                        {% for maquinario in maquinarios %}
                         <tr>
-                            <td><a href="{% url 'visualizar_variedade' variedade.id %}">{{variedade.nome}}</a></td>
+                            <td><a href="{% url 'visualizar_maquinario' maquinario.id %}">{{maquinario.nome}}</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
-                    {% if variedades.lenght > 5 %}
+                    {% if maquinarios.lenght > 5 %}
                         <tfoot>
                             <tr>
                                 <th>Nome</th>
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <a href="{% url 'registrar_variedade' %}" class="btn bt-primary">
+    <a href="{% url 'registrar_maquinario' %}" class="btn bt-primary">
         Registrar
     </a>
 {% endblock %}

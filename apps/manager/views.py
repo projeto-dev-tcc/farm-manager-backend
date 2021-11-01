@@ -13,7 +13,9 @@ def registrar_fazenda(request):
     if request.method == "POST":
         form = FazendaForm(request.POST)
         if form.is_valid():
-            form.save()
+            fazenda = form.save(commit=False)
+            fazenda.proprietario = request.user
+            fazenda.save()
             return redirect('listar_fazendas')
     context = {
         'form': form,
@@ -39,7 +41,7 @@ def editar_fazenda(request, id_fazenda):
     return render(request, "manager/fazenda/registrar_fazenda.html", context)
 
 def listar_fazendas(request):
-    fazendas = Variedade.objects.all()
+    fazendas = Fazenda.objects.filter(proprietario__id=request.user.id)
     context = {
         'fazendas': fazendas,
     }
@@ -152,8 +154,8 @@ def editar_maquinario(request, id_maquinario):
     
     return render(request, "manager/maquinario/registrar_maquinario.html", context)
 
-def listar_maquinarios(request):
-    maquinarios = Maquinario.objects.all()
+def listar_maquinarios(request, id_fazenda):
+    maquinarios = Maquinario.objects.filter(fazenda__id=id_fazenda)
     context = {
         'maquinarios': maquinarios,
     }

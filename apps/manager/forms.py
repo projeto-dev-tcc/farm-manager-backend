@@ -17,6 +17,7 @@ class FazendaForm(forms.ModelForm):
     class Meta:
         model = Fazenda
         fields = ('__all__')
+        exclude = ["proprietario"]
 
         error_messages = {
             "nome":{

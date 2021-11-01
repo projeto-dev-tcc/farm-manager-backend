@@ -25,6 +25,6 @@ urlpatterns = [
     path("maquinario/registrar/", registrar_maquinario, name="registrar_maquinario"),
     path("maquinario/editar/<int:id_maquinario>/", editar_maquinario, name="editar_maquinario"),
     path("maquinario/visualizar/<int:id_maquinario>/", visualizar_maquinario, name="visualizar_maquinario"),
-    path("maquinario/listar/", listar_maquinarios, name="listar_maquinarios"),
+    path("maquinario/listar/<int:id_fazenda>", listar_maquinarios, name="listar_maquinarios"),
     path("maquinario/remover/<int:id_maquinario>", remover_maquinario, name="remover_maquinario"),
 ]

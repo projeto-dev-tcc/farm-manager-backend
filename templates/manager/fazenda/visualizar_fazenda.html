@@ -5,30 +5,110 @@
 {% load bootstrap %}
 
 {% block title %}
-    Variedade | Farm Manager
+    Visualizar Fazenda | Farm Manager
 {% endblock %}
 
 {% block content %}
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{variedade.nome}}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{fazenda.nome}}</h1>
+
+    <div class="row">
+        <!-- Talhões -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a href="" class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold fs-6 text-success text-uppercase mb-1">
+                                Talhões
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Funcionários -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a href="" class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold fs-6 text-primary text-uppercase mb-1">
+                                Funcionários
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Maquinários -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a href="{% url 'listar_maquinarios' fazenda.id %}" class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold fs-6 text-info text-uppercase mb-1">
+                                Maquinários
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Serviços -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a href="" class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold fs-6 text-warning text-uppercase mb-1">
+                                Serviços
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <hr class="divider">
 
     <!-- Nested Row within Card Body -->
     <div class="form-group">
         <label class="control-label" for="id_nome">Nome</label>
         <div class="col-sm-6">
-            <input value="{{variedade.nome}}" class="form-control" id="id_nome" disabled>
+            <input value="{{fazenda.nome}}" class="form-control" id="id_nome" disabled>
         </div>
     </div>
 
-    <a href="{% url 'editar_variedade' variedade.id %}" class="btn bt-blue">
+    <a href="{% url 'editar_fazenda' fazenda.id %}" class="btn bt-blue">
         Editar
     </a>
 
-    <a href="{% url 'remover_variedade' variedade.id %}" class="btn bt-red">
+    <a href="{% url 'remover_fazenda' fazenda.id %}" class="btn bt-red">
         Deletar
     </a>
 
-    <a href="{% url 'listar_variedades' %}" class="btn bt-float">
+    <a href="{% url 'listar_fazendas' %}" class="btn bt-float">
         Retornar
     </a>
 {% endblock %}
