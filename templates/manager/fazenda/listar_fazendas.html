@@ -2,11 +2,60 @@
 
 {% load static %}
 
+{% load bootstrap %}
+
 {% block title %}
-    Fazendas | Farm Manager
+    Fazenda | Farm Manager
 {% endblock %}
 
 {% block content %}
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Fazendas</h1>
+    <h1 class="h3 mb-4 text-gray-800">Listagem de Fazendas</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for fazenda in fazendas %}
+                        <tr>
+                            <td><a href="{% url 'visualizar_fazenda' fazenda.id %}">{{fazenda.nome}}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% if fazenda.lenght > 5 %}
+                        <tfoot>
+                            <tr>
+                                <th>Nome</th>
+                            </tr>
+                        </tfoot>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="{% url 'registrar_fazenda' %}" class="btn bt-primary">
+        Registrar
+    </a>
+{% endblock %}
+
+{% block css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
 {% endblock %}

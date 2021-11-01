@@ -20,14 +20,13 @@
         </div>
     </div>
 
+    <a href="{% url 'editar_variedade' variedade.id %}" class="btn bt-blue">
+        Editar
+    </a>
 
-        <a href="{% url 'editar_variedade' variedade.id %}" class="btn bt-blue">
-            Editar
-        </a>
-        <a href="{% url 'remover_variedade' variedade.id %}" class="btn bt-red">
-            Deletar
-        </a>
-   
+    <a href="{% url 'remover_variedade' variedade.id %}" class="btn bt-red">
+        Deletar
+    </a>
 
     <a href="{% url 'listar_variedades' %}" class="btn bt-float">
         Retornar

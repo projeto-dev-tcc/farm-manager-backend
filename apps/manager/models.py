@@ -1,11 +1,22 @@
 from django.db import models
-from usuarios.models import Usuario
 
 class Fazenda(models.Model):
     nome = models.CharField("Nome", max_length=240)
-    proprietario = models.ForeignKey(Usuario, related_name="id_proprietario", on_delete=models.CASCADE)
-    funcionarios = models.ManyToManyField(Usuario, related_name="id_funcionarios", blank=True)
-    agronomos = models.ManyToManyField(Usuario, related_name="id_agronomos", blank=True)
+    proprietario = models.ForeignKey("usuarios.Usuario", related_name="id_proprietario_Fazenda", on_delete=models.CASCADE)
+    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
+
+    def __str__(self):
+        return self.nome
+    
+class FuncionarioFazenda(models.Model):
+    TIPO_CHOICES = (
+        ("A", "Agrônomo"),
+        ("F", "Funcionário"),
+    )
+
+    fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_FuncionarioFazenda", on_delete=models.CASCADE)
+    funcionario = models.ForeignKey("usuarios.Usuario", related_name="id_funcionario_FuncionarioFazenda", on_delete=models.CASCADE)
+    tipo = models.CharField(max_length=1, choices=TIPO_CHOICES, blank=False, null=False)
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
     def __str__(self):
@@ -17,7 +28,7 @@ class Maquinario(models.Model):
         (2, "Emplemento")
     ]
 
-    fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda", on_delete=models.CASCADE)
+    fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_Maquinario", on_delete=models.CASCADE)
     tipo = models.IntegerField('Tipo de Maquinário', choices=TIPO_MAQUINARIO_CHOICE)
     marca = models.CharField("Marca", max_length=200)
     modelo = models.CharField("Modelo", max_length=200)
@@ -38,7 +49,7 @@ class Variedade(models.Model):
         return self.nome
 
 class Talhao(models.Model):
-    variedade = models.ManyToManyField(Variedade, related_name="id_variedade")
+    variedade = models.ManyToManyField(Variedade, related_name="id_variedade_Talhao")
     nome = models.CharField("Nome", max_length=200)
     ano_plantio = models.CharField("Ano do plantio", max_length=10, blank=True, null=True)
     numero_covas = models.PositiveIntegerField("Numero de covas", blank=True, null=True)
@@ -59,9 +70,9 @@ class Servico(models.Model):
         (4, "Outros"),
     ]
     
-    talhao = models.ForeignKey(Talhao, on_delete=models.CASCADE)
-    maquinario = models.ForeignKey(Maquinario, on_delete=models.CASCADE)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    talhao = models.ForeignKey(Talhao, on_delete=models.CASCADE, related_name="id_talhao_Servico")
+    maquinario = models.ForeignKey(Maquinario, on_delete=models.CASCADE, related_name="id_maquinario_Servico")
+    usuario = models.ForeignKey("usuarios.Usuario", on_delete=models.CASCADE, related_name="id_usuario_Servico")
     tipo = models.IntegerField('Tipo de Serviço', choices=TIPO_SERVICO_CHOICE)
     data_inicio = models.DateField("Data de Inicio", auto_now = False)
     data_termino = models.DateField("Data de Término", auto_now = False)

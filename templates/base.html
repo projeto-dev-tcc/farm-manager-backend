@@ -1,5 +1,7 @@
 {% load static %}
 
+{% load extras %}
+
 <!DOCTYPE html>
 
 <html lang="pt-br">
@@ -60,26 +62,37 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
-                <!-- Nav Item - Fazenda -->
+                <!-- Nav Item - Fazendas -->
                 <li class="nav-item 
                     {% if url_active %} 
                         {% if url_active == 'fazenda' %}active{% endif %}
-                    {% endif %}
-                ">
-                    <a class="nav-link" href="/">
+                    {% endif %}">
+                    <a class="nav-link" href="{% url 'listar_fazendas' %}">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Fazendas</span></a>
+                        <span>Fazendas</span>
+                    </a>
                 </li>
 
-                <!-- Nav Item - Variedade -->
+                <!-- Nav Item - Maquinários -->
+                <li class="nav-item 
+                    {% if url_active %} 
+                        {% if url_active == 'maquinario' %}active{% endif %}
+                    {% endif %}">
+                    <a class="nav-link" href="{% url 'listar_maquinarios' %}">
+                        <i class="fas fa-fw fa-tractor"></i>
+                        <span>Maquinários</span>
+                    </a>
+                </li>
+
+                <!-- Nav Item - Variedades -->
                 <li class="nav-item 
                     {% if url_active %} 
                         {% if url_active == 'variedade' %}active{% endif %}
-                    {% endif %}
-                ">
+                    {% endif %}">
                     <a class="nav-link" href="{% url 'listar_variedades' %}">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Variedades</span></a>
+                        <span>Variedades</span>
+                    </a>
                 </li>
 
                 <!-- Divider -->
