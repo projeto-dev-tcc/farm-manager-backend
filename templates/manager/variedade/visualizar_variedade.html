@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load usuario_extras %}
+
 {% load bootstrap %}
 
 {% block title %}
@@ -9,8 +11,12 @@
 {% endblock %}
 
 {% block content %}
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{variedade.nome}}</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'listar_variedades' %}">Variedades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{variedade.nome}}</li>
+        </ol>
+    </nav>
 
     <!-- Nested Row within Card Body -->
     <div class="form-group">
@@ -20,25 +26,13 @@
         </div>
     </div>
 
-
+    {% if request.user|has_groups:"Administrador" %}
         <a href="{% url 'editar_variedade' variedade.id %}" class="btn bt-blue">
             Editar
         </a>
+
         <a href="{% url 'remover_variedade' variedade.id %}" class="btn bt-red">
             Deletar
         </a>
-   
-
-    <a href="{% url 'listar_variedades' %}" class="btn bt-float">
-        Retornar
-    </a>
-{% endblock %}
-
-{% block javascript %}
-    <!-- Inicialização -->
-    <script>
-        $(document).ready(function(){
-            $("#id_nome").attr("required", false);
-        });
-    </script>
+    {% endif %}
 {% endblock %}

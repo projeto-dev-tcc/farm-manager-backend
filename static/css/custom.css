@@ -16,7 +16,7 @@
 /* BT-PRIMARY */
 .bt-primary{
     background-color: #4caf50;
-    border-color: #43a047;
+    border-color: #51bd55;
     color: white;
 }
 
@@ -37,13 +37,13 @@
 .bt-secondary {
     color: #fff;
     background-color: #858796;
-    border-color: #858796;
+    border-color: #6b6d7b;
 }
 
 .bt-secondary:hover {
-    color: #fff;
-    background-color: #717384;
+    opacity: 0.7;
     border-color: #6b6d7d;
+    color: #fff;
 }
 
 .bt-secondary:focus, .bt-secondary.focus {

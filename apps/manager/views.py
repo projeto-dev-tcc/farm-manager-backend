@@ -129,11 +129,10 @@ def visualizar_variedade(request, id_variedade):
     
     return render(request, "manager/variedade/visualizar_variedade.html", context)
 
-@group_required(GPAdmin)
 def remover_variedade(request, id_variedade):
     variedade = Variedade.objects.get(id=id_variedade)
     variedade.delete()
-    
+
     return redirect("listar_variedades")
 
 # MAQUINÁRIOS
@@ -237,7 +236,7 @@ def visualizar_talhao(request, id_talhao):
     }
     return render(request, "manager/talhao/visualizar_talhao.html", context)
 
-def remover_talhao(request, id_talhao):
+def remover_talhao(id_talhao):
     talhao = Talhao.objects.get(id=id_talhao)
     talhao.delete()
     
