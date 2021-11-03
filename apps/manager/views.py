@@ -3,6 +3,7 @@ from .validate import validate_variedade
 from .models import *
 from .forms import *
 from usuarios.validate import group_required
+from django.contrib import messages
 
 GPAdmin = "Administrador"
 GPCliente = "Cliente"
@@ -16,6 +17,8 @@ def registrar_fazenda(request):
             fazenda = form.save(commit=False)
             fazenda.proprietario = request.user
             fazenda.save()
+            message = f"A fazenda {fazenda.nome} foi registrada com sucesso!"
+            messages.success(request, message)
             return redirect('listar_fazendas')
     context = {
         'form': form,
@@ -48,12 +51,17 @@ def listar_fazendas(request):
     
     return render(request, "manager/fazenda/listar_fazendas.html", context)
 
-def visualizar_fazenda(request, id_fazenda):
+def painel_administrativo(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
-    form = FazendaForm(instance=fazenda)
     context = {
         'fazenda': fazenda,
-        'form': form
+    }
+    return render(request, "manager/fazenda/painel_administrativo.html", context)
+
+def visualizar_fazenda(request, id_fazenda):
+    fazenda = Fazenda.objects.get(id=id_fazenda)
+    context = {
+        'fazenda': fazenda,
     }
     return render(request, "manager/fazenda/visualizar_fazenda.html", context)
 
@@ -68,12 +76,17 @@ def registrar_variedade(request):
     form = VariedadeForm()
     if request.method == "POST":
         form = VariedadeForm(request.POST)
-        nome = request.post.get('nome', None)
-        if form.is_valid() and validate_variedade(nome):
-            variedade = form.save(commit=False)
-            variedade.nome = nome
-            variedade.save
-            return redirect('listar_variedades')
+        nome = request.POST.get('nome', None)
+        if validate_variedade(nome):
+            if form.is_valid():
+                variedade = form.save(commit=False)
+                variedade.nome = nome
+                variedade.save()
+                
+                message = f"A fazenda {variedade.nome} foi registrada com sucesso!"
+                messages.success(request, message)
+                
+                return redirect('listar_variedades')
     context = {
         'form': form,
         'action': "Registrar"
@@ -177,3 +190,55 @@ def remover_maquinario(request, id_maquinario):
     maquinario.delete()
     
     return redirect("listar_maquinarios")
+
+# TALHÕES
+def registrar_talhao(request):
+    form = TalhaoForm()
+    if request.method == "POST":
+        form = TalhaoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_talhoes')
+    context = {
+        'form': form,
+        'action': "Registrar"
+    }
+    return render(request, "manager/talhao/registrar_talhao.html", context)
+
+def editar_talhao(request, id_talhao):
+    talhao = Talhao.objects.get(id=id_talhao)
+    form = TalhaoForm(instance=talhao)
+    if request.method == "POST":
+        form = TalhaoForm(request.POST, instance=talhao)
+        if form.is_valid():
+            form.save()
+            return redirect('visualizar_talhao', id_talhao=id_talhao)
+
+    context = {
+        "form": form,
+        "action": "Editar",
+        "talhao": talhao
+    }
+    
+    return render(request, "manager/talhao/registrar_talhao.html", context)
+
+def listar_talhoes(request, id_fazenda):
+    talhoes = Talhao.objects.filter(fazenda__id=id_fazenda)
+    context = {
+        'talhoes': talhoes,
+    }
+    
+    return render(request, "manager/talhao/listar_talhoes.html", context)
+
+def visualizar_talhao(request, id_talhao):
+    talhao = Talhao.objects.get(id=id_talhao)
+    context = {
+        'talhao': talhao,
+    }
+    return render(request, "manager/talhao/visualizar_talhao.html", context)
+
+def remover_talhao(request, id_talhao):
+    talhao = Talhao.objects.get(id=id_talhao)
+    talhao.delete()
+    
+    return redirect("listar_talhoes")

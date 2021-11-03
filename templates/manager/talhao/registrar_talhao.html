@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block title %}
+    Variedade | Farm Manager
+{% endblock %}
+
+{% block content %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Registrar Variedade</h1>
+
+    <!-- Nested Row within Card Body -->
+    <form class="user" method="POST">
+        {% csrf_token %}
+        {{form|bootstrap}}
+        <button class="btn bt-primary">
+            {{action}}
+        </button>
+        <a href="
+            {% if action == 'Registrar' %}
+                {% url 'listar_variedades' %}
+            {% else %}
+                {% if variedade %}
+                    {% url 'visualizar_variedade' variedade.id %}
+                {% endif %}
+            {% endif %}
+        " class="btn bt-float">
+            Retornar
+        </a>
+    </form> 
+{% endblock %}
+
+{% block javascript %}
+    <!-- Inicialização -->
+    <script>
+        $(document).ready(function(){
+            $("#id_nome").attr("required", false);
+        });
+    </script>
+{% endblock %}

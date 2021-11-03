@@ -10,6 +10,7 @@ urlpatterns = [
     # FAZENDA
     path("fazenda/registrar/", registrar_fazenda, name="registrar_fazenda"),
     path("fazenda/editar/<int:id_fazenda>/", editar_fazenda, name="editar_fazenda"),
+    path("fazenda/painel/administrativo/<int:id_fazenda>/", painel_administrativo, name="painel_administrativo"),
     path("fazenda/visualizar/<int:id_fazenda>/", visualizar_fazenda, name="visualizar_fazenda"),
     path("fazenda/listar/", listar_fazendas, name="listar_fazendas"),
     path("fazenda/remover/<int:id_fazenda>", remover_fazenda, name="remover_fazenda"),
@@ -27,4 +28,11 @@ urlpatterns = [
     path("maquinario/visualizar/<int:id_maquinario>/", visualizar_maquinario, name="visualizar_maquinario"),
     path("maquinario/listar/<int:id_fazenda>", listar_maquinarios, name="listar_maquinarios"),
     path("maquinario/remover/<int:id_maquinario>", remover_maquinario, name="remover_maquinario"),
+    
+    # TALHÕES
+    path("talhao/registrar/", registrar_talhao, name="registrar_talhao"),
+    path("talhao/editar/<int:id_talhao>/", editar_talhao, name="editar_talhao"),
+    path("talhao/visualizar/<int:id_talhao>/", visualizar_talhao, name="visualizar_talhao"),
+    path("talhao/listar/<int:id_fazenda>", listar_talhoes, name="listar_talhoes"),
+    path("talhao/remover/<int:id_talhao>", remover_talhao, name="remover_talhao"),
 ]

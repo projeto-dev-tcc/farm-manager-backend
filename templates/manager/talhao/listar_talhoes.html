@@ -5,12 +5,12 @@
 {% load bootstrap %}
 
 {% block title %}
-    Listar Fazendas | Farm Manager
+    Talhão | Farm Manager
 {% endblock %}
 
 {% block content %}
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Listagem de Fazendas</h1>
+    <h1 class="h3 mb-4 text-gray-800">Listagem de Talhões</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -23,13 +23,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for fazenda in fazendas %}
+                        {% for talhao in talhoes %}
                         <tr>
-                            <td><a href="{% url 'painel_administrativo' fazenda.id %}">{{fazenda.nome}}</a></td>
+                            <td><a href="{% url 'visualizar_talhao' talhao.id %}">{{talhao.nome}}</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
-                    {% if fazenda.lenght > 5 %}
+                    {% if talhoes.lenght > 5 %}
                         <tfoot>
                             <tr>
                                 <th>Nome</th>
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <a href="{% url 'registrar_fazenda' %}" class="btn bt-primary">
+    <a href="{% url 'registrar_talhao' %}" class="btn bt-primary">
         Registrar
     </a>
 {% endblock %}

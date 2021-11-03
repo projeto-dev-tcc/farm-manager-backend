@@ -47,7 +47,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     nome = models.CharField(verbose_name = "Nome", max_length = 60)
     sobrenome = models.CharField(verbose_name = "Sobrenome", max_length = 150)
     telefone = models.CharField(verbose_name = "Telefone", max_length = 15)
-    data_nascimento = models.DateField(verbose_name = "Data de nascimento", auto_now_add = False, auto_now = False, null = True)
+    data_nascimento = models.DateField(verbose_name = "Data de nascimento", auto_now_add = False, auto_now = False, null = True, blank = True)
     is_active = models.BooleanField(verbose_name = "Usuário ativo", default = True)
     is_staff = models.BooleanField(verbose_name = "Usuário desenvolvedor", default = False)
     is_superuser = models.BooleanField(verbose_name = "Super usuário", default = False)

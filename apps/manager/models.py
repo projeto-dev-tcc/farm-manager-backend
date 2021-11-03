@@ -41,13 +41,14 @@ class Maquinario(models.Model):
         return str(self.marca + self.modelo + self.ano)
 
 class Variedade(models.Model):
-    nome = models.CharField("Nome", max_length=240)
+    nome = models.CharField("Nome", max_length=240, unique=True)
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
     def __str__(self):
         return self.nome
 
 class Talhao(models.Model):
+    fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_Talhao", on_delete=models.CASCADE)
     variedade = models.ManyToManyField(Variedade, related_name="id_variedade_Talhao")
     nome = models.CharField("Nome", max_length=200)
     ano_plantio = models.CharField("Ano do plantio", max_length=10, blank=True, null=True)

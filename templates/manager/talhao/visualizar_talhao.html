@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block title %}
+    Variedade | Farm Manager
+{% endblock %}
+
+{% block content %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">{{variedade.nome}}</h1>
+
+    <!-- Nested Row within Card Body -->
+    <div class="form-group">
+        <label class="control-label" for="id_nome">Nome</label>
+        <div class="col-sm-6">
+            <input value="{{variedade.nome}}" class="form-control" id="id_nome" disabled>
+        </div>
+    </div>
+
+
+        <a href="{% url 'editar_variedade' variedade.id %}" class="btn bt-blue">
+            Editar
+        </a>
+        <a href="{% url 'remover_variedade' variedade.id %}" class="btn bt-red">
+            Deletar
+        </a>
+   
+
+    <a href="{% url 'listar_variedades' %}" class="btn bt-float">
+        Retornar
+    </a>
+{% endblock %}
+
+{% block javascript %}
+    <!-- Inicialização -->
+    <script>
+        $(document).ready(function(){
+            $("#id_nome").attr("required", false);
+        });
+    </script>
+{% endblock %}
