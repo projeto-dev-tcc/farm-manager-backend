@@ -66,14 +66,13 @@
         <script>
             $(document).ready(function(){
                 $("#btn-login").attr("disabled", true);
-
                 $("#btn_reset_password").attr("disabled", true);
                 $("#btn_signup_signup").attr("disabled", true);
 
                 $(window).bind('beforeunload', function() {
                     var options = {
                         theme: "sk-cube-grid",
-                        message: 'Por favor, aguarde...',
+                        message: '{% if messagem_screen %}{{messagem_screen}}{% else %}Por favor, aguarde...{% endif %}',
                         backgroundColor: "#1847B1k",
                         textColor: "white"
                     };
@@ -103,11 +102,11 @@
             })
         </script>
 
-       {% if messages %}
+        {% if messages %}
             {% for message in messages %}
                 {% if message.tags == 'success'%}
-                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
-                        <div id="toast_message_success" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0; margin-top: 60px;">
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
                             <div class="toast-header">
                                 <strong class="mr-auto text-success">Opa, Sucesso...</strong>
                                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -115,15 +114,15 @@
                                 </button>
                             </div>
                             <div class="toast-body">
-                                <div class="text-success p-1">
+                                <div class="text-success p-2">
                                     {{message}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 {% elif message.tags == 'info'%}
-                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
-                        <div id="toast_message_info" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0; margin-top: 60px;">
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
                             <div class="toast-header">
                                 <strong class="mr-auto text-info">Informações para você...</strong>
                                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -131,15 +130,15 @@
                                 </button>
                             </div>
                             <div class="toast-body">
-                                <div class="text-info p-1">
+                                <div class="text-info p-2">
                                     {{message}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 {% elif message.tags == 'warning'%} 
-                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
-                        <div id="toast_message_warning" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0; margin-top: 60px;">
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
                             <div class="toast-header">
                                 <strong class="mr-auto text-warning">Ops! Falhas a vista....</strong>
                                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -147,15 +146,15 @@
                                 </button>
                             </div>
                             <div class="toast-body">
-                                <div class="text-warning p-1">
+                                <div class="text-warning p-2">
                                     {{message}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 {% elif message.tags == 'error'%}
-                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
-                        <div id="toast_message_error" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0; margin-top: 60px;">
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
                             <div class="toast-header">
                                 <strong class="mr-auto text-danger">Ops! Ocorreu algum erro....</strong>
                                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -163,7 +162,7 @@
                                 </button>
                             </div>
                             <div class="toast-body">
-                                <div class="text-danger p-1">
+                                <div class="text-danger p-2">
                                     {{message}}
                                 </div>
                             </div>

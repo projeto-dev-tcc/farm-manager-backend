@@ -15,7 +15,7 @@
 
 /* BT-PRIMARY */
 .bt-primary{
-    background-color: #4caf50;
+    background-color: #5bad5f;
     border-color: #51bd55;
     color: white;
 }
@@ -163,9 +163,6 @@
 .m-auto {
     margin: auto !important;
 }
-
-
-
 
 .mx-0 {
     margin-right: 0 !important;

@@ -83,8 +83,7 @@ def registrar_variedade(request):
                 variedade.nome = nome
                 variedade.save()
                 
-                message = f"A fazenda {variedade.nome} foi registrada com sucesso!"
-                messages.success(request, message)
+                messages.success(request, f"A variedade {variedade.nome} foi registrada com sucesso no sistema!")
                 
                 return redirect('listar_variedades')
     context = {
@@ -113,8 +112,10 @@ def editar_variedade(request, id_variedade):
 
 def listar_variedades(request):
     variedades = Variedade.objects.all()
+    
     context = {
         'variedades': variedades,
+        'messagem_screen': "Estão sendo carregadas as variedades...",
     }
     
     return render(request, "manager/variedade/listar_variedades.html", context)

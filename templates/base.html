@@ -45,11 +45,11 @@
     </head>
 
     <body id="page-top">
-        <!-- Page Wrapper -->
         <div id="wrapper">
+
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
-                <!-- Divider -->
+            <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
@@ -63,7 +63,6 @@
                         <span>Dashboard</span></a>
                 </li>
 
-                <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Fazendas -->
@@ -88,7 +87,6 @@
                     </a>
                 </li>
 
-                <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
                 <!-- Sidebar Toggler (Sidebar) -->
@@ -96,18 +94,15 @@
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
             </ul>
-            <!-- End of Sidebar -->
-            <!-- Content Wrapper -->
+
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
                 <div id="content">
                     <!-- Topbar -->
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                         <span class="ps-2 fs-5">Farm Manager</span>
-                    
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
-                            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                             <li class="nav-item dropdown no-arrow d-sm-none">
                                 <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -159,82 +154,10 @@
                     </nav>
                     <!-- End of Topbar -->
 
-                    <!-- Begin Page Content -->
                     <div class="container-fluid">
                         {% block content %}
-                        {% endblock %}
-
-                        {% if messages %}
-                            {% for message in messages %}
-                                {% if message.tags == 'success'%}
-                                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
-                                        <div id="toast_message_login" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
-                                            <div class="toast-header">
-                                                <strong class="mr-auto text-success">Opa, Sucesso...</strong>
-                                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="toast-body">
-                                                <div class="text-success p-1">
-                                                     {{message}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% elif message.tags == 'info'%}
-                                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
-                                        <div id="toast_message_login" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
-                                            <div class="toast-header">
-                                                <strong class="mr-auto text-info">Informações para você...</strong>
-                                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="toast-body">
-                                                <div class="text-info p-1">
-                                                    {{message}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% elif message.tags == 'warning'%} 
-                                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
-                                        <div id="toast_message_login" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
-                                            <div class="toast-header">
-                                                <strong class="mr-auto text-warning">Ops! Falhas a vista....</strong>
-                                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="toast-body">
-                                                <div class="text-warning p-1">
-                                                    {{message}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% elif message.tags == 'error'%}
-                                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0">
-                                        <div id="toast_message_login" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="30000">
-                                            <div class="toast-header">
-                                                <strong class="mr-auto text-danger">Ops! Ocorreu algum erro...</strong>
-                                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="toast-body">
-                                                <div class="text-danger p-1">
-                                                    {{message}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}                        
+                        {% endblock %}                      
                     </div>
-                    <!-- /.container-fluid -->
                 </div>
                 <!-- End of Main Content -->
 
@@ -271,7 +194,7 @@
                     <div class="modal-body">Selecione "Logout" abaixo se você estiver pronto para encerrar sua sessão atual.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+                        <a class="btn bt-primary" href="{% url 'logout' %}">Logout</a>
                     </div>
                 </div>
             </div>
@@ -301,10 +224,16 @@
                 $("#btn_signup_signup").attr("disabled", true);
                 $("#btn-login").attr("disabled", true);
 
+                $(".toast").toast('show');
+
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                })
+
                 $(window).bind('beforeunload', function() {
                     var options = {
                         theme: "sk-cube-grid",
-                        message: 'Por favor, aguarde...',
+                        message: '{% if messagem_screen %}{{messagem_screen}}{% else %}Por favor, aguarde...{% endif %}',
                         backgroundColor: "#1847B1k",
                         textColor: "white"
                     };
@@ -312,7 +241,7 @@
                 });
                 $(window).load(function() {
                     HoldOn.close();
-                });  
+                }); 
             });
         </script>
 
@@ -329,6 +258,76 @@
                 }
             })
         </script>
+
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success'%}
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0; margin-top: 60px;">
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+                            <div class="toast-header">
+                                <strong class="mr-auto text-success">Opa, Sucesso...</strong>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="toast-body">
+                                <div class="text-success p-2">
+                                    {{message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif message.tags == 'info'%}
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0; margin-top: 60px;">
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+                            <div class="toast-header">
+                                <strong class="mr-auto text-info">Informações para você...</strong>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="toast-body">
+                                <div class="text-info p-2">
+                                    {{message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif message.tags == 'warning'%} 
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0; margin-top: 60px;">
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+                            <div class="toast-header">
+                                <strong class="mr-auto text-warning">Ops! Falhas a vista....</strong>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="toast-body">
+                                <div class="text-warning p-2">
+                                    {{message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% elif message.tags == 'error'%}
+                    <div class="position-fixed bottom-0 top-2 right-5 p-3" style="z-index: 5; right: 0; bottom: 0; top:0; margin-top: 60px;">
+                        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+                            <div class="toast-header">
+                                <strong class="mr-auto text-danger">Ops! Ocorreu algum erro....</strong>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="toast-body">
+                                <div class="text-danger p-2">
+                                    {{message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
 
         {% block javascript %}
         {% endblock %}

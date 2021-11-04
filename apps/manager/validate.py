@@ -3,7 +3,7 @@ def validate_variedade(nome):
     try:
         variedade = Variedade.objects.get(nome__contains = nome)
         
-        print("variedade")
+        print(variedade)
         
         if variedade:
             return False
