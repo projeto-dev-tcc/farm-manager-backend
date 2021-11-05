@@ -8,7 +8,7 @@ from django.contrib import messages
 GPAdmin = "Administrador"
 GPCliente = "Cliente"
 
-# FAZENDAS
+# FAZENDA
 def registrar_fazenda(request):
     form = FazendaForm()
     if request.method == "POST":
@@ -53,8 +53,17 @@ def listar_fazendas(request):
 
 def painel_administrativo(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
+    talhoes = Talhao.objects.filter(fazenda__id = fazenda.id)
+    funcionarios = FuncionarioFazenda.objects.filter(fazenda__id = fazenda.id)
+    maquinarios = Maquinario.objects.filter(fazenda__id = fazenda.id)
+    servicos = Servico.objects.filter(fazenda__id = fazenda.id)
+    
     context = {
         'fazenda': fazenda,
+        "talhoes": talhoes,
+        "funcionarios": funcionarios,
+        "maquinarios": maquinarios,
+        "servicos": servicos,
     }
     return render(request, "manager/fazenda/painel_administrativo.html", context)
 
@@ -71,7 +80,7 @@ def remover_fazenda(request, id_fazenda):
     
     return redirect("listar_fazendas")
 
-# VARIEDADES
+# VARIEDADE
 def registrar_variedade(request):
     form = VariedadeForm()
     if request.method == "POST":
@@ -136,7 +145,7 @@ def remover_variedade(request, id_variedade):
 
     return redirect("listar_variedades")
 
-# MAQUINÁRIOS
+# MAQUINÁRIO
 def registrar_maquinario(request):
     form = MaquinarioForm()
     if request.method == "POST":
@@ -191,13 +200,16 @@ def remover_maquinario(request, id_maquinario):
     
     return redirect("listar_maquinarios")
 
-# TALHÕES
-def registrar_talhao(request):
+# TALHÃO
+def registrar_talhao(request, id_fazenda):
+    fazenda = Fazenda.objects.get(id = id_fazenda)
     form = TalhaoForm()
     if request.method == "POST":
         form = TalhaoForm(request.POST)
         if form.is_valid():
-            form.save()
+            talhao = form.save(commit=False)
+            talhao.fazenda = fazenda
+            talhao.save()
             return redirect('listar_talhoes')
     context = {
         'form': form,
@@ -223,8 +235,11 @@ def editar_talhao(request, id_talhao):
     return render(request, "manager/talhao/registrar_talhao.html", context)
 
 def listar_talhoes(request, id_fazenda):
+    fazenda = Fazenda.objects.get(id = id_fazenda)
     talhoes = Talhao.objects.filter(fazenda__id=id_fazenda)
+     
     context = {
+        'fazenda': fazenda,
         'talhoes': talhoes,
     }
     

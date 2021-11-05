@@ -5,10 +5,17 @@
 {% load bootstrap %}
 
 {% block title %}
-    Visualizar Fazenda | Farm Manager
+    Painel Administrativo | Farm Manager
 {% endblock %}
 
 {% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{fazenda.nome}}</li>
+        </ol>
+    </nav>
+
     <!-- Page Heading -->
     <div class="row">
         <div class="col mr-2">
@@ -33,7 +40,7 @@
                             <div class="text-xs font-weight-bold fs-6 text-success text-uppercase mb-1">
                                 Talhões
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{talhoes|length}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -52,10 +59,10 @@
                             <div class="text-xs font-weight-bold fs-6 text-primary text-uppercase mb-1">
                                 Funcionários
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{funcionarios|length}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="fas fa-user-friends fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -71,10 +78,10 @@
                             <div class="text-xs font-weight-bold fs-6 text-info text-uppercase mb-1">
                                 Maquinários
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{maquinarios|length}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="fas fa-tractor fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -90,10 +97,10 @@
                             <div class="text-xs font-weight-bold fs-6 text-warning text-uppercase mb-1">
                                 Serviços
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{servicos|length}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="fas fa-chart-line fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -171,9 +178,6 @@
             </div>
         </div>
     </div>
-    <a href="{% url 'listar_fazendas' %}" class="btn bt-float">
-        Retornar
-    </a>
 {% endblock %}
 
 {% block css %}

@@ -5,10 +5,18 @@
 {% load bootstrap %}
 
 {% block title %}
-    Talhão | Farm Manager
+    Listar Talhões | Farm Manager
 {% endblock %}
 
 {% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' fazenda.id %}">{{fazenda.nome}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Talhões</li>
+        </ol>
+    </nav>
+
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Listagem de Talhões</h1>
 
@@ -29,7 +37,7 @@
                         </tr>
                         {% endfor %}
                     </tbody>
-                    {% if talhoes.lenght > 5 %}
+                    {% if talhoes|length > 5 %}
                         <tfoot>
                             <tr>
                                 <th>Nome</th>
@@ -41,7 +49,7 @@
         </div>
     </div>
 
-    <a href="{% url 'registrar_talhao' %}" class="btn bt-primary">
+    <a href="{% url 'registrar_talhao' fazenda.id %}" class="btn bt-primary">
         Registrar
     </a>
 {% endblock %}

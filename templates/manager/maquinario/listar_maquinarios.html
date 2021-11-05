@@ -9,6 +9,14 @@
 {% endblock %}
 
 {% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' fazenda.id %}">{{fazenda.nome}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Maquinários</li>
+        </ol>
+    </nav>
+
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Listagem de Maquinários</h1>
 
@@ -19,20 +27,26 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Nome</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Ano de Fabricação</th>                        
                         </tr>
                     </thead>
                     <tbody>
                         {% for maquinario in maquinarios %}
                         <tr>
-                            <td><a href="{% url 'visualizar_maquinario' maquinario.id %}">{{maquinario.nome}}</a></td>
+                            <td><a href="{% url 'visualizar_maquinario' maquinario.id %}">{{maquinario.marca}}</a></td>
+                            <td><a href="{% url 'visualizar_maquinario' maquinario.id %}">{{maquinario.modelo}}</a></td>
+                            <td><a href="{% url 'visualizar_maquinario' maquinario.id %}">{{maquinario.ano_fabricacao}}</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
-                    {% if maquinarios.lenght > 5 %}
+                    {% if maquinarios|length > 5 %}
                         <tfoot>
                             <tr>
-                                <th>Nome</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Ano de Fabricação</th>  
                             </tr>
                         </tfoot>
                     {% endif %}
@@ -41,7 +55,7 @@
         </div>
     </div>
 
-    <a href="{% url 'registrar_maquinario' %}" class="btn bt-primary">
+    <a href="{% url 'registrar_maquinario' fazenda.id %}" class="btn bt-primary">
         Registrar
     </a>
 {% endblock %}

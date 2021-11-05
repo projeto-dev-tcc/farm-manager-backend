@@ -80,6 +80,7 @@ class Servico(models.Model):
     ]
     
     tipo = models.IntegerField('Tipo de Serviço', choices=TIPO_SERVICO_CHOICE)
+    fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_Servico", on_delete=models.CASCADE)
     servico_maquinario = models.ForeignKey(ServicoMaquinario, on_delete=models.CASCADE, related_name="id_servico_maquinario_Servico")
     data_inicio = models.DateField("Data de Inicio", auto_now = False)
     data_termino = models.DateField("Data de Término", auto_now = False)
