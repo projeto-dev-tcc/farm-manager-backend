@@ -83,7 +83,7 @@ TEMPLATES = [
                 'usuarios.views.base'
             ],
             'libraries':{
-                'templatetag': 'apps.usuarios.templatetags.usuario_extras',
+                'templatetag': 'usuarios.templatetags.usuario_extras',
             }
         },
     },

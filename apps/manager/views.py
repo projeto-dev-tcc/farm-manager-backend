@@ -8,7 +8,7 @@ from django.contrib import messages
 GPAdmin = "Administrador"
 GPCliente = "Cliente"
 
-# FAZENDAS
+# FAZENDA
 def registrar_fazenda(request):
     form = FazendaForm()
     if request.method == "POST":
@@ -17,8 +17,7 @@ def registrar_fazenda(request):
             fazenda = form.save(commit=False)
             fazenda.proprietario = request.user
             fazenda.save()
-            message = f"A fazenda {fazenda.nome} foi registrada com sucesso!"
-            messages.success(request, message)
+            messages.success(request, f"A fazenda {fazenda.nome} foi registrada com sucesso!")
             return redirect('listar_fazendas')
     context = {
         'form': form,
@@ -33,6 +32,7 @@ def editar_fazenda(request, id_fazenda):
         form = FazendaForm(request.POST, instance=fazenda)
         if form.is_valid():
             form.save()
+            messages.success(request, f"A fazenda {fazenda.nome} foi alterada com sucesso!")
             return redirect('visualizar_fazenda', id_fazenda=id_fazenda)
 
     context = {
@@ -53,8 +53,19 @@ def listar_fazendas(request):
 
 def painel_administrativo(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
+    talhoes = Talhao.objects.filter(fazenda__id = fazenda.id)
+    funcionarios = FuncionarioFazenda.objects.filter(fazenda__id = fazenda.id)
+    tratores = Maquinario.objects.filter(fazenda__id = fazenda.id, tipo = 1)
+    emplementos = Maquinario.objects.filter(fazenda__id = fazenda.id, tipo = 2)
+    servicos = Servico.objects.filter(fazenda__id = fazenda.id)
+
     context = {
         'fazenda': fazenda,
+        "talhoes": talhoes,
+        "funcionarios": funcionarios,
+        "tratores": tratores,
+        "emplementos": emplementos,
+        "servicos": servicos,
     }
     return render(request, "manager/fazenda/painel_administrativo.html", context)
 
@@ -68,10 +79,138 @@ def visualizar_fazenda(request, id_fazenda):
 def remover_fazenda(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
     fazenda.delete()
-    
+    messages.success(request, f"A fazenda {fazenda.nome} foi removida com sucesso!")
     return redirect("listar_fazendas")
 
-# VARIEDADES
+# MAQUINÁRIO
+def registrar_maquinario(request, id_fazenda, id_tipo):
+    fazenda = Fazenda.objects.get(id = id_fazenda)
+    form = MaquinarioForm()
+    if request.method == "POST":
+        form = MaquinarioForm(request.POST)
+        if form.is_valid():
+            maquinario = form.save(commit=False)
+            maquinario.fazenda = fazenda
+            maquinario.save()
+            messages.success(request, f"O maquinário {maquinario.nome} foi registrada com sucesso!")
+            return redirect('listar_maquinarios', fazenda.id)
+    context = {
+        'form': form,
+        'fazenda': fazenda,
+        'action': "Registrar",
+        'id_tipo': id_tipo,
+    }
+    return render(request, "manager/maquinario/registrar_maquinario.html", context)
+
+def editar_maquinario(request, id_maquinario):
+    maquinario = Maquinario.objects.get(id=id_maquinario)
+    form = MaquinarioForm(instance=maquinario)
+    if request.method == "POST":
+        form = MaquinarioForm(request.POST, instance=maquinario)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"O maquinário {maquinario.nome} foi alterado com sucesso!")
+            return redirect('visualizar_maquinario', id_maquinario=id_maquinario)
+
+    context = {
+        "form": form,
+        "action": "Editar",
+        "maquinario": maquinario
+    }
+    
+    return render(request, "manager/maquinario/registrar_maquinario.html", context)
+
+def listar_maquinarios(request, id_fazenda, id_tipo):
+    fazenda = Fazenda.objects.get(id = id_fazenda)
+    maquinarios = Maquinario.objects.filter(fazenda__id=id_fazenda, tipo=id_tipo)
+
+    context = {
+        "fazenda": fazenda,
+        "maquinarios": maquinarios,
+        "tipo_maquinario": id_tipo,
+    }
+    
+    return render(request, "manager/maquinario/listar_maquinarios.html", context)
+
+def visualizar_maquinario(request, id_maquinario):
+    maquinario = Maquinario.objects.get(id=id_maquinario)
+    form = MaquinarioForm(instance=maquinario)
+    context = {
+        'maquinario': maquinario,
+        'form': form
+    }
+    
+    return render(request, "manager/maquinario/visualizar_maquinario.html", context)
+
+def remover_maquinario(request, id_maquinario):
+    maquinario = Maquinario.objects.get(id=id_maquinario)
+    maquinario.delete()
+    messages.success(request, f"O maquinário {maquinario.nome} foi removido com sucesso!")
+    
+    return redirect("listar_maquinarios")
+
+# TALHÃO
+def registrar_talhao(request, id_fazenda):
+    fazenda = Fazenda.objects.get(id = id_fazenda)
+    form = TalhaoForm()
+    if request.method == "POST":
+        form = TalhaoForm(request.POST)
+        if form.is_valid():
+            talhao = form.save(commit=False)
+            talhao.fazenda = fazenda
+            talhao.save()
+            messages.success(request, f"O talhão {talhao.nome} foi registrado com sucesso!")
+            return redirect('listar_talhoes')
+    context = {
+        'form': form,
+        'action': "Registrar"
+    }
+    return render(request, "manager/talhao/registrar_talhao.html", context)
+
+def editar_talhao(request, id_talhao):
+    talhao = Talhao.objects.get(id=id_talhao)
+    form = TalhaoForm(instance=talhao)
+    if request.method == "POST":
+        form = TalhaoForm(request.POST, instance=talhao)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"O talhão {talhao.nome} foi alterado com sucesso!")
+            return redirect('visualizar_talhao', id_talhao=id_talhao)
+
+    context = {
+        "form": form,
+        "action": "Editar",
+        "talhao": talhao
+    }
+    
+    return render(request, "manager/talhao/registrar_talhao.html", context)
+
+def listar_talhoes(request, id_fazenda):
+    fazenda = Fazenda.objects.get(id = id_fazenda)
+    talhoes = Talhao.objects.filter(fazenda__id=id_fazenda)
+     
+    context = {
+        'fazenda': fazenda,
+        'talhoes': talhoes,
+    }
+    
+    return render(request, "manager/talhao/listar_talhoes.html", context)
+
+def visualizar_talhao(request, id_talhao):
+    talhao = Talhao.objects.get(id=id_talhao)
+    context = {
+        'talhao': talhao,
+    }
+    return render(request, "manager/talhao/visualizar_talhao.html", context)
+
+def remover_talhao(request, id_talhao):
+    talhao = Talhao.objects.get(id=id_talhao)
+    talhao.delete()
+    messages.success(request, f"O talhão {talhao.nome} foi removido com sucesso!")
+    
+    return redirect("listar_talhoes")
+
+# VARIEDADE
 def registrar_variedade(request):
     form = VariedadeForm()
     if request.method == "POST":
@@ -82,9 +221,7 @@ def registrar_variedade(request):
                 variedade = form.save(commit=False)
                 variedade.nome = nome
                 variedade.save()
-                
                 messages.success(request, f"A variedade {variedade.nome} foi registrada com sucesso no sistema!")
-                
                 return redirect('listar_variedades')
     context = {
         'form': form,
@@ -100,8 +237,8 @@ def editar_variedade(request, id_variedade):
         form = VariedadeForm(request.POST, instance=variedade)
         if form.is_valid():
             form.save()
+            messages.success(request, f"A variedade {variedade.nome} foi alterada com sucesso no sistema!")
             return redirect('visualizar_variedade', id_variedade=id_variedade)
-
     context = {
         "form": form,
         "action": "Editar",
@@ -133,112 +270,5 @@ def visualizar_variedade(request, id_variedade):
 def remover_variedade(request, id_variedade):
     variedade = Variedade.objects.get(id=id_variedade)
     variedade.delete()
-
+    messages.success(request, f"A variedade {variedade.nome} foi removida com sucesso no sistema!")
     return redirect("listar_variedades")
-
-# MAQUINÁRIOS
-def registrar_maquinario(request):
-    form = MaquinarioForm()
-    if request.method == "POST":
-        form = MaquinarioForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('listar_maquinarios')
-    context = {
-        'form': form,
-        'action': "Registrar"
-    }
-    return render(request, "manager/maquinario/registrar_maquinario.html", context)
-
-def editar_maquinario(request, id_maquinario):
-    maquinario = Maquinario.objects.get(id=id_maquinario)
-    form = MaquinarioForm(instance=maquinario)
-    if request.method == "POST":
-        form = MaquinarioForm(request.POST, instance=maquinario)
-        if form.is_valid():
-            form.save()
-            return redirect('visualizar_maquinario', id_maquinario=id_maquinario)
-
-    context = {
-        "form": form,
-        "action": "Editar",
-        "maquinario": maquinario
-    }
-    
-    return render(request, "manager/maquinario/registrar_maquinario.html", context)
-
-def listar_maquinarios(request, id_fazenda):
-    maquinarios = Maquinario.objects.filter(fazenda__id=id_fazenda)
-    context = {
-        'maquinarios': maquinarios,
-    }
-    
-    return render(request, "manager/maquinario/listar_maquinarios.html", context)
-
-def visualizar_maquinario(request, id_maquinario):
-    maquinario = Maquinario.objects.get(id=id_maquinario)
-    form = MaquinarioForm(instance=maquinario)
-    context = {
-        'maquinario': maquinario,
-        'form': form
-    }
-    
-    return render(request, "manager/maquinario/visualizar_maquinario.html", context)
-
-def remover_maquinario(request, id_maquinario):
-    maquinario = Maquinario.objects.get(id=id_maquinario)
-    maquinario.delete()
-    
-    return redirect("listar_maquinarios")
-
-# TALHÕES
-def registrar_talhao(request):
-    form = TalhaoForm()
-    if request.method == "POST":
-        form = TalhaoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('listar_talhoes')
-    context = {
-        'form': form,
-        'action': "Registrar"
-    }
-    return render(request, "manager/talhao/registrar_talhao.html", context)
-
-def editar_talhao(request, id_talhao):
-    talhao = Talhao.objects.get(id=id_talhao)
-    form = TalhaoForm(instance=talhao)
-    if request.method == "POST":
-        form = TalhaoForm(request.POST, instance=talhao)
-        if form.is_valid():
-            form.save()
-            return redirect('visualizar_talhao', id_talhao=id_talhao)
-
-    context = {
-        "form": form,
-        "action": "Editar",
-        "talhao": talhao
-    }
-    
-    return render(request, "manager/talhao/registrar_talhao.html", context)
-
-def listar_talhoes(request, id_fazenda):
-    talhoes = Talhao.objects.filter(fazenda__id=id_fazenda)
-    context = {
-        'talhoes': talhoes,
-    }
-    
-    return render(request, "manager/talhao/listar_talhoes.html", context)
-
-def visualizar_talhao(request, id_talhao):
-    talhao = Talhao.objects.get(id=id_talhao)
-    context = {
-        'talhao': talhao,
-    }
-    return render(request, "manager/talhao/visualizar_talhao.html", context)
-
-def remover_talhao(id_talhao):
-    talhao = Talhao.objects.get(id=id_talhao)
-    talhao.delete()
-    
-    return redirect("listar_talhoes")

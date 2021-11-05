@@ -2,42 +2,86 @@
 
 {% load static %}
 
+{% load usuario_extras %}
+
 {% load bootstrap %}
 
 {% block title %}
-    Variedade | Farm Manager
+    Visualizar Maquinário | Farm Manager
 {% endblock %}
 
 {% block content %}
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{variedade.nome}}</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' maquinario.fazenda.id %}">{{maquinario.fazenda.nome}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Maquinários</li>
+        </ol>
+    </nav>
 
-    <!-- Nested Row within Card Body -->
-    <div class="form-group">
-        <label class="control-label" for="id_nome">Nome</label>
-        <div class="col-sm-6">
-            <input value="{{variedade.nome}}" class="form-control" id="id_nome" disabled>
+    <div class="row">
+        <!-- Nested Row within Card Body -->
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_fazenda">Fazenda</label>
+            <input value="{{maquinario.fazenda.nome}}" class="form-control" id="id_fazenda" disabled>
+        </div>
+        
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_tipo">Tipo</label>
+            <input value="{{maquinario.get_tipo_display}}" class="form-control" id="id_tipo" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_marca">Marca</label>
+            <input value="{{maquinario.marca}}" class="form-control" id="id_marca" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_modelo">Modelo</label>
+            <input value="{{maquinario.modelo}}" class="form-control" id="id_modelo" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_ano_fabricacao">Ano de Fabricação</label>
+            <input value="{{maquinario.ano_fabricacao}}" class="form-control" id="id_ano_fabricacao" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_data_aquisicao">Data de Aquisição</label>
+            <input value="{{maquinario.data_aquisicao}}" class="form-control" id="id_data_aquisicao" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_observacoes">Observações</label>
+            <input value="{{maquinario.observacoes}}" class="form-control" id="id_observacoes" disabled>
         </div>
     </div>
 
-    <a href="{% url 'editar_variedade' variedade.id %}" class="btn bt-blue">
+    <a href="{% url 'editar_maquinario' maquinario.id %}" class="btn bt-blue">
         Editar
     </a>
 
-    <a href="{% url 'remover_variedade' variedade.id %}" class="btn bt-red">
+    <a href="#remove_fazenda_modal" class="btn bt-red">
         Deletar
     </a>
 
-    <a href="{% url 'listar_variedades' %}" class="btn bt-float">
-        Retornar
-    </a>
-{% endblock %}
-
-{% block javascript %}
-    <!-- Inicialização -->
-    <script>
-        $(document).ready(function(){
-            $("#id_nome").attr("required", false);
-        });
-    </script>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="remove_fazenda_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Realmente deseja deletar esse maquinário?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Selecione "Logout" abaixo se você estiver pronto para encerrar sua sessão atual.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn bt-primary" href="{% url 'remover_maquinario' maquinario.id %}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

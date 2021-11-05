@@ -5,12 +5,12 @@
 {% load bootstrap %}
 
 {% block title %}
-    Variedade | Farm Manager
+    Registrar Maquinário | Farm Manager
 {% endblock %}
 
 {% block content %}
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Registrar Variedade</h1>
+    <h1 class="h3 mb-4 text-gray-800">Registrar Maquinário</h1>
 
     <!-- Nested Row within Card Body -->
     <form class="user" method="POST">
@@ -21,14 +21,14 @@
         </button>
         <a href="
             {% if action == 'Registrar' %}
-                {% url 'listar_variedades' %}
+                {% url 'listar_maquinarios' fazenda.id id_tipo %}
             {% else %}
-                {% if variedade %}
-                    {% url 'visualizar_variedade' variedade.id %}
+                {% if talhao %}
+                    {% url 'visualizar_maquinarios' talhao.id %}
                 {% endif %}
             {% endif %}
-        " class="btn bt-float">
-            Retornar
+        " class="btn bt-secondary">
+            Cancelar
         </a>
     </form> 
 {% endblock %}
@@ -37,7 +37,8 @@
     <!-- Inicialização -->
     <script>
         $(document).ready(function(){
-            $("#id_nome").attr("required", false);
+            $("#id_data_aquisicao").mask('00/00/0000');
+            $(".form-control").attr("required", false);
         });
     </script>
 {% endblock %}

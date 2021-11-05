@@ -5,12 +5,12 @@
 {% load bootstrap %}
 
 {% block title %}
-    Variedade | Farm Manager
+    Registrar Talhão | Farm Manager
 {% endblock %}
 
 {% block content %}
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Registrar Variedade</h1>
+    <h1 class="h3 mb-4 text-gray-800">Registrar Talhão</h1>
 
     <!-- Nested Row within Card Body -->
     <form class="user" method="POST">
@@ -21,14 +21,14 @@
         </button>
         <a href="
             {% if action == 'Registrar' %}
-                {% url 'listar_variedades' %}
+                {% url 'listar_talhoes' fazenda.id %}
             {% else %}
-                {% if variedade %}
-                    {% url 'visualizar_variedade' variedade.id %}
+                {% if talhao %}
+                    {% url 'visualizar_talhao' talhao.id %}
                 {% endif %}
             {% endif %}
-        " class="btn bt-float">
-            Retornar
+        " class="btn bt-secondary">
+            Cancelar
         </a>
     </form> 
 {% endblock %}

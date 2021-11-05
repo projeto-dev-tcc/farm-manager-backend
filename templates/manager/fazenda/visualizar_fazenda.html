@@ -9,6 +9,14 @@
 {% endblock %}
 
 {% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' fazenda.id %}">{{fazenda.nome}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Visualizar</li>
+        </ol>
+    </nav>
+
     <!-- Page Heading -->
     <div class="row">
         <h1 class="h3 mb-4 text-gray-800">{{fazenda.nome}}</h1>
@@ -26,11 +34,26 @@
         Editar
     </a>
 
-    <a href="{% url 'remover_fazenda' fazenda.id %}" class="btn bt-red">
+    <a href="#" data-toggle="modal" data-target="#remove_fazenda_modal" class="btn bt-red">
         Deletar
     </a>
 
-    <a href="{% url 'painel_administrativo' fazenda.id %}" class="btn bt-float">
-        Retornar
-    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="remove_fazenda_modal" tabindex="-1" role="dialog" aria-labelledby="example_remove_fazenda_modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="example_remove_fazenda_modal">Realmente deseja deletar essa fazenda?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Selecione "Deletar" abaixo se você estiver pronto para deletar sua fazenda atual.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn bt-red" href="{% url 'remover_fazenda' fazenda.id %}">Deletar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

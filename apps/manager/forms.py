@@ -46,20 +46,45 @@ class MaquinarioForm(forms.ModelForm):
     class Meta:
         model = Maquinario
         fields = ('__all__')
+        exclude = ["fazenda"]
 
         error_messages = {
-            "nome":{
-                "required": "Por favor, insira um nome para validar o registro!",
-                "invalid": "Por favor, insira um nome válido!",
-            }
+            "tipo": {
+                "required": "Por favor, insira um tipo para validar o registro!",
+                "invalid": "Por favor, insira um tipo válido!",
+            },
+            "marca": {
+                "required": "Por favor, insira uma marca para validar o registro!",
+                "invalid": "Por favor, insira uma marca válido!",
+            },
+            "modelo": {
+                "required": "Por favor, insira um modelo para validar o registro!",
+                "invalid": "Por favor, insira um modelo válido!",
+            },
+            "ano_fabricacao": {
+                "required": "Por favor, insira um ano de fabricacao para validar o registro!",
+                "invalid": "Por favor, insira um ano de fabricacao válido!",
+            },
+            "data_aquisicao": {
+                "required": "Por favor, insira uma data de aquisição para validar o registro!",
+                "invalid": "Por favor, insira uma data de aquisição válido!",
+            },
         }
         
+
         widgets = {
-            "nome": forms.TextInput(attrs={'placeholder':'Insira o nome...'}),
+            "marca": forms.TextInput(attrs={'placeholder':'Insira a marca...'}),
+            "modelo": forms.TextInput(attrs={'placeholder':'Insira o modelo...'}),
+            "ano_fabricacao": forms.TextInput(attrs={'placeholder':'Insira o ano de fabricacao...'}),
+            "data_aquisicao": forms.TextInput(attrs={'placeholder':'Insira a data de aquisicao...'}),
         }
         
         labels = {
-            "nome": 'Nome: ',
+            "tipo": 'Tipo de Maquinário: ',
+            "marca": 'Marca: ',
+            "modelo": 'Modelo: ',
+            "ano_fabricacao": 'Ano de Fabricação: ',
+            "data_aquisicao": 'Data de Aquisição: ',
         }
         
 class TalhaoForm(forms.ModelForm):
