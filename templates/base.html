@@ -90,6 +90,16 @@
                     </a>
                 </li>
 
+                <li class="nav-item 
+                    {% if url_active %} 
+                        {% if url_active == 'adubo' %}active{% endif %}
+                    {% endif %}">
+                    <a class="nav-link" href="{% url 'listar_adubos' %}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Adubos</span>
+                    </a>
+                </li>
+
                 <hr class="sidebar-divider d-none d-md-block">
 
                 <!-- Sidebar Toggler (Sidebar) -->

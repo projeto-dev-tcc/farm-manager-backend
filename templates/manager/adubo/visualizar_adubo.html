@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load usuario_extras %}
+
+{% load bootstrap %}
+
+{% block title %}
+    Visualizar Adubos | Farm Manager
+{% endblock %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'listar_adubos' %}">Adubos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{adubo.nome}}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Nested Row within Card Body -->
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_nome">Nome</label>
+            <input value="{{adubo.nome}}" class="form-control" id="id_nome" disabled>
+        </div>
+    </div>
+
+    {% if request.user|has_groups:"Administrador" %}
+        <a href="{% url 'editar_adubo' adubo.id %}" class="btn bt-blue">
+            Editar
+        </a>
+
+        <a class="btn bt-red" href="#" data-toggle="modal" data-target="#deleteAduboModal">
+            Deletar
+        </a>
+
+        <!-- Delete Modal-->
+        <div class="modal fade" id="deleteAduboModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Realmente deseja continuar essa ação?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Selecione "Deletar" abaixo se você estiver pronto para deletar o adubo atual.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn bt-red" href="{% url 'remover_adubo' adubo.id %}">Deletar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

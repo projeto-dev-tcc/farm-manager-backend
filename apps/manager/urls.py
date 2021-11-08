@@ -10,13 +10,6 @@ urlpatterns = [
     path("fazenda/listar/", listar_fazendas, name="listar_fazendas"),
     path("fazenda/remover/<int:id_fazenda>/", remover_fazenda, name="remover_fazenda"),
     
-    # VARIEDADE
-    path("variedade/registrar/", registrar_variedade, name="registrar_variedade"),
-    path("variedade/editar/<int:id_variedade>/", editar_variedade, name="editar_variedade"),
-    path("variedade/visualizar/<int:id_variedade>/", visualizar_variedade, name="visualizar_variedade"),
-    path("variedade/listar/", listar_variedades, name="listar_variedades"),
-    path("variedade/remover/<int:id_variedade>/", remover_variedade, name="remover_variedade"),
-    
     # MAQUINÁRIO
     path("fazenda/maquinario/registrar/<int:id_fazenda>/<int:id_tipo>/", registrar_maquinario, name="registrar_maquinario"),
     path("fazenda/maquinario/editar/<int:id_maquinario>/", editar_maquinario, name="editar_maquinario"),
@@ -37,4 +30,21 @@ urlpatterns = [
     path("fazenda/funcionario/visualizar/<int:id_funcionario_fazenda>/", visualizar_funcionario, name="visualizar_funcionario"),
     path("fazenda/funcionario/listar/<int:id_fazenda>/", listar_funcionarios, name="listar_funcionarios"),
     path("fazenda/funcionario/remover/<int:id_funcionario_fazenda>/", remover_funcionario, name="remover_funcionario"),
+    
+    # VARIEDADE
+    path("variedade/registrar/", registrar_variedade, name="registrar_variedade"),
+    path("variedade/editar/<int:id_variedade>/", editar_variedade, name="editar_variedade"),
+    path("variedade/visualizar/<int:id_variedade>/", visualizar_variedade, name="visualizar_variedade"),
+    path("variedade/listar/", listar_variedades, name="listar_variedades"),
+    path("variedade/remover/<int:id_variedade>/", remover_variedade, name="remover_variedade"),
+    
+    # ADUBO
+    path("adubo/registrar/", registrar_adubo, name="registrar_adubo"),
+    path("adubo/editar/<int:id_adubo>/", editar_adubo, name="editar_adubo"),
+    path("adubo/visualizar/<int:id_adubo>/", visualizar_adubo, name="visualizar_adubo"),
+    path("adubo/listar/", listar_adubos, name="listar_adubos"),
+    path("adubo/remover/<int:id_adubo>/", remover_adubo, name="remover_adubo"),
+    
+    # SERVIÇO
+    path("fazenda/servico/listar/<int:id_fazenda>", listar_servicos, name="listar_servicos"),
 ]

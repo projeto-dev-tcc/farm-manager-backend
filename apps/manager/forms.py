@@ -138,12 +138,27 @@ class FuncionarioFazendaForm(forms.ModelForm):
             },
         }
         
-        widgets = {
-            # "funcionario": forms.TextInput(attrs={'placeholder':'Insira o funcionário...'}),
-            # "tipo": forms.TextInput(attrs={'placeholder':'Insira o tipo do funcionário...'}),
-        }
-        
         labels = {
             "funcionario": 'Funcionário: ',
             "tipo": 'Tipo: ',
+        }
+
+class AduboForm(forms.ModelForm):
+    class Meta:
+        model = Adubo
+        fields = ('__all__')
+
+        error_messages = {
+            "nome":{
+                "required": "O nome é obrigatório para realizar o registro!",
+                "invalid": "Por favor, insira um nome válido!",
+            },
+        }
+        
+        widgets = {
+            "nome": forms.TextInput(attrs={'placeholder':'Insira o nome...'}),
+        }
+        
+        labels = {
+            "nome": 'Nome: ',
         }

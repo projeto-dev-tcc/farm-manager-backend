@@ -351,3 +351,73 @@ def remover_funcionario(request, id_funcionario_fazenda):
     funcionario.delete()
     messages.success(request, f"O funcionário {funcionario.funcionario.nome} foi removido com sucesso no sistema!")
     return redirect("listar_funcionarios", id_funcionario_fazenda.fazenda.id)
+
+# ADUBO
+def registrar_adubo(request):
+    form = AduboForm()
+    if request.method == "POST":
+        form = AduboForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"O adubo foi registrado com sucesso no sistema!")
+            return redirect('listar_adubos')
+    context = {
+        'form': form,
+        'action': "Registrar"
+    }
+    return render(request, "manager/adubo/registrar_adubo.html", context)
+
+@group_required(GPAdmin)
+def editar_adubo(request, id_adubo):
+    adubo = Adubo.objects.get(id=id_adubo)
+    form = AduboForm(instance=adubo)
+    if request.method == "POST":
+        form = AduboForm(request.POST, instance=adubo)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"O adubo {adubo.nome} foi alterado com sucesso no sistema!")
+            return redirect('visualizar_adubo', id_adubo)
+    context = {
+        "form": form,
+        "action": "Editar",
+        "adubo": adubo
+    }
+    
+    return render(request, "manager/adubo/registrar_adubo.html", context)
+
+def listar_adubos(request):
+    adubos = Adubo.objects.all()
+    
+    context = {
+        'adubos': adubos,
+        'messagem_screen': "Estão sendo carregadas as adubos...",
+    }
+    
+    return render(request, "manager/adubo/listar_adubos.html", context)
+
+def visualizar_adubo(request, id_adubo):
+    adubo = Adubo.objects.get(id=id_adubo)
+    form = AduboForm(instance=adubo)
+    context = {
+        'adubo': adubo,
+        'form': form
+    }
+    
+    return render(request, "manager/adubo/visualizar_adubo.html", context)
+
+def remover_adubo(request, id_adubo):
+    adubo = Adubo.objects.get(id=id_adubo)
+    adubo.delete()
+    messages.success(request, f"O adubo {adubo.nome} foi removido com sucesso no sistema!")
+    return redirect("listar_adubos")
+
+# SERVIÇOS
+def listar_servicos(request, id_fazenda):
+    fazenda = Fazenda.objects.get(id = id_fazenda)
+
+    context = {
+        'messagem_screen': "Estão sendo carregados os serviços da fazenda...",
+        'fazenda': fazenda
+    }
+    
+    return render(request, "manager/servico/listar_servicos.html", context)

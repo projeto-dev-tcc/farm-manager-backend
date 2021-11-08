@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block title %}
+    Listar Adubos | Farm Manager
+{% endblock %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Adubos</li>
+        </ol>
+    </nav>
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Listagem de Adubos</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for adubo in adubos %}
+                        <tr>
+                            <td><a href="{% url 'visualizar_adubo' adubo.id %}">{{adubo.nome}}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% if adubos|length > 5 %}
+                        <tfoot>
+                            <tr>
+                                <th>Nome</th>
+                            </tr>
+                        </tfoot>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="{% url 'registrar_adubo' %}" class="btn bt-primary">
+        Registrar
+    </a>
+{% endblock %}
+
+{% block css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+{% endblock %}

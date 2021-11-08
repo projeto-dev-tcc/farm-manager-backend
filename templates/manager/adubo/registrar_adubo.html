@@ -5,12 +5,12 @@
 {% load bootstrap %}
 
 {% block title %}
-    {{ action }} Funcionário | Farm Manager
+    {{ action }} Adubo | Farm Manager
 {% endblock %}
 
 {% block content %}
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{ action }} Funcionário</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ action }} Adubo</h1>
 
     <!-- Nested Row within Card Body -->
     <form class="user" method="POST">
@@ -21,10 +21,10 @@
         </button>
         <a href="
             {% if action == 'Registrar' %}
-                {% url 'listar_funcionarios' id_fazenda %}
+                {% url 'listar_adubos' %}
             {% else %}
-                {% if funcionario %}
-                    {% url 'visualizar_funcionario' funcionario.id %}
+                {% if adubo %}
+                    {% url 'visualizar_adubo' adubo.id %}
                 {% endif %}
             {% endif %}
         " class="btn bt-secondary">
