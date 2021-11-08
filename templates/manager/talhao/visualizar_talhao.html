@@ -7,32 +7,84 @@
 {% load bootstrap %}
 
 {% block title %}
-    Variedade | Farm Manager
+    Visualizar Talhão | Farm Manager
 {% endblock %}
 
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'listar_variedades' %}">Variedades</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{variedade.nome}}</li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_talhoes' talhao.fazenda.id %}">Talhões</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{talhao.nome}}</li>
         </ol>
     </nav>
 
-    <!-- Nested Row within Card Body -->
-    <div class="form-group">
-        <label class="control-label" for="id_nome">Nome</label>
-        <div class="col-sm-6">
-            <input value="{{variedade.nome}}" class="form-control" id="id_nome" disabled>
+    <div class="row">
+        <!-- Nested Row within Card Body -->
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_nome">Nome</label>
+            <input value="{{talhao.nome}}" class="form-control" id="id_nome" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_ano_plantio">Ano do Plantio</label>
+            <input value="{{talhao.ano_plantio}}" class="form-control" id="id_ano_plantio" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_numero_covas">Número de Covas</label>
+            <input value="{{talhao.numero_covas}}" class="form-control" id="id_numero_covas" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_espacamento_rua">Espaçamento das Ruas</label>
+            <input value="{{talhao.espacamento_rua}}" class="form-control" id="id_espacamento_rua" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_espacamento_cova">Espaçamento das Covas</label>
+            <input value="{{talhao.espacamento_cova}}" class="form-control" id="id_espacamento_cova" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_area">Área em Hectare</label>
+            <input value="{{talhao.area}}" class="form-control" id="id_area" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_numero_covas_hectare">Número de Covas por Hectare</label>
+            <input value="{{talhao.numero_covas_hectare}}" class="form-control" id="id_numero_covas_hectare" disabled>
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_variedade">Variedades</label>
+            <input value="{% for talo in talhao.variedade.all %}{% if not forloop.first %}, {% endif %}{{talo}}{% endfor %}" class="form-control" id="id_variedade" disabled>
         </div>
     </div>
 
-    {% if request.user|has_groups:"Administrador" %}
-        <a href="{% url 'editar_variedade' variedade.id %}" class="btn bt-blue">
-            Editar
-        </a>
+    <a href="{% url 'editar_talhao' talhao.id %}" class="btn bt-blue">
+        Editar
+    </a>
 
-        <a href="{% url 'remover_variedade' variedade.id %}" class="btn bt-red">
-            Deletar
-        </a>
-    {% endif %}
+    <a class="btn bt-red" href="#" data-toggle="modal" data-target="#deleteTalhaoModal">
+        Deletar
+    </a>
+
+    <!-- Delete Modal-->
+    <div class="modal fade" id="deleteTalhaoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Realmente deseja continuar essa ação?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Selecione "Deletar" abaixo se você estiver pronto para deletar a variedade atual.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn bt-red" href="{% url 'remover_talhao' talhao.id %}">Deletar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

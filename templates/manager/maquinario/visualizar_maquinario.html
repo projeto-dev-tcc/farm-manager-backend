@@ -31,29 +31,24 @@
             <input value="{{maquinario.get_tipo_display}}" class="form-control" id="id_tipo" disabled>
         </div>
 
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-4">
             <label class="control-label" for="id_marca">Marca</label>
             <input value="{{maquinario.marca}}" class="form-control" id="id_marca" disabled>
         </div>
 
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-4">
             <label class="control-label" for="id_modelo">Modelo</label>
             <input value="{{maquinario.modelo}}" class="form-control" id="id_modelo" disabled>
         </div>
 
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-4">
             <label class="control-label" for="id_ano_fabricacao">Ano de Fabricação</label>
             <input value="{{maquinario.ano_fabricacao}}" class="form-control" id="id_ano_fabricacao" disabled>
         </div>
 
-        <div class="form-group col-sm-6">
-            <label class="control-label" for="id_data_aquisicao">Data de Aquisição</label>
-            <input value="{{maquinario.data_aquisicao}}" class="form-control" id="id_data_aquisicao" disabled>
-        </div>
-
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-12 mb-5">
             <label class="control-label" for="id_observacoes">Observações</label>
-            <input value="{{maquinario.observacoes}}" class="form-control" id="id_observacoes" disabled>
+            <span id="id_observacoes" class="form-control h-100 text-justify p-3 disabled">{{maquinario.observacoes}}</span>
         </div>
     </div>
 
@@ -61,27 +56,44 @@
         Editar
     </a>
 
-    <a href="#remove_fazenda_modal" class="btn bt-red">
+    <a class="btn bt-red" href="#" data-toggle="modal" data-target="#deleteMaquinarioModal">
         Deletar
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="remove_fazenda_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Delete Modal-->
+    <div class="modal fade" id="deleteMaquinarioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Realmente deseja deletar esse maquinário?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Realmente deseja continuar essa ação?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Selecione "Logout" abaixo se você estiver pronto para encerrar sua sessão atual.</div>
+                <div class="modal-body">Selecione "Deletar" abaixo se você estiver pronto para deletar o maquinario atual.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn bt-primary" href="{% url 'remover_maquinario' maquinario.id %}">Logout</a>
+                    <a class="btn bt-red" href="{% url 'remover_maquinario' maquinario.id %}">Deletar</a>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .disabled{
+            background-color: #EAECF4;
+        }
+    </style>
+{% endblock %}
+
+{% block javascript %}
+    <!-- Inicialização -->
+    <script>
+        $(document).ready(function(){
+            $("#id_data_aquisicao").mask('00/00/0000');
+        });
+    </script>
 {% endblock %}

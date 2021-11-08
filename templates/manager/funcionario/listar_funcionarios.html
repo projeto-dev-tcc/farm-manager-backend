@@ -5,7 +5,7 @@
 {% load bootstrap %}
 
 {% block title %}
-    Listar Maquinários | Farm Manager
+    Listar Funcionários | Farm Manager
 {% endblock %}
 
 {% block content %}
@@ -13,12 +13,12 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
             <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' fazenda.id %}">{{fazenda.nome}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{% ifequal tipo_maquinario 1 %}Tratores{% else %}Emplementos{% endifequal %}</li>
+            <li class="breadcrumb-item active" aria-current="page">Funcionários</li>
         </ol>
     </nav>
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Listagem de {% ifequal tipo_maquinario 1 %}Tratores{% else %}Emplementos{% endifequal %}</h1>
+    <h1 class="h3 mb-4 text-gray-800">Listagem de Funcionários</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -27,21 +27,20 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Marca & Modelo</th>                 
+                            <th>Nome</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for maquinario in maquinarios %}
+                        {% for funcionario in funcionarios %}
                         <tr>
-                            <td><a href="{% url 'visualizar_maquinario' maquinario.id %}">{{maquinario.marca}} {{maquinario.modelo}}</a></td>
+                            <td><a href="{% url 'visualizar_funcionario' funcionario.id %}">{{funcionario.funcionario.get_full_name}}</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
-                    {% if maquinarios|length > 5 %}
+                    {% if Funcionarios|length > 5 %}
                         <tfoot>
                             <tr>
-                                <th>Marca</th>
-                                <th>Modelo</th>
+                                <th>Nome</th>
                             </tr>
                         </tfoot>
                     {% endif %}
@@ -49,9 +48,8 @@
             </div>
         </div>
     </div>
-    
 
-    <a href="{% url 'registrar_maquinario' fazenda.id tipo_maquinario %}" class="btn bt-primary">
+    <a href="{% url 'registrar_funcionario' fazenda.id %}" class="btn bt-primary">
         Registrar
     </a>
 {% endblock %}

@@ -25,6 +25,9 @@
         <!-- Custom styles for this template-->
         <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
+        <!-- Import Select 2 -->
+        <link type="text/css" rel="stylesheet" href="{% static 'css/select2/select2.min.css' %}">
+
         <!-- Importando função de carregamento -->
         <link rel="stylesheet" href="{% static 'css/HoldOn/holdon.min.css' %}">
 
@@ -225,6 +228,10 @@
                 $("#btn-login").attr("disabled", true);
 
                 $(".toast").toast('show');
+
+                $('select').select2({
+                    theme: 'bootstrap4',
+                });
 
                 $(function () {
                     $('[data-toggle="tooltip"]').tooltip()

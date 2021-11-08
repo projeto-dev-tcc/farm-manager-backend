@@ -30,7 +30,7 @@ class FuncionarioFazenda(models.Model):
         app_label = 'manager'
 
     def __str__(self):
-        return str(self.fazenda.nome + self.funcionario.nome)
+        return str(self.fazenda.nome + " - " + self.funcionario.nome)
 
 class Maquinario(models.Model):
     TIPO_MAQUINARIO_CHOICE = [
@@ -43,7 +43,6 @@ class Maquinario(models.Model):
     marca = models.CharField("Marca", max_length=200)
     modelo = models.CharField("Modelo", max_length=200)
     ano_fabricacao = models.CharField("Ano", max_length=4, blank = True, null = True)
-    data_aquisicao = models.DateField("Data de Aquisição", auto_now=False)
     observacoes = models.TextField("Observações", blank = True, null = True)
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
     
@@ -53,7 +52,7 @@ class Maquinario(models.Model):
         app_label = 'manager'
 
     def __str__(self):
-        return str(self.marca + self.modelo + self.ano)
+        return str(self.marca + " " + self.modelo)
 
 class Variedade(models.Model):
     nome = models.CharField("Nome", max_length=240, unique=True)
@@ -69,7 +68,6 @@ class Variedade(models.Model):
 
 class Talhao(models.Model):
     fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_Talhao", on_delete=models.CASCADE)
-    variedade = models.ManyToManyField(Variedade, related_name="id_variedade_Talhao")
     nome = models.CharField("Nome", max_length=200)
     ano_plantio = models.CharField("Ano do plantio", max_length=10, blank=True, null=True)
     numero_covas = models.PositiveIntegerField("Numero de covas", blank=True, null=True)
@@ -77,6 +75,7 @@ class Talhao(models.Model):
     espacamento_cova = models.FloatField("Espaçamento das covas", blank=True, null=True)
     area = models.FloatField("Área em hectare", blank=True, null=True)
     numero_covas_hectare = models.PositiveIntegerField("Número de covas por hectare", blank=True, null=True)
+    variedade = models.ManyToManyField(Variedade, related_name="id_variedade_Talhao")
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
     class Meta:
@@ -86,6 +85,20 @@ class Talhao(models.Model):
 
     def __str__(self):
         return str(self.nome)
+
+class Adubo(models.Model):
+    nome = models.CharField("Nome", max_length=240)
+    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Adubo"
+        verbose_name_plural = "Adubos"
+        app_label = 'manager'
+
+    def __str__(self):
+        return self.nome
+
+
 
 class ServicoMaquinario(models.Model):
     talhao = models.ForeignKey(Talhao, on_delete=models.CASCADE, related_name="id_talhao_ServicoMaquinario")
@@ -150,18 +163,6 @@ class Plantio(models.Model):
 
     def __str__(self):
         return str(self.servico)
-
-class Adubo(models.Model):
-    nome = models.CharField("Nome", max_length=240)
-    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
-
-    class Meta:
-        verbose_name = "Adubo"
-        verbose_name_plural = "Adubos"
-        app_label = 'manager'
-
-    def __str__(self):
-        return self.nome
 
 class Fertilizacao(models.Model):
     servico = models.ForeignKey(Servico, on_delete=models.CASCADE, related_name="id_servico_Fertilizacao")
@@ -237,6 +238,8 @@ class PessoaContratada(models.Model):
 
     def __str__(self):
         return str(self.nome + self.telefone)
+
+
 
 class AnotacaoConsultoria(models.Model):
     descricao = models.CharField("Descricao", max_length=340)

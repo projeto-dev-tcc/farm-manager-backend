@@ -30,4 +30,11 @@ urlpatterns = [
     path("fazenda/talhao/visualizar/<int:id_talhao>/", visualizar_talhao, name="visualizar_talhao"),
     path("fazenda/talhao/listar/<int:id_fazenda>/", listar_talhoes, name="listar_talhoes"),
     path("fazenda/talhao/remover/<int:id_talhao>/", remover_talhao, name="remover_talhao"),
+    
+    # FUNCIONARIOS FAZENDAS
+    path("fazenda/funcionario/registrar/<int:id_fazenda>/", registrar_funcionario, name="registrar_funcionario"),
+    path("fazenda/funcionario/editar/<int:id_funcionario_fazenda>/", editar_funcionario, name="editar_funcionario"),
+    path("fazenda/funcionario/visualizar/<int:id_funcionario_fazenda>/", visualizar_funcionario, name="visualizar_funcionario"),
+    path("fazenda/funcionario/listar/<int:id_fazenda>/", listar_funcionarios, name="listar_funcionarios"),
+    path("fazenda/funcionario/remover/<int:id_funcionario_fazenda>/", remover_funcionario, name="remover_funcionario"),
 ]

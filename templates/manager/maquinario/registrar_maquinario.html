@@ -5,12 +5,12 @@
 {% load bootstrap %}
 
 {% block title %}
-    Registrar Maquinário | Farm Manager
+    {{ action }} Maquinário | Farm Manager
 {% endblock %}
 
 {% block content %}
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Registrar Maquinário</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ action }} Maquinário</h1>
 
     <!-- Nested Row within Card Body -->
     <form class="user" method="POST">
@@ -19,12 +19,13 @@
         <button class="btn bt-primary">
             {{action}}
         </button>
+        
         <a href="
             {% if action == 'Registrar' %}
                 {% url 'listar_maquinarios' fazenda.id id_tipo %}
             {% else %}
-                {% if talhao %}
-                    {% url 'visualizar_maquinarios' talhao.id %}
+                {% if maquinario %}
+                    {% url 'visualizar_maquinario' maquinario.id %}
                 {% endif %}
             {% endif %}
         " class="btn bt-secondary">
@@ -37,7 +38,6 @@
     <!-- Inicialização -->
     <script>
         $(document).ready(function(){
-            $("#id_data_aquisicao").mask('00/00/0000');
             $(".form-control").attr("required", false);
         });
     </script>

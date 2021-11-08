@@ -5,12 +5,12 @@
 {% load bootstrap %}
 
 {% block title %}
-    Registrar Talhão | Farm Manager
+    {{ action }} Talhão | Farm Manager
 {% endblock %}
 
 {% block content %}
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Registrar Talhão</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ action }} Talhão</h1>
 
     <!-- Nested Row within Card Body -->
     <form class="user" method="POST">
@@ -21,7 +21,7 @@
         </button>
         <a href="
             {% if action == 'Registrar' %}
-                {% url 'listar_talhoes' fazenda.id %}
+                {% url 'listar_talhoes' id_fazenda %}
             {% else %}
                 {% if talhao %}
                     {% url 'visualizar_talhao' talhao.id %}

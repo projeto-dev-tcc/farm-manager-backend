@@ -82,6 +82,9 @@ def remover_fazenda(request, id_fazenda):
     messages.success(request, f"A fazenda {fazenda.nome} foi removida com sucesso!")
     return redirect("listar_fazendas")
 
+
+
+
 # MAQUINÁRIO
 def registrar_maquinario(request, id_fazenda, id_tipo):
     fazenda = Fazenda.objects.get(id = id_fazenda)
@@ -91,9 +94,10 @@ def registrar_maquinario(request, id_fazenda, id_tipo):
         if form.is_valid():
             maquinario = form.save(commit=False)
             maquinario.fazenda = fazenda
+            maquinario.tipo = id_tipo
             maquinario.save()
-            messages.success(request, f"O maquinário {maquinario.nome} foi registrada com sucesso!")
-            return redirect('listar_maquinarios', fazenda.id)
+            messages.success(request, f"O maquinário {maquinario.marca} {maquinario.modelo} foi registrado com sucesso!")
+            return redirect('listar_maquinarios', fazenda.id, id_tipo)
     context = {
         'form': form,
         'fazenda': fazenda,
@@ -109,8 +113,8 @@ def editar_maquinario(request, id_maquinario):
         form = MaquinarioForm(request.POST, instance=maquinario)
         if form.is_valid():
             form.save()
-            messages.success(request, f"O maquinário {maquinario.nome} foi alterado com sucesso!")
-            return redirect('visualizar_maquinario', id_maquinario=id_maquinario)
+            messages.success(request, f"O maquinário {maquinario.marca} {maquinario.modelo} foi modificado com sucesso!")
+            return redirect('visualizar_maquinario', id_maquinario = id_maquinario)
 
     context = {
         "form": form,
@@ -145,9 +149,12 @@ def visualizar_maquinario(request, id_maquinario):
 def remover_maquinario(request, id_maquinario):
     maquinario = Maquinario.objects.get(id=id_maquinario)
     maquinario.delete()
-    messages.success(request, f"O maquinário {maquinario.nome} foi removido com sucesso!")
+    messages.success(request, f"O maquinário {maquinario.marca} {maquinario.modelo} foi removido com sucesso!")
     
-    return redirect("listar_maquinarios")
+    return redirect("listar_maquinarios", maquinario.fazenda.id, maquinario.tipo)
+
+
+
 
 # TALHÃO
 def registrar_talhao(request, id_fazenda):
@@ -160,10 +167,11 @@ def registrar_talhao(request, id_fazenda):
             talhao.fazenda = fazenda
             talhao.save()
             messages.success(request, f"O talhão {talhao.nome} foi registrado com sucesso!")
-            return redirect('listar_talhoes')
+            return redirect('listar_talhoes', id_fazenda)
     context = {
         'form': form,
-        'action': "Registrar"
+        'action': "Registrar",
+        'id_fazenda': id_fazenda
     }
     return render(request, "manager/talhao/registrar_talhao.html", context)
 
@@ -208,7 +216,10 @@ def remover_talhao(request, id_talhao):
     talhao.delete()
     messages.success(request, f"O talhão {talhao.nome} foi removido com sucesso!")
     
-    return redirect("listar_talhoes")
+    return redirect("listar_talhoes", talhao.fazenda.id)
+
+
+
 
 # VARIEDADE
 def registrar_variedade(request):
@@ -238,7 +249,7 @@ def editar_variedade(request, id_variedade):
         if form.is_valid():
             form.save()
             messages.success(request, f"A variedade {variedade.nome} foi alterada com sucesso no sistema!")
-            return redirect('visualizar_variedade', id_variedade=id_variedade)
+            return redirect('visualizar_variedade', id_variedade)
     context = {
         "form": form,
         "action": "Editar",
@@ -272,3 +283,71 @@ def remover_variedade(request, id_variedade):
     variedade.delete()
     messages.success(request, f"A variedade {variedade.nome} foi removida com sucesso no sistema!")
     return redirect("listar_variedades")
+
+
+
+# FUNCIONÁRIO FAZENDA
+def registrar_funcionario(request, id_fazenda):
+    form = FuncionarioFazendaForm()
+    fazenda = Fazenda.objects.get(id = id_fazenda)
+    if request.method == "POST":
+        form = FuncionarioFazendaForm(request.POST)
+        if form.is_valid():
+            funcionario = form.save(commit=False)
+            funcionario.fazenda = fazenda
+            funcionario.save()
+            messages.success(request, f"O funcionário {funcionario.funcionario.nome} foi registrado com sucesso no sistema!")
+            return redirect('listar_funcionarios', id_fazenda)
+
+    context = {
+        'form': form,
+        'action': "Registrar",
+        'id_fazenda': id_fazenda
+    }
+    
+    return render(request, "manager/funcionario/registrar_funcionario.html", context)
+
+def editar_funcionario(request, id_funcionario_fazenda):
+    funcionario = FuncionarioFazenda.objects.get(id=id_funcionario_fazenda)
+    form = FuncionarioFazendaForm(instance=funcionario)
+    if request.method == "POST":
+        form = FuncionarioFazendaForm(request.POST, instance=funcionario)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"O funcionário {funcionario.funcionario.nome} foi modificado com sucesso no sistema!")
+            return redirect('visualizar_funcionario', id_funcionario_fazenda)
+    context = {
+        "form": form,
+        "action": "Editar",
+        "funcionario": funcionario
+    }
+    
+    return render(request, "manager/funcionario/registrar_funcionario.html", context)
+
+def listar_funcionarios(request, id_fazenda):
+    fazenda = Fazenda.objects.get(id = id_fazenda)
+    funcionarios = FuncionarioFazenda.objects.filter(fazenda__id = fazenda.id)
+    
+    context = {
+        'funcionarios': funcionarios,
+        'messagem_screen': "Estão sendo carregados os funcionários da fazenda...",
+        'fazenda': fazenda
+    }
+    
+    return render(request, "manager/funcionario/listar_funcionarios.html", context)
+
+def visualizar_funcionario(request, id_funcionario_fazenda):
+    funcionario = FuncionarioFazenda.objects.get(id=id_funcionario_fazenda)
+    form = FuncionarioFazendaForm(instance=funcionario)
+    context = {
+        'funcionario': funcionario,
+        'form': form
+    }
+    
+    return render(request, "manager/funcionario/visualizar_funcionario.html", context)
+
+def remover_funcionario(request, id_funcionario_fazenda):
+    funcionario = FuncionarioFazenda.objects.get(id=id_funcionario_fazenda)
+    funcionario.delete()
+    messages.success(request, f"O funcionário {funcionario.funcionario.nome} foi removido com sucesso no sistema!")
+    return redirect("listar_funcionarios", id_funcionario_fazenda.fazenda.id)

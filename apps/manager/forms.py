@@ -46,7 +46,7 @@ class MaquinarioForm(forms.ModelForm):
     class Meta:
         model = Maquinario
         fields = ('__all__')
-        exclude = ["fazenda"]
+        exclude = ["fazenda", "tipo"]
 
         error_messages = {
             "tipo": {
@@ -65,10 +65,6 @@ class MaquinarioForm(forms.ModelForm):
                 "required": "Por favor, insira um ano de fabricacao para validar o registro!",
                 "invalid": "Por favor, insira um ano de fabricacao válido!",
             },
-            "data_aquisicao": {
-                "required": "Por favor, insira uma data de aquisição para validar o registro!",
-                "invalid": "Por favor, insira uma data de aquisição válido!",
-            },
         }
         
 
@@ -76,7 +72,6 @@ class MaquinarioForm(forms.ModelForm):
             "marca": forms.TextInput(attrs={'placeholder':'Insira a marca...'}),
             "modelo": forms.TextInput(attrs={'placeholder':'Insira o modelo...'}),
             "ano_fabricacao": forms.TextInput(attrs={'placeholder':'Insira o ano de fabricacao...'}),
-            "data_aquisicao": forms.TextInput(attrs={'placeholder':'Insira a data de aquisicao...'}),
         }
         
         labels = {
@@ -84,7 +79,6 @@ class MaquinarioForm(forms.ModelForm):
             "marca": 'Marca: ',
             "modelo": 'Modelo: ',
             "ano_fabricacao": 'Ano de Fabricação: ',
-            "data_aquisicao": 'Data de Aquisição: ',
         }
         
 class TalhaoForm(forms.ModelForm):
@@ -106,7 +100,6 @@ class TalhaoForm(forms.ModelForm):
         }
         
         widgets = {
-            "variedade": forms.TextInput(attrs={'placeholder':'Insira a variedade...'}),
             "nome": forms.TextInput(attrs={'placeholder':'Insira o nome...'}),
             "ano_plantio": forms.TextInput(attrs={'placeholder':'Insira o ano do plantio...'}),
             "numero_covas": forms.TextInput(attrs={'placeholder':'Insira o numero de covas...'}),
@@ -127,3 +120,30 @@ class TalhaoForm(forms.ModelForm):
             "numero_covas_hectare": 'Número de Covas por Hectare: ',
         }
         
+class FuncionarioFazendaForm(forms.ModelForm):
+    class Meta:
+        model = FuncionarioFazenda
+        fields = ('__all__')
+        exclude = ["fazenda"]
+
+        error_messages = {
+            "funcionario":{
+                "required": "O funcionário é obrigatório para realizar o registro!",
+                "invalid": "Por favor, insira um funcionario válido!",
+            },
+            
+            "tipo":{
+                "required": "O tipo é obrigatório para realizar o registro!",
+                "invalid": "Por favor, insira um tipo válido!",
+            },
+        }
+        
+        widgets = {
+            # "funcionario": forms.TextInput(attrs={'placeholder':'Insira o funcionário...'}),
+            # "tipo": forms.TextInput(attrs={'placeholder':'Insira o tipo do funcionário...'}),
+        }
+        
+        labels = {
+            "funcionario": 'Funcionário: ',
+            "tipo": 'Tipo: ',
+        }
