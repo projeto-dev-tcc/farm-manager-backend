@@ -105,7 +105,7 @@
                         {% if url_active %} 
                             {% if url_active == 'consultoria' %}active{% endif %}
                         {% endif %}">
-                        <a class="nav-link" href="{% url 'painel_consultorias' %}">
+                        <a class="nav-link" href="{% url 'listar_fazendas_consultoria' %}">
                             <i class="fas fa-fw fa-tachometer-alt"></i>
                             <span>Consultorias</span>
                         </a>
@@ -249,6 +249,8 @@
                 $('select').select2({
                     theme: 'bootstrap4',
                 });
+
+                
 
                 $(function () {
                     $('[data-toggle="tooltip"]').tooltip()

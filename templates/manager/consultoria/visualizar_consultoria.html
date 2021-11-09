@@ -5,53 +5,53 @@
 {% load bootstrap %}
 
 {% block title %}
-    Visualizar Fazenda | Farm Manager
+    Visualizar Consultoria | Farm Manager
 {% endblock %}
 
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' fazenda.id %}">{{fazenda.nome}}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_consultoria' %}">Consultorias</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'painel_consultorias' fazenda.id %}">{{consultoria.nome}}</a></li>
             <li class="breadcrumb-item active" aria-current="page">Visualizar</li>
         </ol>
     </nav>
 
     <!-- Page Heading -->
     <div class="row">
-        <h1 class="h3 mb-4 text-gray-800">{{fazenda.nome}}</h1>
+        <h1 class="h3 mb-4 text-gray-800">{{consultoria.nome}}</h1>
     </div>
 
     <!-- Nested Row within Card Body -->
     <div class="form-group">
         <label class="control-label" for="id_nome">Nome</label>
         <div class="col-sm-6">
-            <input value="{{fazenda.nome}}" class="form-control" id="id_nome" disabled>
+            <input value="{{consultoria.nome}}" class="form-control" id="id_nome" disabled>
         </div>
     </div>
 
-    <a href="{% url 'editar_fazenda' fazenda.id %}" class="btn bt-blue">
+    <a href="{% url 'editar_consultoria' consultoria.id %}" class="btn bt-blue">
         Editar
     </a>
 
-    <a href="#" data-toggle="modal" data-target="#remove_fazenda_modal" class="btn bt-red">
+    <a href="#" data-toggle="modal" data-target="#remove_consultoria_modal" class="btn bt-red">
         Deletar
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="remove_fazenda_modal" tabindex="-1" role="dialog" aria-labelledby="example_remove_fazenda_modal" aria-hidden="true">
+    <div class="modal fade" id="remove_consultoria_modal" tabindex="-1" role="dialog" aria-labelledby="example_remove_consultoria_modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="example_remove_fazenda_modal">Realmente deseja deletar essa fazenda?</h5>
+                    <h5 class="modal-title" id="example_remove_consultoria_modal">Realmente deseja deletar essa consultoria?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Selecione "Deletar" abaixo se você estiver pronto para deletar sua fazenda atual.</div>
+                <div class="modal-body">Selecione "Deletar" abaixo se você estiver pronto para deletar sua consultoria atual.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn bt-red" href="{% url 'remover_fazenda' fazenda.id %}">Deletar</a>
+                    <a class="btn bt-red" href="{% url 'remover_consultoria' consultoria.id %}">Deletar</a>
                 </div>
             </div>
         </div>

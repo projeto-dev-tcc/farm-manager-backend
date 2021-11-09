@@ -64,9 +64,6 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         verbose_name = "Usuário"
         verbose_name_plural = "Usuários"
 
-    def __str__(self):
-        return self.nome
-
     def get_short_name(self):
         short_sobrenome = self.sobrenome.split()
         tam = len(short_sobrenome)
@@ -78,3 +75,6 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def get_absolute_url(self):
         return reverse('index')
         # return reverse('index', args=[str(self.id)]) CASO NECESSITASSE PASSAR ID
+
+    def __str__(self):
+        return self.get_full_name()

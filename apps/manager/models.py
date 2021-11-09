@@ -261,7 +261,7 @@ class ConsultoriaAgronomo(models.Model):
     agronomo = models.ForeignKey("usuarios.Usuario", on_delete=models.CASCADE, related_name="id_agronomo_ConsultoriaAgronomo")
     data = models.DateField("Data", auto_now = False)
     fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_ConsultoriaAgronomo", on_delete=models.CASCADE)
-    anotacao_consultoria = models.ForeignKey(AnotacaoConsultoria, related_name="id_anotacao_consultoria_ConsultoriaAgronomo", on_delete=models.CASCADE)
+    # anotacao_consultoria = models.ForeignKey(AnotacaoConsultoria, related_name="id_anotacao_consultoria_ConsultoriaAgronomo", on_delete=models.CASCADE)
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
     class Meta:

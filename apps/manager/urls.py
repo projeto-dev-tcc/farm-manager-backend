@@ -49,7 +49,7 @@ urlpatterns = [
     path("consultoria/registrar/<int:id_fazenda>/", registrar_consultoria, name="registrar_consultoria"),
     path("consultoria/editar/<int:id_consultoria_fazenda>/", editar_consultoria, name="editar_consultoria"),
     path("consultoria/visualizar/<int:id_consultoria_fazenda>/", visualizar_consultoria, name="visualizar_consultoria"),
-    path("consultoria/painel/", painel_consultorias, name="painel_consultorias"),
+    path("consultoria/painel/", listar_fazendas_consultoria, name="listar_fazendas_consultoria"),
     path("consultoria/listar/<int:id_fazenda>/", listar_consultorias, name="listar_consultorias"),
     path("consultoria/remover/<int:id_consultoria_fazenda>/", remover_consultoria, name="remover_consultoria"),
 

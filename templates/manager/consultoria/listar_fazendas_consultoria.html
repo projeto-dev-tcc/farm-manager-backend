@@ -5,7 +5,7 @@
 {% load bootstrap %}
 
 {% block title %}
-    Listar Consultorias | Farm Manager
+    Listar Fazendas | Farm Manager
 {% endblock %}
 
 {% block content %}
@@ -31,7 +31,7 @@
                     <tbody>
                         {% for fazenda in fazendas %}
                         <tr>
-                            <td><a href="{% url 'painel_administrativo' fazenda.id %}">{{fazenda.nome}}</a></td>
+                            <td><a href="{% url 'listar_consultorias' fazenda.id %}">{{fazenda.nome}}</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

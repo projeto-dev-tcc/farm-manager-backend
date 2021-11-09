@@ -16,7 +16,7 @@
     </nav>
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Listagem de Fazendas para Consultar</h1>
+    <h1 class="h3 mb-4 text-gray-800">Listagem de Consultorias</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -29,13 +29,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for fazenda in fazendas %}
+                        {% for consultoria in consultorias %}
                         <tr>
-                            <td><a href="{% url 'painel_administrativo' fazenda.id %}">{{fazenda.nome}}</a></td>
+                            <td><a href="{% url 'visualizar_consultoria' consultoria.id %}">{{consultoria.nome}}</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
-                    {% if fazenda.lenght > 5 %}
+                    {% if consultoria.lenght > 5 %}
                         <tfoot>
                             <tr>
                                 <th>Nome</th>

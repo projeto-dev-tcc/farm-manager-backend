@@ -362,7 +362,6 @@ def remover_funcionario(request, id_funcionario_fazenda):
             if len(lista_fazendas) == 1:
                 funcionario.is_agronomo = False
                 funcionario.save()
-
     except:
         messages.error(request,"Ocorreu uma falha ao buscar o funcionário!")
     funcionario_fazenda.delete()
@@ -437,21 +436,9 @@ def remover_adubo(request, id_adubo):
     # tipo = models.CharField(max_length=1, choices=TIPO_CHOICES, blank=False, null=False)
     # data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
+
+
 # CONSULTORIA
-def painel_consultorias(request):
-    funcionario_fazenda = FuncionarioFazenda(funcionario = request.user)
-
-    print(funcionario_fazenda)
-
-    fazendas = Fazenda.objects.filter(id = funcionario_fazenda.id)
-
-    print(fazendas)
-    context = {
-        'fazendas': fazendas
-    }
-
-    return render(request, "manager/consultoria/painel_consultorias.html", context)
-
 def registrar_consultoria(request, id_fazenda):
     form = ConsultoriaAgronomoForm()
     fazenda = Fazenda.objects.get(id = id_fazenda)
@@ -460,6 +447,7 @@ def registrar_consultoria(request, id_fazenda):
         if form.is_valid():
             consultoria = form.save(commit=False)
             consultoria.fazenda = fazenda
+            consultoria.agronomo = request.user
             consultoria.save()
             messages.success(request, f"A consultoria foi registrada com sucesso no sistema!")
             return redirect('listar_consultorias', id_fazenda)
@@ -488,6 +476,16 @@ def editar_consultoria(request, id_consultoria):
     }
     
     return render(request, "manager/consultoria/registrar_consultoria.html", context)
+
+def listar_fazendas_consultoria(request):
+    funcionario_fazenda = FuncionarioFazenda.objects.filter(funcionario = request.user)
+    id_funcionario_fazenda = [ obj.fazenda.id for obj in funcionario_fazenda ]
+    fazendas = Fazenda.objects.filter(id__in = id_funcionario_fazenda)
+    context = {
+        'fazendas': fazendas
+    }
+
+    return render(request, "manager/consultoria/listar_fazendas_consultoria.html", context)
 
 def listar_consultorias(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
