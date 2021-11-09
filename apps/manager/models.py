@@ -30,7 +30,7 @@ class FuncionarioFazenda(models.Model):
         app_label = 'manager'
 
     def __str__(self):
-        return str(self.fazenda.nome + " - " + self.funcionario.nome)
+        return self.funcionario.nome
 
 class Maquinario(models.Model):
     TIPO_MAQUINARIO_CHOICE = [

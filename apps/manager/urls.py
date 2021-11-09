@@ -45,6 +45,21 @@ urlpatterns = [
     path("adubo/listar/", listar_adubos, name="listar_adubos"),
     path("adubo/remover/<int:id_adubo>/", remover_adubo, name="remover_adubo"),
     
+    # CONSULTORIA AGRONOMO
+    path("consultoria/registrar/<int:id_fazenda>/", registrar_consultoria, name="registrar_consultoria"),
+    path("consultoria/editar/<int:id_consultoria_fazenda>/", editar_consultoria, name="editar_consultoria"),
+    path("consultoria/visualizar/<int:id_consultoria_fazenda>/", visualizar_consultoria, name="visualizar_consultoria"),
+    path("consultoria/painel/", painel_consultorias, name="painel_consultorias"),
+    path("consultoria/listar/<int:id_fazenda>/", listar_consultorias, name="listar_consultorias"),
+    path("consultoria/remover/<int:id_consultoria_fazenda>/", remover_consultoria, name="remover_consultoria"),
+
+    # ANOTAÇÃO CONSULTORIA
+    path("fazenda/funcionario/registrar/<int:id_fazenda>/", registrar_funcionario, name="registrar_funcionario"),
+    path("fazenda/funcionario/editar/<int:id_funcionario_fazenda>/", editar_funcionario, name="editar_funcionario"),
+    path("fazenda/funcionario/visualizar/<int:id_funcionario_fazenda>/", visualizar_funcionario, name="visualizar_funcionario"),
+    path("fazenda/funcionario/listar/<int:id_fazenda>/", listar_funcionarios, name="listar_funcionarios"),
+    path("fazenda/funcionario/remover/<int:id_funcionario_fazenda>/", remover_funcionario, name="remover_funcionario"),
+
     # SERVIÇO
     path("fazenda/servico/listar/<int:id_fazenda>", listar_servicos, name="listar_servicos"),
 ]

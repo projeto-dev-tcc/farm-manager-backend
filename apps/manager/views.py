@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
+
+from apps import usuarios
 from .validate import validate_variedade
 from .models import *
 from .forms import *
 from usuarios.validate import group_required
 from django.contrib import messages
+from usuarios.models import Usuario
 
 GPAdmin = "Administrador"
 GPCliente = "Cliente"
@@ -295,9 +298,11 @@ def registrar_funcionario(request, id_fazenda):
         if form.is_valid():
             funcionario = form.save(commit=False)
             funcionario.fazenda = fazenda
-            funcionario.save()
             if funcionario.tipo == "A":
-                print("o doido é agrônomo")
+                usuario = Usuario.objects.get(id = funcionario.funcionario.id)
+                usuario.is_agronomo = True
+                usuario.save()
+            funcionario.save()
             messages.success(request, f"O funcionário {funcionario.funcionario.nome} foi registrado com sucesso no sistema!")
             return redirect('listar_funcionarios', id_fazenda)
 
@@ -349,10 +354,20 @@ def visualizar_funcionario(request, id_funcionario_fazenda):
     return render(request, "manager/funcionario/visualizar_funcionario.html", context)
 
 def remover_funcionario(request, id_funcionario_fazenda):
-    funcionario = FuncionarioFazenda.objects.get(id=id_funcionario_fazenda)
-    funcionario.delete()
-    messages.success(request, f"O funcionário {funcionario.funcionario.nome} foi removido com sucesso no sistema!")
-    return redirect("listar_funcionarios", id_funcionario_fazenda.fazenda.id)
+    funcionario_fazenda = FuncionarioFazenda.objects.get(id=id_funcionario_fazenda)
+    try:
+        funcionario = Usuario.objects.get(id = funcionario_fazenda.funcionario.id)
+        if funcionario_fazenda.tipo == "A":
+            lista_fazendas = FuncionarioFazenda.objects.filter(funcionario__id = funcionario.id)
+            if len(lista_fazendas) == 1:
+                funcionario.is_agronomo = False
+                funcionario.save()
+
+    except:
+        messages.error(request,"Ocorreu uma falha ao buscar o funcionário!")
+    funcionario_fazenda.delete()
+    messages.success(request, f"O funcionário {funcionario_fazenda.funcionario.nome} foi removido com sucesso no sistema!")
+    return redirect("listar_funcionarios", funcionario_fazenda.fazenda.id)
 
 
 
@@ -417,7 +432,26 @@ def remover_adubo(request, id_adubo):
 
 
 
+    # fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_FuncionarioFazenda", on_delete=models.CASCADE)
+    # funcionario = models.ForeignKey("usuarios.Usuario", related_name="id_funcionario_FuncionarioFazenda", on_delete=models.CASCADE)
+    # tipo = models.CharField(max_length=1, choices=TIPO_CHOICES, blank=False, null=False)
+    # data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
+
 # CONSULTORIA
+def painel_consultorias(request):
+    funcionario_fazenda = FuncionarioFazenda(funcionario = request.user)
+
+    print(funcionario_fazenda)
+
+    fazendas = Fazenda.objects.filter(id = funcionario_fazenda.id)
+
+    print(fazendas)
+    context = {
+        'fazendas': fazendas
+    }
+
+    return render(request, "manager/consultoria/painel_consultorias.html", context)
+
 def registrar_consultoria(request, id_fazenda):
     form = ConsultoriaAgronomoForm()
     fazenda = Fazenda.objects.get(id = id_fazenda)

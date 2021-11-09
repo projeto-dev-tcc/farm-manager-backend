@@ -100,25 +100,19 @@
                     </a>
                 </li>
 
-                <hr class="sidebar-divider d-none d-md-block">
-
                 {% if request.user.is_agronomo %}
                     <li class="nav-item 
                         {% if url_active %} 
                             {% if url_active == 'consultoria' %}active{% endif %}
                         {% endif %}">
-                        <a class="nav-link" href="{% url 'listar_consultorias' %}">
+                        <a class="nav-link" href="{% url 'painel_consultorias' %}">
                             <i class="fas fa-fw fa-tachometer-alt"></i>
                             <span>Consultorias</span>
                         </a>
                     </li>
-                    <hr class="sidebar-divider d-none d-md-block">
                 {% endif %}
 
-                <!-- Sidebar Toggler (Sidebar) -->
-                <!-- <div class="text-center d-none d-md-inline">
-                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                </div> -->
+                <hr class="sidebar-divider d-none d-md-block">
             </ul>
 
             <div id="content-wrapper" class="d-flex flex-column">
