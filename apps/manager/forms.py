@@ -162,3 +162,69 @@ class AduboForm(forms.ModelForm):
         labels = {
             "nome": 'Nome: ',
         }
+       
+class ConsultoriaAgronomoForm(forms.ModelForm):
+    class Meta:
+        model = ConsultoriaAgronomo
+        fields = ('__all__')
+        exclude = ["agronomo", "fazenda", "anotacao_consultoria"]
+
+        error_messages = {
+            "data": {
+                "required": "Por favor, insira uma  para validar o registro!",
+                "invalid": "Por favor, insira uma data válida!",
+            },
+        }
+        
+        widgets = {
+            "data": forms.TextInput(attrs={'placeholder':'Insira a data...'}),
+        }
+        
+        labels = {
+            "data": 'Data: ',
+        }
+         
+class AnotacaoConsultoriaForm(forms.ModelForm):
+        class Meta:
+            model = ConsultoriaAgronomo
+            fields = ('__all__')
+
+            error_messages = {
+                "descricao": {
+                    "required": "Por favor, insira uma descricao para validar o registro!",
+                    "invalid": "Por favor, insira uma descricao válida!",
+                },
+                "variedade": {
+                    "required": "Por favor, insira uma variedade para validar o registro!",
+                    "invalid": "Por favor, insira uma variedade válida!",
+                },
+                "litros_cova": {
+                    "required": "Por favor, insira os litros por cova para validar o registro!",
+                    "invalid": "Por favor, insira os litros por cova válido!",
+                },
+                "produtividade": {
+                    "required": "Por favor, insira a produtividade para validar o registro!",
+                    "invalid": "Por favor, insira uma produtividade válida!",
+                },
+                "produtividade_sacas_hectare": {
+                    "required": "Por favor, insira a produtividade de sacas por hectare para validar o registro!",
+                    "invalid": "Por favor, insira uma produtividade de sacas por hectare válida!",
+                },
+            }
+            
+            widgets = {
+                "data": forms.TextInput(attrs={'placeholder':'Insira a data...'}),
+                "descricao": forms.TextInput(attrs={'placeholder':'Insira a descricao...'}),
+                "litros_cova": forms.TextInput(attrs={'placeholder':'Insira os litros por Cova...'}),
+                "produtividade": forms.TextInput(attrs={'placeholder':'Insira a produtividade...'}),
+                "produtividade_sacas_hectare": forms.TextInput(attrs={'placeholder':'Insira a produtividade de sacas por hectare...'}),
+            }
+            
+            labels = {
+                "data": 'Data: ',
+                "descricao": 'Descricao: ',
+                "variedade": 'Variedade: ',
+                "litros_cova": 'Litros por Cova: ',
+                "produtividade": 'Produtividade: ',
+                "produtividade_sacas_hectare": 'Produtividade de Sacas por Hectare: ',
+            }

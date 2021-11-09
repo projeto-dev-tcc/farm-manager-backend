@@ -21,6 +21,7 @@ class UsuarioManager(BaseUserManager):
         usuario.is_active = True
         usuario.is_staff = False
         usuario.is_superuser = False
+        usuario.is_agronomo = False
         if password:
             usuario.set_password(password)
         usuario.save()
@@ -38,6 +39,7 @@ class UsuarioManager(BaseUserManager):
         usuario.is_active = True
         usuario.is_staff = True
         usuario.is_superuser = True
+        usuario.is_agronomo = False
         usuario.set_password(password)
         usuario.save()
         return usuario
@@ -48,10 +50,11 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     sobrenome = models.CharField(verbose_name = "Sobrenome", max_length = 150)
     telefone = models.CharField(verbose_name = "Telefone", max_length = 15)
     data_nascimento = models.DateField(verbose_name = "Data de nascimento", auto_now_add = False, auto_now = False, null = True, blank = True)
+    is_agronomo = models.BooleanField(verbose_name = "Usuário agronomo", default = False)
     is_active = models.BooleanField(verbose_name = "Usuário ativo", default = True)
     is_staff = models.BooleanField(verbose_name = "Usuário desenvolvedor", default = False)
     is_superuser = models.BooleanField(verbose_name = "Super usuário", default = False)
-
+    
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ['nome', 'sobrenome']
 

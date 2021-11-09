@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block title %}
+    {{ action }} Fazenda | Farm Manager
+{% endblock %}
+
+{% block content %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">{{ action }} Fazenda</h1>
+
+    <!-- Nested Row within Card Body -->
+    <form class="user" method="POST">
+        {% csrf_token %}
+        {{form|bootstrap}}
+        <button class="btn bt-primary">
+            {{action}}
+        </button>
+        <a href="
+            {% if action == 'Registrar' %}
+                {% url 'listar_fazendas' %}
+            {% else %}
+                {% if fazenda %}
+                    {% url 'visualizar_fazenda' fazenda.id %}
+                {% endif %}
+            {% endif %}
+        " class="btn bt-secondary">
+            Cancelar
+        </a>
+    </form> 
+{% endblock %}
+
+{% block javascript %}
+    <!-- Inicialização -->
+    <script>
+        $(document).ready(function(){
+            $("#id_nome").attr("required", false);
+        });
+    </script>
+{% endblock %}

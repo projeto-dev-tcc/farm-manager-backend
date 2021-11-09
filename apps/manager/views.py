@@ -296,6 +296,8 @@ def registrar_funcionario(request, id_fazenda):
             funcionario = form.save(commit=False)
             funcionario.fazenda = fazenda
             funcionario.save()
+            if funcionario.tipo == "A":
+                print("o doido é agrônomo")
             messages.success(request, f"O funcionário {funcionario.funcionario.nome} foi registrado com sucesso no sistema!")
             return redirect('listar_funcionarios', id_fazenda)
 
@@ -351,6 +353,8 @@ def remover_funcionario(request, id_funcionario_fazenda):
     funcionario.delete()
     messages.success(request, f"O funcionário {funcionario.funcionario.nome} foi removido com sucesso no sistema!")
     return redirect("listar_funcionarios", id_funcionario_fazenda.fazenda.id)
+
+
 
 # ADUBO
 def registrar_adubo(request):
@@ -410,6 +414,76 @@ def remover_adubo(request, id_adubo):
     adubo.delete()
     messages.success(request, f"O adubo {adubo.nome} foi removido com sucesso no sistema!")
     return redirect("listar_adubos")
+
+
+
+# CONSULTORIA
+def registrar_consultoria(request, id_fazenda):
+    form = ConsultoriaAgronomoForm()
+    fazenda = Fazenda.objects.get(id = id_fazenda)
+    if request.method == "POST":
+        form = ConsultoriaAgronomoForm(request.POST)
+        if form.is_valid():
+            consultoria = form.save(commit=False)
+            consultoria.fazenda = fazenda
+            consultoria.save()
+            messages.success(request, f"A consultoria foi registrada com sucesso no sistema!")
+            return redirect('listar_consultorias', id_fazenda)
+
+    context = {
+        'form': form,
+        'action': "Registrar",
+        'id_fazenda': id_fazenda
+    }
+    
+    return render(request, "manager/consultoria/registrar_consultoria.html", context)
+
+def editar_consultoria(request, id_consultoria):
+    consultoria = ConsultoriaAgronomo.objects.get(id=id_consultoria)
+    form = ConsultoriaAgronomoForm(instance=consultoria)
+    if request.method == "POST":
+        form = ConsultoriaAgronomoForm(request.POST, instance=consultoria)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"A consultoria foi modificada com sucesso no sistema!")
+            return redirect('visualizar_consultoria', id_consultoria)
+    context = {
+        "form": form,
+        "action": "Editar",
+        "consultoria": consultoria
+    }
+    
+    return render(request, "manager/consultoria/registrar_consultoria.html", context)
+
+def listar_consultorias(request, id_fazenda):
+    fazenda = Fazenda.objects.get(id = id_fazenda)
+    consultorias = ConsultoriaAgronomo.objects.filter(fazenda__id = fazenda.id)
+    
+    context = {
+        'consultorias': consultorias,
+        'messagem_screen': "Estão sendo carregados os funcionários da fazenda...",
+        'fazenda': fazenda
+    }
+    
+    return render(request, "manager/consultoria/listar_consultorias.html", context)
+
+def visualizar_consultoria(request, id_consultoria):
+    consultoria = ConsultoriaAgronomo.objects.get(id=id_consultoria)
+    form = ConsultoriaAgronomoForm(instance=consultoria)
+    context = {
+        'consultoria': consultoria,
+        'form': form
+    }
+    
+    return render(request, "manager/consultoria/visualizar_consultoria.html", context)
+
+def remover_consultoria(request, id_consultoria):
+    consultoria = ConsultoriaAgronomo.objects.get(id=id_consultoria)
+    consultoria.delete()
+    messages.success(request, f"A consultoria foi removida com sucesso no sistema!")
+    return redirect("listar_consultorias", id_consultoria.fazenda.id)
+
+
 
 # SERVIÇOS
 def listar_servicos(request, id_fazenda):

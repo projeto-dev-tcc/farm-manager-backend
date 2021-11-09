@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block title %}
+    Painel Administrativo | Farm Manager
+{% endblock %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{fazenda.nome}}</li>
+        </ol>
+    </nav>
+
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col mr-2">
+            <div class="text-xs font-weight-bold fs-6 mb-1">
+                <h1 class="h3 mb-4 text-gray-800">{{fazenda.nome}}</h1>
+            </div>
+        </div>
+        <div class="col-auto pe-3">
+            <a href="{% url 'visualizar_fazenda' fazenda.id %}" class="icon-config">
+                <i class="fas fa-cog fa-2x"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Talhões -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold fs-6 text-success text-uppercase mb-1">
+                                Talhões
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{talhoes|length}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Funcionários -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold fs-6 text-primary text-uppercase mb-1">
+                                Funcionários
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{funcionarios|length}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-friends fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tratores -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold fs-6 text-info text-uppercase mb-1">
+                                Tratores
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{tratores|length}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-tractor fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emplementos -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold fs-6 text-secondary text-uppercase mb-1">
+                                Emplementos
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{emplementos|length}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-tools fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Serviços -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold fs-6 text-warning text-uppercase mb-1">
+                                Serviços
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{servicos|length}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <!-- Default Card Example -->
+            <div class="card shadow shadow-1 mb-4">
+                <div class="card-header font-weight-bold text-success">
+                    Talhões
+                </div>
+                <div class="card-body">
+                    This card uses Bootstrap's default styling with no utility classes added. Global
+                    styles are the only things modifying the look and feel of this default card example.
+                    <div class="d-flex justify-content-end">
+                        <a href="{% url 'listar_talhoes' fazenda.id %}" class="btn btn-success">
+                            Ver Mais
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <!-- Default Card Example -->
+            <div class="card shadow shadow-1 mb-4">
+                <div class="card-header font-weight-bold text-primary">
+                    Funcionários
+                </div>
+                <div class="card-body">
+                    This card uses Bootstrap's default styling with no utility classes added. Global
+                    styles are the only things modifying the look and feel of this default card example.
+                    <div class="d-flex justify-content-end">
+                        <a href="{% url 'listar_funcionarios' fazenda.id %}" class="btn btn-primary">
+                            Ver Mais
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <!-- Default Card Example -->
+            <div class="card shadow shadow-1 mb-4">
+                <div class="card-header font-weight-bold text-info">
+                    Tratores
+                </div>
+                <div class="card-body">
+                    This card uses Bootstrap's default styling with no utility classes added. Global
+                    styles are the only things modifying the look and feel of this default card example.
+                    <div class="d-flex justify-content-end">
+                        <a href="{% url 'listar_maquinarios' fazenda.id 1 %}" class="btn btn-info">
+                            Ver Mais
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <!-- Default Card Example -->
+            <div class="card shadow shadow-1 mb-4">
+                <div class="card-header font-weight-bold text-secondary">
+                    Emplementos
+                </div>
+                <div class="card-body">
+                    This card uses Bootstrap's default styling with no utility classes added. Global
+                    styles are the only things modifying the look and feel of this default card example.
+                    <div class="d-flex justify-content-end">
+                        <a href="{% url 'listar_maquinarios' fazenda.id 2 %}" class="btn btn-secondary">
+                            Ver Mais
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <!-- Default Card Example -->
+            <div class="card shadow shadow-1 mb-4">
+                <div class="card-header font-weight-bold text-warning">
+                    Serviços
+                </div>
+                <div class="card-body">
+                    This card uses Bootstrap's default styling with no utility classes added. Global
+                    styles are the only things modifying the look and feel of this default card example.
+                    <div class="d-flex justify-content-end">
+                        <a href="{% url 'listar_servicos' fazenda.id %}" class="btn btn-warning">
+                            Ver Mais
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .icon-config{
+            color: #c3c5ce;
+        }
+        .icon-config:hover{
+            color: #9d9da3;
+        }
+    </style>
+{% endblock %}
