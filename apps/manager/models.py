@@ -98,23 +98,7 @@ class Adubo(models.Model):
     def __str__(self):
         return self.nome
 
-
-
-class ServicoMaquinario(models.Model):
-    talhao = models.ForeignKey(Talhao, on_delete=models.CASCADE, related_name="id_talhao_ServicoMaquinario")
-    funcionario = models.ForeignKey("usuarios.Usuario", on_delete=models.CASCADE, related_name="id_funcionario_ServicoMaquinario")
-    maquinario = models.ForeignKey(Maquinario, on_delete=models.CASCADE, related_name="id_maquinario_ServicoMaquinario")
-    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
-
-    class Meta:
-        verbose_name = "Serviço do Maquinário"
-        verbose_name_plural = "Serviços do Maquinário"
-        app_label = 'manager'
-
-    def __str__(self):
-        return str(self.talhao.nome + self.funcionario.nome + self.maquinario.nome)
-
-class Servico(models.Model):
+class PrestacaoServico(models.Model):
     TIPO_SERVICO_CHOICE = [
         (1, "Plantio"),
         (2, "Fertilização"),
@@ -122,38 +106,32 @@ class Servico(models.Model):
         (4, "Outros"),
     ]
 
-    class Meta:
-        verbose_name = "Serviço"
-        verbose_name_plural = "Serviços"
-        app_label = 'manager'
-    
+    STATUS_CHOICE = [
+        ("A", "Andamento"),
+        ("C", "Concluído")
+    ]
+
+    talhao = models.ForeignKey(Talhao, on_delete=models.CASCADE, related_name="id_talhao_ServicoMaquinario")
+    funcionario = models.ForeignKey("usuarios.Usuario", on_delete=models.CASCADE, related_name="id_funcionario_ServicoMaquinario")
+    maquinario = models.ManyToManyField(Maquinario, related_name="id_maquinario_ServicoMaquinario")
     tipo = models.IntegerField('Tipo de Serviço', choices=TIPO_SERVICO_CHOICE)
-    fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_Servico", on_delete=models.CASCADE)
-    servico_maquinario = models.ForeignKey(ServicoMaquinario, on_delete=models.CASCADE, related_name="id_servico_maquinario_Servico")
     data_inicio = models.DateField("Data de Inicio", auto_now = False)
     data_termino = models.DateField("Data de Término", auto_now = False)
+    status = models.CharField("Status", max_length= 2,choices = STATUS_CHOICE)
     observacoes = models.TextField("Observações")
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
-    def __str__(self):
-        return str(self.tipo)
-
-class QuantidadePlantio(models.Model):
-    variedade = models.ForeignKey(Variedade, on_delete=models.CASCADE, related_name="id_variedade_QuantidadePlantio")
-    quantidade = models.PositiveIntegerField("Quantidade")
-    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
-
     class Meta:
-        verbose_name = "Quantidade do Plantio"
-        verbose_name_plural = "Quantidade dos Plantios"
+        verbose_name = "Prestação de Serviço"
+        verbose_name_plural = "Prestação dos Serviços"
         app_label = 'manager'
 
     def __str__(self):
-        return str(self.variedade + self.quantidade)
+        return str(self.talhao.nome + self.funcionario.nome + self.maquinario.nome)
 
 class Plantio(models.Model):
-    servico = models.ForeignKey(Servico, on_delete=models.CASCADE, related_name="id_servico_Plantio")
-    quantidade_plantio = models.ForeignKey(QuantidadePlantio, on_delete=models.CASCADE, related_name="id_plantio_Plantio")
+    prestacao_servico = models.ForeignKey(PrestacaoServico, on_delete=models.CASCADE, related_name="id_servico_Plantio")
+    quantidade = models.PositiveIntegerField("Quantidade")
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
     class Meta:
@@ -165,7 +143,7 @@ class Plantio(models.Model):
         return str(self.servico)
 
 class Fertilizacao(models.Model):
-    servico = models.ForeignKey(Servico, on_delete=models.CASCADE, related_name="id_servico_Fertilizacao")
+    prestacao_servico = models.ForeignKey(PrestacaoServico, on_delete=models.CASCADE, related_name="id_servico_Fertilizacao")
     adubo = models.ForeignKey(Adubo, on_delete=models.CASCADE, related_name="id_adubo_Fertilizacao")
     data_inicio = models.DateField("Data de Inicio", auto_now = False)
     data_termino = models.DateField("Data de Término", auto_now = False)
@@ -180,27 +158,15 @@ class Fertilizacao(models.Model):
     def __str__(self):
         return str(self.servico + self.adubo)
 
-class TurmaColheita(models.Model):
+class Colheita(models.Model):
     TIPO_COLHEITA_CHOICE = [
         ("MQ", "Máquina"),
         ("MA", "Mão"),
     ]
+
+    prestacao_servico = models.ForeignKey(PrestacaoServico, on_delete=models.CASCADE, related_name="id_servico_Colheita")
     data = models.DateField("Data", auto_now = False)
     tipo = models.IntegerField('Tipo de Serviço', choices=TIPO_COLHEITA_CHOICE)
-    quantidade_colhida = models.FloatField("Valor da Viagem")
-    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
-    
-    class Meta:
-        verbose_name = "Turma da Colheita"
-        verbose_name_plural = "Turmas da Colheita"
-        app_label = 'manager'
-
-    def __str__(self):
-        return str(self.data + self.tipo)
-
-class Colheita(models.Model):
-    servico = models.ForeignKey(Servico, on_delete=models.CASCADE, related_name="id_servico_Colheita")
-    turma_colheita = models.ForeignKey(TurmaColheita, on_delete=models.CASCADE, related_name="id_turma_colheita_Colheita")
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
     class Meta:
@@ -210,35 +176,6 @@ class Colheita(models.Model):
 
     def __str__(self):
         return str(self.servico + self.turma_colheita)
-
-class Turma(models.Model):
-    nome = models.CharField("Nome", max_length=240)
-    valor_viagem = models.FloatField("Valor da Viagem", max_length=240)
-    turma_colheita = models.ForeignKey(Servico, on_delete=models.CASCADE, related_name="id_turma_colheita_Turma")
-    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
-
-    class Meta:
-        verbose_name = "Turma"
-        verbose_name_plural = "Turmas"
-        app_label = 'manager'
-
-    def __str__(self):
-        return str(self.nome)
-
-class PessoaContratada(models.Model):
-    nome = models.CharField("Nome", max_length=240)
-    telefone = models.CharField("Telefone", max_length=240)
-    turma = models.ForeignKey(Turma, on_delete=models.CASCADE, related_name="id_turma_PessoaContratada")
-    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
-
-    class Meta:
-        verbose_name = "Pessoa Contratada"
-        verbose_name_plural = "Pessoas Contratadas"
-        app_label = 'manager'
-
-    def __str__(self):
-        return str(self.nome + self.telefone)
-
 
 class ConsultoriaAgronomo(models.Model):
     agronomo = models.ForeignKey("usuarios.Usuario", on_delete=models.CASCADE, related_name="id_agronomo_ConsultoriaAgronomo")
@@ -263,6 +200,19 @@ class AnotacaoConsultoria(models.Model):
     litros_cova = models.FloatField("Litros por cova")
     produtividade = models.FloatField("Produtividade por pé")
     produtividade_sacas_hectare = models.FloatField("Produtividade em sacas por hectare")
+    data_hora_registrado = models.DateTimeField("Horário registrado", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Anotação da Consultoria"
+        verbose_name_plural = "Anotações da Consultoria"
+        app_label = 'manager'
+
+    def __str__(self):
+        return self.titulo
+
+class ArquivoDigitalizado(models.Model):
+    descricao = models.CharField("Descricao", max_length=340)
+    # arquivo = models.ForeignKey(ConsultoriaAgronomo, related_name="id_consultoria_AnotacaoConsultoria", on_delete=models.CASCADE)
     data_hora_registrado = models.DateTimeField("Horário registrado", auto_now_add=True)
 
     class Meta:
