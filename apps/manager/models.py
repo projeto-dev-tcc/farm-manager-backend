@@ -37,7 +37,6 @@ class Maquinario(models.Model):
         (1, "Trator"),
         (2, "Emplemento")
     ]
-
     fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_Maquinario", on_delete=models.CASCADE)
     tipo = models.IntegerField('Tipo de Maquinário', choices=TIPO_MAQUINARIO_CHOICE)
     marca = models.CharField("Marca", max_length=200)
@@ -103,7 +102,6 @@ class PrestacaoServico(models.Model):
         (1, "Plantio"),
         (2, "Fertilização"),
         (3, "Preparação do Solo"),
-        (4, "Outros"),
     ]
 
     STATUS_CHOICE = [
@@ -112,12 +110,12 @@ class PrestacaoServico(models.Model):
     ]
 
     talhao = models.ForeignKey(Talhao, on_delete=models.CASCADE, related_name="id_talhao_ServicoMaquinario")
-    funcionario = models.ForeignKey("usuarios.Usuario", on_delete=models.CASCADE, related_name="id_funcionario_ServicoMaquinario")
+    funcionario = models.ManyToManyField("usuarios.Usuario", related_name="id_funcionario_ServicoMaquinario")
     maquinario = models.ManyToManyField(Maquinario, related_name="id_maquinario_ServicoMaquinario")
     tipo = models.IntegerField('Tipo de Serviço', choices=TIPO_SERVICO_CHOICE)
     data_inicio = models.DateField("Data de Inicio", auto_now = False)
     data_termino = models.DateField("Data de Término", auto_now = False)
-    status = models.CharField("Status", max_length= 2,choices = STATUS_CHOICE)
+    status = models.CharField("Status", max_length= 2,choices = STATUS_CHOICE,default="A")
     observacoes = models.TextField("Observações")
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
@@ -127,7 +125,7 @@ class PrestacaoServico(models.Model):
         app_label = 'manager'
 
     def __str__(self):
-        return str(self.talhao.nome + self.funcionario.nome + self.maquinario.nome)
+        return str(self.talhao)
 
 class Plantio(models.Model):
     prestacao_servico = models.ForeignKey(PrestacaoServico, on_delete=models.CASCADE, related_name="id_servico_Plantio")
