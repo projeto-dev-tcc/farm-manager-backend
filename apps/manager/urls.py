@@ -1,5 +1,6 @@
 from django.urls import path
 from manager.views import *
+from .validate import * 
 
 urlpatterns = [
     # FAZENDA
@@ -16,13 +17,15 @@ urlpatterns = [
     path("fazenda/maquinario/visualizar/<int:id_maquinario>/", visualizar_maquinario, name="visualizar_maquinario"),
     path("fazenda/maquinario/listar/<int:id_fazenda>/<int:id_tipo>/", listar_maquinarios, name="listar_maquinarios"),
     path("fazenda/maquinario/remover/<int:id_maquinario>/", remover_maquinario, name="remover_maquinario"),
-    
+    path("fazenda/maquinario/cadastrar/ajax/", Ajax_cadastrar_maquinario, name="Ajax_cadastrar_maquinario"),
+
     # TALHÕES
     path("fazenda/talhao/registrar/<int:id_fazenda>/", registrar_talhao, name="registrar_talhao"),
     path("fazenda/talhao/editar/<int:id_talhao>/", editar_talhao, name="editar_talhao"),
     path("fazenda/talhao/visualizar/<int:id_talhao>/", visualizar_talhao, name="visualizar_talhao"),
     path("fazenda/talhao/listar/<int:id_fazenda>/", listar_talhoes, name="listar_talhoes"),
     path("fazenda/talhao/remover/<int:id_talhao>/", remover_talhao, name="remover_talhao"),
+    path("fazenda/talhao/registrar/ajax/", Ajax_cadastrar_talhao, name="Ajax_cadastrar_talhao"),
     
     # FUNCIONARIOS FAZENDAS
     path("fazenda/funcionario/registrar/<int:id_fazenda>/", registrar_funcionario, name="registrar_funcionario"),
@@ -62,4 +65,5 @@ urlpatterns = [
 
     # SERVIÇO
     path("fazenda/servico/listar/<int:id_fazenda>", listar_servicos, name="listar_servicos"),
+    path("fazenda/servico/cadastrar/<int:id_fazenda>", cadastrarServico, name="cadastrarServico"),
 ]

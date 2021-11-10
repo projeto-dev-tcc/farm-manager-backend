@@ -233,3 +233,12 @@ class AnotacaoConsultoriaForm(forms.ModelForm):
                 "produtividade": 'Produtividade: ',
                 "produtividade_sacas_hectare": 'Produtividade de Sacas por Hectare: ',
             }
+
+
+class PrestacaoServicoForm(forms.ModelForm):
+    class Meta:
+        model = PrestacaoServico
+        fields = ('__all__')
+        exclude = ['status']
+
+    

@@ -37,7 +37,12 @@ $RECYCLE.BIN/
 /media
 /mysql-data
 /mysql-dump
+/migrations/
 /migrations
+migrations/
+migrations
+.migrations
+./migrations
 
 # Config's Location
 settings_local.py

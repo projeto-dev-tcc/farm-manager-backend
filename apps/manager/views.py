@@ -86,9 +86,6 @@ def remover_fazenda(request, id_fazenda):
     messages.success(request, f"A fazenda {fazenda.nome} foi removida com sucesso!")
     return redirect("listar_fazendas")
 
-
-
-
 # MAQUINÁRIO
 def registrar_maquinario(request, id_fazenda, id_tipo):
     fazenda = Fazenda.objects.get(id = id_fazenda)
@@ -579,10 +576,40 @@ def remover_anotacao(request, id_anotacao):
 # SERVIÇOS
 def listar_servicos(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
+    listServicos = PrestacaoServico.objects.filter(talhao__fazenda__id=id_fazenda).order_by("status")
 
     context = {
         'messagem_screen': "Estão sendo carregados os serviços da fazenda...",
-        'fazenda': fazenda
+        'fazenda': fazenda,
+        'listServicos':listServicos
     }
     
     return render(request, "manager/servico/listar_servicos.html", context)
+
+
+def cadastrarServico(request, id_fazenda):
+    fazenda = Fazenda.objects.get(id = id_fazenda)
+    form = PrestacaoServicoForm()
+    listVariedade = Variedade.objects.all()
+    if request.method == "POST":
+        form = PrestacaoServicoForm(request.POST)
+        if form.is_valid():
+            objPrestacaoServico = form.save()
+            messages.success(request, f"Prestação de serviço cadastrado com sucesso!!!")
+            if objPrestacaoServico.tipo == 1:
+                return redirect('cadastrar_plantio', objPrestacaoServico.id)
+            elif  objPrestacaoServico.tipo == 2:
+                return redirect('cadastrar_fertilizacao', objPrestacaoServico.id)
+            else:
+                return redirect('cadastrar_preparacao_solo', objPrestacaoServico.id)
+
+
+    context = {
+        'messagem_screen': "",
+        'fazenda': fazenda,
+        'form':form,
+        'action': "Registrar",
+        'listVariedade':listVariedade,
+    }
+    
+    return render(request, "manager/servico/registrar_servico.html", context)

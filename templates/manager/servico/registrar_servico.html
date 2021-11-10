@@ -15,13 +15,150 @@
     <!-- Nested Row within Card Body -->
     <form class="user" method="POST">
         {% csrf_token %}
-        {{form|bootstrap}}
+        <div class="row">
+            <div class="col-11">
+                {{form.talhao|bootstrap}}
+            </div>
+            <div class="col-1 mt-3">
+                <a class="btn btn-sm" data-toggle="modal" data-target="#ModalTalhao"><i class="material-icons fs-3 text-green-15">add_circle_outline</i></a>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="ModalTalhao" tabindex="-1" aria-labelledby="ModalTalhaoLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalTalhaoLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"> 
+                        <div class="form-group">
+                            <label class="control-label" for="id_nomeTalhao">Nome: </label>
+                            <div class=" ">
+                                <input type="text" name="nome" placeholder="Insira o nome..." maxlength="200" class=" form-control" id="id_nomeTalhao">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="id_ano_plantio">Ano do Plantio: </label>
+                            <div class=" ">
+                                <input type="text" name="ano_plantio" placeholder="Insira o ano do plantio..." maxlength="10" class=" form-control" id="id_ano_plantio">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="id_numero_covas">Número de Covas: </label>
+                            <div class=" ">
+                                <input type="text" name="numero_covas" placeholder="Insira o numero de covas..." class=" form-control" id="id_numero_covas">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="id_espacamento_rua">Espaçamento das Ruas: </label>
+                            <div class=" ">
+                                <input type="text" name="espacamento_rua" placeholder="Insira o espacamento das ruas..." class=" form-control" id="id_espacamento_rua"> 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="id_espacamento_cova">Espaçamento das Covas: </label>
+                            <div class=" ">
+                                <input type="text" name="espacamento_cova" placeholder="Insira o espacamento das covas..." class=" form-control" id="id_espacamento_cova">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="id_area">Área em hectare: </label>
+                                <div class=" ">
+                                    <input type="text" name="area" placeholder="Insira a área em hectare..." class=" form-control" id="id_area">
+                                </div'>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="id_numero_covas_hectare">Número de Covas por Hectare: </label>
+                                <div class=" ">
+                                    <input type="text" name="numero_covas_hectare" placeholder="Insira o numero de covas por hectare..." class=" form-control" id="id_numero_covas_hectare">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="id_variedade">Variedade: </label>
+                                <div class=" ">
+                                    <select name="variedade" class=" form-control" id="id_variedade" multiple="">
+                                        {%for variedade in listVariedade%}
+                                            <option value="{{variedade.id}}">{{variedade}}</option>
+                                        {%endfor%}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button value="{{fazenda.id}}"  id="id_cadastrarTalhao" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{form.funcionario|bootstrap}}
+        <div class="row">
+            <div class="col-11">
+                {{form.maquinario|bootstrap}}
+            </div>
+            <div class="col-1 mt-3">
+                <a class="btn btn-sm" data-toggle="modal" data-target="#ModalMaquinario"><i class="material-icons fs-3 text-green-15">add_circle_outline</i></a>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="ModalMaquinario" tabindex="-1" aria-labelledby="ModalMaquinarioLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalMaquinarioLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="control-label  " for="id_marca">Marca: </label>
+                                <div class=" ">
+                                    <input type="text" name="marca" placeholder="Insira a marca..." maxlength="200" class=" form-control" id="id_marca"> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="id_modelo">Modelo: </label>
+                                <div class=" ">
+                                    <input type="text" name="modelo" placeholder="Insira o modelo..." maxlength="200" class=" form-control" id="id_modelo">
+                                </div>
+                            </div>
+                            <label class="control-label" for="id_ano_fabricacao">Ano de Fabricação: </label>
+                            <div class=" ">
+                                <input type="text" name="ano_fabricacao" placeholder="Insira o ano de fabricacao..." maxlength="4" class=" form-control" id="id_ano_fabricacao">
+                            </div>
+                        </div>
+                        <textarea name="observacoes" cols="40" rows="10" class=" form-control" id="id_observacoes"></textarea>
+                        <select id="id_tipoMaquinario" class="custom-select form-control" required>
+                            <option value="" disabled selected>Selecione um tipo de Maquinário</option>
+                            <option value="1">Trator</option>
+                            <option value="2">Emplemento</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button value="{{fazenda.id}}"  id="id_cadastrarMaquinario" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{form.tipo|bootstrap}}
+        {{form.data_inicio|bootstrap}}
+        {{form.data_termino|bootstrap}}
+        {{form.observacoes|bootstrap}}
         <button class="btn bt-primary">
             {{action}}
         </button>
+
         <a href="
             {% if action == 'Registrar' %}
-                {% url 'listar_servicos' id_fazenda %}
+                {% url 'listar_servicos' fazenda.id %}
             {% else %}
                 {% if servico %}
                     {% url 'visualizar_servico' servico.id %}
@@ -38,6 +175,114 @@
     <script>
         $(document).ready(function(){
             $(".form-control").attr("required", false);
+
+            $( "#id_cadastrarMaquinario" ).click(function() {
+                var idFazenda = this.value
+                var marca = $("#id_marca").val();
+                var modelo = $("#id_modelo").val();
+                var anoFabricacao = $("#id_ano_fabricacao").val();
+                var observacoes = $("#id_observacoes").val();
+                var tipoMaquinario = $("#id_tipoMaquinario").val();
+
+                $.ajax({
+                    url: "{% url 'Ajax_cadastrar_maquinario' %}",
+
+                    data: {
+                        "idFazenda":idFazenda,
+                        "marca":marca,
+                        "modelo":modelo,
+                        "anoFabricacao":anoFabricacao,
+                        "observacoes":observacoes,
+                        "tipoMaquinario":tipoMaquinario,
+                    },
+
+                    dataType: 'json',
+
+                    success: function (listMaquinario) {
+                        alert("sucesso!!")
+                        var objMaquinario = $("#id_maquinario");
+
+                        //Limpa combo de objMaquinario
+                        objMaquinario.empty();
+                        
+                        objMaquinario.append('<option selected="" value="">Selecione uma equipe</option>');
+
+                        $.each(listMaquinario, function() {
+                            objMaquinario.append('<option value="'+this.pk+'">'+this.fields.nome+'</option>');
+                        });
+                        
+                        $("#id_intervalo").trigger("chosen:updated");
+                        objMaquinario.select2();
+                        
+                        marca.val("")
+                        modelo.val("")
+                        anoFabricacao.val("")
+                        observacoes.val("")
+                        tipoMaquinario.val("")
+                    }
+                });
+            });
+
+
+            $( "#id_cadastrarTalhao" ).click(function() {
+                var idFazenda = this.value
+                var nome = $("#id_nomeTalhao").val();
+                var anoPlantio = $("#id_ano_plantio").val();
+                var numueroCovas = $("#id_numero_covas").val();
+                var espacamentoRua = $("#id_espacamento_rua").val();
+                var espacamentoCova = $("#id_espacamento_cova").val();
+                var area = $("#id_area").val();
+                var numeroCovasHectare = $("#id_numero_covas_hectare").val();
+                var idVariedade = $("#id_variedade").val();
+                $.ajax({
+                    url: "{% url 'Ajax_cadastrar_talhao' %}",
+
+                    data: {
+                        "idFazenda":idFazenda,
+                        "nome":nome,
+                        "anoPlantio":anoPlantio,
+                        "numueroCovas":numueroCovas,
+                        "espacamentoRua":espacamentoRua,
+                        "espacamentoCova":espacamentoCova,
+                        "area":area,
+                        "numeroCovasHectare":numeroCovasHectare,
+                        "idVariedade[]":idVariedade,
+                    },
+
+                    dataType: 'json',
+
+                    success: function (listTalhao) {
+                        alert("sucesso!!")
+                        var objTalhao = $("#id_talhao");
+
+                        //Limpa combo de objTalhao
+                        objTalhao.empty();
+                        
+                        objTalhao.append('<option selected="" value="">Selecione uma equipe</option>');
+
+                        $.each(listTalhao, function() {
+                            objTalhao.append('<option value="'+this.pk+'">'+this.fields.nome+'</option>');
+                        });
+                        
+                        $("#id_intervalo").trigger("chosen:updated");
+                        objTalhao.select2();
+
+                        $("#id_idClinica").hide()
+                        nome.val("");
+                        anoPlantio.val("");
+                        numueroCovas.val("");
+                        espacamentoRua.val("");
+                        espacamentoCova.val("");
+                        area.val("");
+                        numeroCovasHectare.val("");
+                        idVariedade.val("");
+                    }
+                });
+            });
+        });
+    </script>
+
+    
         });
     </script>
 {% endblock %}
