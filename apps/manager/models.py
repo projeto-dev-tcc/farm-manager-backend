@@ -240,9 +240,25 @@ class PessoaContratada(models.Model):
         return str(self.nome + self.telefone)
 
 
+class ConsultoriaAgronomo(models.Model):
+    agronomo = models.ForeignKey("usuarios.Usuario", on_delete=models.CASCADE, related_name="id_agronomo_ConsultoriaAgronomo")
+    data = models.DateField("Data", auto_now = False)
+    fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_ConsultoriaAgronomo", on_delete=models.CASCADE)
+    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Consultoria do Agrônomo"
+        verbose_name_plural = "Consultorias do Agrônomo"
+        app_label = 'manager'
+
+    def __str__(self):
+        message = f'{self.agronomo.nome} {self.fazenda.nome}'
+        return message
 
 class AnotacaoConsultoria(models.Model):
+    titulo = models.CharField("Título", max_length=100)
     descricao = models.CharField("Descricao", max_length=340)
+    consultoria = models.ForeignKey(ConsultoriaAgronomo, related_name="id_consultoria_AnotacaoConsultoria", on_delete=models.CASCADE)
     variedade = models.ManyToManyField(Variedade, related_name="id_variedade_AnotacaoConsultoria")
     litros_cova = models.FloatField("Litros por cova")
     produtividade = models.FloatField("Produtividade por pé")
@@ -255,20 +271,4 @@ class AnotacaoConsultoria(models.Model):
         app_label = 'manager'
 
     def __str__(self):
-        return str(self.descricao)
-
-class ConsultoriaAgronomo(models.Model):
-    agronomo = models.ForeignKey("usuarios.Usuario", on_delete=models.CASCADE, related_name="id_agronomo_ConsultoriaAgronomo")
-    data = models.DateField("Data", auto_now = False)
-    fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_ConsultoriaAgronomo", on_delete=models.CASCADE)
-    # anotacao_consultoria = models.ForeignKey(AnotacaoConsultoria, related_name="id_anotacao_consultoria_ConsultoriaAgronomo", on_delete=models.CASCADE)
-    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
-
-    class Meta:
-        verbose_name = "Consultoria do Agrônomo"
-        verbose_name_plural = "Consultorias do Agrônomo"
-        app_label = 'manager'
-
-    def __str__(self):
-        message = f'{self.agronomo.nome} {self.fazenda.nome}'
-        return message
+        return self.titulo

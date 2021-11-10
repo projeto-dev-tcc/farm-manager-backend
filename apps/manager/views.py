@@ -431,13 +431,6 @@ def remover_adubo(request, id_adubo):
 
 
 
-    # fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_FuncionarioFazenda", on_delete=models.CASCADE)
-    # funcionario = models.ForeignKey("usuarios.Usuario", related_name="id_funcionario_FuncionarioFazenda", on_delete=models.CASCADE)
-    # tipo = models.CharField(max_length=1, choices=TIPO_CHOICES, blank=False, null=False)
-    # data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
-
-
-
 # CONSULTORIA
 def registrar_consultoria(request, id_fazenda):
     form = ConsultoriaAgronomoForm()
@@ -491,8 +484,6 @@ def listar_consultorias(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
     consultorias = ConsultoriaAgronomo.objects.filter(fazenda__id = fazenda.id)
 
-    print(consultorias)
-    
     context = {
         'consultorias': consultorias,
         'messagem_screen': "Estão sendo carregados os funcionários da fazenda...",
@@ -503,10 +494,10 @@ def listar_consultorias(request, id_fazenda):
 
 def visualizar_consultoria(request, id_consultoria):
     consultoria = ConsultoriaAgronomo.objects.get(id=id_consultoria)
-    form = ConsultoriaAgronomoForm(instance=consultoria)
+    anotacoes = AnotacaoConsultoria.objects.filter(consultoria__id = consultoria.id)
     context = {
         'consultoria': consultoria,
-        'form': form
+        'anotacoes': anotacoes
     }
     
     return render(request, "manager/consultoria/visualizar_consultoria.html", context)
@@ -517,6 +508,60 @@ def remover_consultoria(request, id_consultoria):
     messages.success(request, f"A consultoria foi removida com sucesso no sistema!")
     return redirect("listar_consultorias", id_consultoria.fazenda.id)
 
+
+
+# ANOTAÇÃO
+def registrar_anotacao(request, id_consultoria):
+    form = AnotacaoConsultoriaForm()
+    consultoria = ConsultoriaAgronomo.objects.get(id = id_consultoria)
+    if request.method == "POST":
+        form = AnotacaoConsultoriaForm(request.POST)
+        if form.is_valid():
+            anotacao = form.save(commit=False)
+            anotacao.consultoria = consultoria
+            anotacao.save()
+            messages.success(request, f"A anotação foi registrada com sucesso no sistema!")
+            return redirect('listar_consultorias', id_consultoria)
+
+    context = {
+        'form': form,
+        'action': "Registrar",
+        'id_consultoria': id_consultoria
+    }
+    
+    return render(request, "manager/anotacao/registrar_anotacao.html", context)
+
+def editar_anotacao(request, id_anotacao):
+    anotacao = AnotacaoConsultoria.objects.get(id=id_anotacao)
+    form = AnotacaoConsultoriaForm(instance=anotacao)
+    if request.method == "POST":
+        form = AnotacaoConsultoriaForm(request.POST, instance=anotacao)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"A anotação foi modificada com sucesso no sistema!")
+            return redirect('visualizar_anotacao', id_anotacao)
+
+    context = {
+        "form": form,
+        "action": "Editar",
+        "anotacao": anotacao
+    }
+    
+    return render(request, "manager/anotacao/registrar_anotacao.html", context)
+
+def visualizar_anotacao(request, id_anotacao):
+    anotacao = AnotacaoConsultoria.objects.get(id=id_anotacao)
+    context = {
+        'anotacao': anotacao,
+    }
+    
+    return render(request, "manager/anotacao/visualizar_anotacao.html", context)
+
+def remover_anotacao(request, id_anotacao):
+    anotacao = AnotacaoConsultoria.objects.get(id=id_anotacao)
+    anotacao.delete()
+    messages.success(request, f"A anotação foi removida com sucesso no sistema!")
+    return redirect("visualizar_consultoria", anotacao.consultoria.id)
 
 
 # SERVIÇOS

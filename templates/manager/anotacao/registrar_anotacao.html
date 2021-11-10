@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block title %}
+    {{ action }} Anotações | Farm Manager
+{% endblock %}
+
+{% block content %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">{{ action }} Anotações</h1>
+
+    <!-- Nested Row within Card Body -->
+    <form class="user" method="POST">
+        {% csrf_token %}
+        {{form|bootstrap}}
+        <button class="btn bt-primary">
+            {{action}}
+        </button>
+        <a href="
+            {% if action == 'Registrar' %}
+                {% url 'visualizar_consultoria' id_consultoria %}
+            {% else %}
+                {% if anotacao %}
+                    {% url ''  %}
+                {% endif %}
+            {% endif %}
+        " class="btn bt-secondary">
+            Cancelar
+        </a>
+    </form> 
+{% endblock %}
+
+{% block javascript %}
+    <!-- Inicialização -->
+    <script>
+        $(document).ready(function(){
+            $(".form-control").attr("required", false);
+        });
+    </script>
+{% endblock %}

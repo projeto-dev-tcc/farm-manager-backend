@@ -31,6 +31,8 @@
         <!-- Importando função de carregamento -->
         <link rel="stylesheet" href="{% static 'css/HoldOn/holdon.min.css' %}">
 
+        <link rel="stylesheet" href="{% static 'css/datepicker/bootstrap-material-datetimepicker.css' %}">
+
         <!-- Import CSS Personalizado -->
         <link type="text/css" rel="stylesheet" href="{% static 'css/index.css' %}">
 
@@ -55,23 +57,10 @@
                 
                 <hr class="sidebar-divider my-0">
 
-                <!-- Nav Item - Dashboard -->
-                <li class="nav-item 
-                    {% if url_active %} 
-                        {% if url_active == '/' %}active{% endif %}
-                    {% endif %}
-                ">
-                    <a class="nav-link" href="/">
-                        <i class="fas fa-fw fa-home"></i>
-                        <span>Dashboard</span></a>
-                </li>
-
-                <hr class="sidebar-divider my-0">
-
                 <!-- Nav Item - Fazendas -->
                 <li class="nav-item 
                     {% if url_active %} 
-                        {% if url_active == 'fazenda' %}active{% endif %}
+                        {% if url_active == 'fazenda' or url_active == '/' %}active{% endif %}
                     {% endif %}">
                     <a class="nav-link" href="{% url 'listar_fazendas' %}">
                         <i class="fad fa-farm"></i>
@@ -237,6 +226,10 @@
         <!-- Importando função de carregamento -->
         <script src="{% static 'js/HoldOn/holdon.min.js' %}"></script>
 
+        <!-- Importando DatePicker -->
+        <script src="{% static 'js/datepicker/moment-with-locales.min.js' %}"></script>
+        <script src="{% static 'js/datepicker/bootstrap-material-datetimepicker.js' %}"></script>
+        
         <!-- Inicialização -->
         <script>
             $(document).ready(function(){

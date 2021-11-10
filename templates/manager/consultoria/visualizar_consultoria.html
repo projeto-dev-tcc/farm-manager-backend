@@ -11,8 +11,8 @@
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'listar_consultoria' %}">Consultorias</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'painel_consultorias' fazenda.id %}">{{consultoria.nome}}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas_consultoria' %}">Consultorias</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_consultorias' consultoria.fazenda.id %}">{{consultoria.fazenda.nome}}</a></li>
             <li class="breadcrumb-item active" aria-current="page">Visualizar</li>
         </ol>
     </nav>
@@ -24,9 +24,9 @@
 
     <!-- Nested Row within Card Body -->
     <div class="form-group">
-        <label class="control-label" for="id_nome">Nome</label>
+        <label class="control-label" for="id_data">Data</label>
         <div class="col-sm-6">
-            <input value="{{consultoria.nome}}" class="form-control" id="id_nome" disabled>
+            <input value="{{consultoria.data}}" class="form-control" id="id_data" disabled>
         </div>
     </div>
 
@@ -36,6 +36,42 @@
 
     <a href="#" data-toggle="modal" data-target="#remove_consultoria_modal" class="btn bt-red">
         Deletar
+    </a>
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800 pt-3">Anotações da Consultoria</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for anotacao in anotacoes %}
+                            <tr>
+                                <td><a href="{% url 'visualizar_anotacao' anotacao.id %}">{{anotacao.titulo}}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% if anotacoes.lenght > 5 %}
+                        <tfoot>
+                            <tr>
+                                <th>Título</th>
+                            </tr>
+                        </tfoot>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <a href="{% url 'registrar_anotacao' consultoria.id %}" class="btn bt-primary">
+        Registrar
     </a>
 
     <!-- Logout Modal-->
@@ -56,4 +92,18 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
 {% endblock %}

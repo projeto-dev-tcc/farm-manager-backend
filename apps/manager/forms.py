@@ -186,10 +186,15 @@ class ConsultoriaAgronomoForm(forms.ModelForm):
          
 class AnotacaoConsultoriaForm(forms.ModelForm):
         class Meta:
-            model = ConsultoriaAgronomo
+            model = AnotacaoConsultoria
             fields = ('__all__')
+            exclude = ['consultoria']
 
             error_messages = {
+                "titulo": {
+                    "required": "Por favor, insira um título para validar o registro!",
+                    "invalid": "Por favor, insira um título válida!",
+                },
                 "descricao": {
                     "required": "Por favor, insira uma descricao para validar o registro!",
                     "invalid": "Por favor, insira uma descricao válida!",
@@ -213,7 +218,7 @@ class AnotacaoConsultoriaForm(forms.ModelForm):
             }
             
             widgets = {
-                "data": forms.TextInput(attrs={'placeholder':'Insira a data...'}),
+                "titulo": forms.TextInput(attrs={'placeholder':'Insira o título...'}),
                 "descricao": forms.TextInput(attrs={'placeholder':'Insira a descricao...'}),
                 "litros_cova": forms.TextInput(attrs={'placeholder':'Insira os litros por Cova...'}),
                 "produtividade": forms.TextInput(attrs={'placeholder':'Insira a produtividade...'}),
@@ -221,7 +226,7 @@ class AnotacaoConsultoriaForm(forms.ModelForm):
             }
             
             labels = {
-                "data": 'Data: ',
+                "titulo": 'Título: ',
                 "descricao": 'Descricao: ',
                 "variedade": 'Variedade: ',
                 "litros_cova": 'Litros por Cova: ',

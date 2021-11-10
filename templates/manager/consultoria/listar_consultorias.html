@@ -11,7 +11,8 @@
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Consultorias</li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas_consultoria' %}">Consultorias</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{fazenda.nome}}</li>
         </ol>
     </nav>
 

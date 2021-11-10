@@ -41,16 +41,16 @@
 {% block javascript %}
     <!-- Importando DatePicker -->
     <script src="{% static 'js/datepicker/bootstrap-material-datetimepicker.js' %}"></script>
+    <script src="{% static 'js/datepicker/moment-with-locales.min.js' %}"></script>
 
     <!-- Inicialização -->
     <script>
         $(document).ready(function(){
-
-            $('#id_dataNascimento').bootstrapMaterialDatePicker({
+            /* $('#id_data').bootstrapMaterialDatePicker({
                 weekStart : 0, 
                 format: "DD/MM/YYYY",
                 time: false 
-            });
+            }); */
 
             $(".form-control").attr("required", false);
             
