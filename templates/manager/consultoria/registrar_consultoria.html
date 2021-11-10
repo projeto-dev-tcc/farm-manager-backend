@@ -15,7 +15,7 @@
     <!-- Nested Row within Card Body -->
     <form class="user" method="POST">
         {% csrf_token %}
-        {{form|bootstrap}}
+        {{form.data|bootstrap}}
         <button class="btn bt-primary">
             {{action}}
         </button>
@@ -33,12 +33,28 @@
     </form> 
 {% endblock %}
 
+{% block css %}
+    <!-- Import CSS datepicker -->
+    <link rel="stylesheet" href="{% static 'css/datepicker/bootstrap-material-datetimepicker.css' %}">
+{% endblock %}
+
 {% block javascript %}
+    <!-- Importando DatePicker -->
+    <script src="{% static 'js/datepicker/bootstrap-material-datetimepicker.js' %}"></script>
+
     <!-- Inicialização -->
     <script>
         $(document).ready(function(){
+
+            $('#id_dataNascimento').bootstrapMaterialDatePicker({
+                weekStart : 0, 
+                format: "DD/MM/YYYY",
+                time: false 
+            });
+
             $(".form-control").attr("required", false);
-            $('#id_data').mask('00/00/0000');
+            
+            //$('#id_data').mask('00/00/0000');
         });
     </script>
 {% endblock %}

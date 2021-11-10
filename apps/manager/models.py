@@ -270,4 +270,5 @@ class ConsultoriaAgronomo(models.Model):
         app_label = 'manager'
 
     def __str__(self):
-        return str(self.agronomo + self.fazenda)
+        message = f'{self.agronomo.nome} {self.fazenda.nome}'
+        return message

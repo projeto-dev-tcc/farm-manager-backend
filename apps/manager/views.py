@@ -490,6 +490,8 @@ def listar_fazendas_consultoria(request):
 def listar_consultorias(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
     consultorias = ConsultoriaAgronomo.objects.filter(fazenda__id = fazenda.id)
+
+    print(consultorias)
     
     context = {
         'consultorias': consultorias,

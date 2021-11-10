@@ -30,9 +30,9 @@
                     </thead>
                     <tbody>
                         {% for consultoria in consultorias %}
-                        <tr>
-                            <td><a href="{% url 'visualizar_consultoria' consultoria.id %}">{{consultoria.nome}}</a></td>
-                        </tr>
+                            <tr>
+                                <td><a href="{% url 'visualizar_consultoria' consultoria.id %}">{{consultoria.data|date:"M d, Y" }}</a></td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                     {% if consultoria.lenght > 5 %}

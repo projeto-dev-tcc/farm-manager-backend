@@ -95,7 +95,7 @@
                         {% if url_active == 'adubo' %}active{% endif %}
                     {% endif %}">
                     <a class="nav-link" href="{% url 'listar_adubos' %}">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <i class="fas fa-fw fa-feather-alt"></i>
                         <span>Adubos</span>
                     </a>
                 </li>
@@ -106,7 +106,7 @@
                             {% if url_active == 'consultoria' %}active{% endif %}
                         {% endif %}">
                         <a class="nav-link" href="{% url 'listar_fazendas_consultoria' %}">
-                            <i class="fas fa-fw fa-tachometer-alt"></i>
+                            <i class="far fa-clipboard"></i>
                             <span>Consultorias</span>
                         </a>
                     </li>
@@ -249,8 +249,6 @@
                 $('select').select2({
                     theme: 'bootstrap4',
                 });
-
-                
 
                 $(function () {
                     $('[data-toggle="tooltip"]').tooltip()
