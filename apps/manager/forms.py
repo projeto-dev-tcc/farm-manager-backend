@@ -219,15 +219,15 @@ class AnotacaoConsultoriaForm(forms.ModelForm):
             
             widgets = {
                 "titulo": forms.TextInput(attrs={'placeholder':'Insira o título...'}),
-                "descricao": forms.TextInput(attrs={'placeholder':'Insira a descricao...'}),
+                # "descricao": forms.TextInput(attrs={'placeholder':'Insira a descricao...'}),
                 "litros_cova": forms.TextInput(attrs={'placeholder':'Insira os litros por Cova...'}),
                 "produtividade": forms.TextInput(attrs={'placeholder':'Insira a produtividade...'}),
                 "produtividade_sacas_hectare": forms.TextInput(attrs={'placeholder':'Insira a produtividade de sacas por hectare...'}),
             }
-            
+
             labels = {
                 "titulo": 'Título: ',
-                "descricao": 'Descricao: ',
+                "descricao": 'Descrição: ',
                 "variedade": 'Variedade: ',
                 "litros_cova": 'Litros por Cova: ',
                 "produtividade": 'Produtividade: ',

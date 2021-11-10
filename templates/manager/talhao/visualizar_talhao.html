@@ -54,9 +54,10 @@
             <label class="control-label" for="id_numero_covas_hectare">Número de Covas por Hectare</label>
             <input value="{{talhao.numero_covas_hectare}}" class="form-control" id="id_numero_covas_hectare" disabled>
         </div>
+        
         <div class="form-group col-sm-6">
             <label class="control-label" for="id_variedade">Variedades</label>
-            <input value="{% for talo in talhao.variedade.all %}{% if not forloop.first %}, {% endif %}{{talo}}{% endfor %}" class="form-control" id="id_variedade" disabled>
+            <input value="{% if talhao.variedade.all %}{% for talho in talhao.variedade.all %}{% if not forloop.first %}, {% endif %}{{talho}}{% endfor %}{% else %}Não há variedades no momento!{% endif %}" class="form-control" id="id_variedade" disabled>
         </div>
     </div>
 

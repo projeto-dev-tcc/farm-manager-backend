@@ -57,6 +57,7 @@ urlpatterns = [
     path("consultoria/anotacao/registrar/<int:id_consultoria>/", registrar_anotacao, name="registrar_anotacao"),
     path("consultoria/anotacao/editar/<int:id_anotacao>/", editar_anotacao, name="editar_anotacao"),
     path("consultoria/anotacao/visualizar/<int:id_anotacao>/", visualizar_anotacao, name="visualizar_anotacao"),
+    path("consultoria/anotacao/listar/<int:id_consultoria>/", listar_anotacoes, name="listar_anotacoes"),
     path("consultoria/anotacao/remover/<int:id_anotacao>/", remover_anotacao, name="remover_anotacao"),
 
     # SERVIÇO

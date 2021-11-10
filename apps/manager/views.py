@@ -60,7 +60,7 @@ def painel_administrativo(request, id_fazenda):
     funcionarios = FuncionarioFazenda.objects.filter(fazenda__id = fazenda.id)
     tratores = Maquinario.objects.filter(fazenda__id = fazenda.id, tipo = 1)
     emplementos = Maquinario.objects.filter(fazenda__id = fazenda.id, tipo = 2)
-    servicos = Servico.objects.filter(fazenda__id = fazenda.id)
+    servicos = PrestacaoServico.objects.filter(talhao__fazenda__id = fazenda.id)
 
     context = {
         'fazenda': fazenda,
@@ -70,6 +70,7 @@ def painel_administrativo(request, id_fazenda):
         "emplementos": emplementos,
         "servicos": servicos,
     }
+
     return render(request, "manager/fazenda/painel_administrativo.html", context)
 
 def visualizar_fazenda(request, id_fazenda):
@@ -557,12 +558,23 @@ def visualizar_anotacao(request, id_anotacao):
     
     return render(request, "manager/anotacao/visualizar_anotacao.html", context)
 
+def listar_anotacoes(request, id_consultoria):
+    consultoria = ConsultoriaAgronomo.objects.get(id = id_consultoria)
+    anotacoes = AnotacaoConsultoria.objects.filter(consultoria__id = consultoria.id)
+
+    context = {
+        'anotacoes': anotacoes,
+        'consultoria': consultoria,
+        'messagem_screen': "Estão sendo carregados os funcionários da fazenda...",
+    }
+    
+    return render(request, "manager/anotacao/listar_anotacoes.html", context)
+
 def remover_anotacao(request, id_anotacao):
     anotacao = AnotacaoConsultoria.objects.get(id=id_anotacao)
     anotacao.delete()
     messages.success(request, f"A anotação foi removida com sucesso no sistema!")
     return redirect("visualizar_consultoria", anotacao.consultoria.id)
-
 
 # SERVIÇOS
 def listar_servicos(request, id_fazenda):

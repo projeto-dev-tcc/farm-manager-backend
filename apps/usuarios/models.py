@@ -65,9 +65,10 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Usuários"
 
     def get_short_name(self):
+        short_nome = self.nome.split()
         short_sobrenome = self.sobrenome.split()
         tam = len(short_sobrenome)
-        return str(self.nome + " " + short_sobrenome[tam-1])
+        return str(short_nome[0] + " " + short_sobrenome[tam-1])
 
     def get_full_name(self):
         return str(self.nome + " " + self.sobrenome)

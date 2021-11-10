@@ -194,12 +194,12 @@ class ConsultoriaAgronomo(models.Model):
 
 class AnotacaoConsultoria(models.Model):
     titulo = models.CharField("Título", max_length=100)
-    descricao = models.CharField("Descricao", max_length=340)
     consultoria = models.ForeignKey(ConsultoriaAgronomo, related_name="id_consultoria_AnotacaoConsultoria", on_delete=models.CASCADE)
     variedade = models.ManyToManyField(Variedade, related_name="id_variedade_AnotacaoConsultoria")
     litros_cova = models.FloatField("Litros por cova")
     produtividade = models.FloatField("Produtividade por pé")
     produtividade_sacas_hectare = models.FloatField("Produtividade em sacas por hectare")
+    descricao = models.TextField("Descricao", max_length=340)
     data_hora_registrado = models.DateTimeField("Horário registrado", auto_now_add=True)
 
     class Meta:

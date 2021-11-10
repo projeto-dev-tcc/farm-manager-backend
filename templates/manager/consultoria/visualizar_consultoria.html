@@ -13,13 +13,13 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'listar_fazendas_consultoria' %}">Consultorias</a></li>
             <li class="breadcrumb-item"><a href="{% url 'listar_consultorias' consultoria.fazenda.id %}">{{consultoria.fazenda.nome}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Visualizar</li>
+            <li class="breadcrumb-item active" aria-current="page">{{consultoria.data}}</li>
         </ol>
     </nav>
 
     <!-- Page Heading -->
     <div class="row">
-        <h1 class="h3 mb-4 text-gray-800">{{consultoria.nome}}</h1>
+        <h1 class="h3 mb-4 text-gray-800">{{consultoria.data}}</h1>
     </div>
 
     <!-- Nested Row within Card Body -->

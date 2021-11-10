@@ -24,7 +24,7 @@
                 {% url 'visualizar_consultoria' id_consultoria %}
             {% else %}
                 {% if anotacao %}
-                    {% url ''  %}
+                    {% url 'visualizar_consultoria' anotacao.consultoria.id  %}
                 {% endif %}
             {% endif %}
         " class="btn bt-secondary">

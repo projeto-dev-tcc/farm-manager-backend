@@ -22,10 +22,35 @@
     </div>
 
     <!-- Nested Row within Card Body -->
-    <div class="form-group">
-        <label class="control-label" for="id_titulo">Título</label>
-        <div class="col-sm-6">
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_titulo">Título: </label>
             <input value="{{anotacao.titulo}}" class="form-control" id="id_titulo" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_variedade">Variedades: </label>
+            <input value="{% if anotacao.variedade.all %}{% for anotacao in anotacao.variedade.all %}{% if not forloop.first %}, {% endif %}{{anotacao}}{% endfor %}{% else %}Não há variedades no momento!{% endif %}" class="form-control" id="id_variedade" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_litros_cova">Litros por Cova: </label>
+            <input value="{{anotacao.litros_cova}}" class="form-control" id="id_litros_cova" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_produtividade">Produtividade: </label>
+            <input value="{{anotacao.produtividade}}" class="form-control" id="id_produtividade" disabled>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="id_produtividade_sacas_hectare">Produtividade de Sacas por Hectare: </label>
+            <input value="{{anotacao.produtividade_sacas_hectare}}" class="form-control" id="id_produtividade_sacas_hectare" disabled>
+        </div>
+
+        <div class="form-group col-sm-12 mb-5">
+            <label class="control-label" for="id_descricao">Descrição: </label>
+            <span id="id_descricao" class="form-control h-100 text-justify pt-3 px-3 disabled">{{anotacao.descricao}}</span>
         </div>
     </div>
 
@@ -55,4 +80,12 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .disabled{
+            background-color: #EAECF4;
+        }
+    </style>
 {% endblock %}
