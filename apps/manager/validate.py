@@ -1,4 +1,4 @@
-from .models import Fazenda, Maquinario, Talhao, Variedade
+from .models import Adubo, Fazenda, Maquinario, Talhao, Variedade
 from django.core import serializers
 from django.http import HttpResponse
 def validate_variedade(nome):
@@ -75,6 +75,24 @@ def Ajax_cadastrar_talhao(request):
     listTalhoes = Talhao.objects.filter(fazenda = objFazenda)
 
     data = serializers.serialize('json', listTalhoes)
+    return HttpResponse(data, content_type="application/json")
+
+
+def Ajax_cadastrar_adubo(request):
+    nome = request.GET.get('nome', None)
+    print(nome)
+    print("entrei \n\n\n")
+    try:
+        objAdubo = Adubo()
+        objAdubo.nome = nome
+        objAdubo.save()
+        
+    except:
+        pass
+
+    listAdubo = Adubo.objects.all()
+
+    data = serializers.serialize('json', listAdubo)
     return HttpResponse(data, content_type="application/json")
 
 

@@ -101,7 +101,7 @@ class PrestacaoServico(models.Model):
     TIPO_SERVICO_CHOICE = [
         (1, "Plantio"),
         (2, "Fertilização"),
-        (3, "Preparação do Solo"),
+        (3, "Colheita"),
     ]
 
     STATUS_CHOICE = [
@@ -143,9 +143,7 @@ class Plantio(models.Model):
 class Fertilizacao(models.Model):
     prestacao_servico = models.ForeignKey(PrestacaoServico, on_delete=models.CASCADE, related_name="id_servico_Fertilizacao")
     adubo = models.ForeignKey(Adubo, on_delete=models.CASCADE, related_name="id_adubo_Fertilizacao")
-    data_inicio = models.DateField("Data de Inicio", auto_now = False)
-    data_termino = models.DateField("Data de Término", auto_now = False)
-    observacoes = models.TextField("Observações")
+    dosagem = models.FloatField("Quantidade")
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
     class Meta:

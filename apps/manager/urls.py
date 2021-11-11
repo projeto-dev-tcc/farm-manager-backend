@@ -47,6 +47,7 @@ urlpatterns = [
     path("adubo/visualizar/<int:id_adubo>/", visualizar_adubo, name="visualizar_adubo"),
     path("adubo/listar/", listar_adubos, name="listar_adubos"),
     path("adubo/remover/<int:id_adubo>/", remover_adubo, name="remover_adubo"),
+    path("adubo/registrar/ajax/", Ajax_cadastrar_adubo, name="Ajax_cadastrar_adubo"),
     
     # CONSULTORIA AGRONOMO
     path("consultoria/registrar/<int:id_fazenda>/", registrar_consultoria, name="registrar_consultoria"),
