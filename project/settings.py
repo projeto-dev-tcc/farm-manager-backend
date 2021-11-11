@@ -80,7 +80,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                'usuarios.views.base'
+                # LOCALIZAÇÃO VIEW BASE
+                'home.views.base'
             ],
             'libraries':{
                 'templatetag': 'usuarios.templatetags.usuario_extras',
