@@ -21,18 +21,17 @@
     <div class="row">
         <div class="col mr-2">
             <div class="text-xs font-weight-bold fs-6 mb-1">
-                <h1 class="h3 mb-4 text-gray-800">{{consultoria.data}}</h1>
+                <h1 class="h3 mb-4 text-gray-800">Anotações da Consultoria</h1>
             </div>
         </div>
         <div class="col-auto pe-3">
-            <a href="" class="icon-config">
-                <i class="fas fa-cog fa-2x"></i>
-            </a>
+            <div class="d-flex align-items-center">
+                <a href="" class="icon-config">
+                    <i class="fas fa-edit fs-4"></i>
+                </a>
+            </div>
         </div>
     </div>
-
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800 pt-3">Anotações da Consultoria</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -64,13 +63,22 @@
     </div>
 
     <a href="{% url 'registrar_anotacao' consultoria.id %}" class="btn bt-primary">
-        Registrar
+        Registrar Anotação
     </a>
 {% endblock %}
 
 {% block css %}
     <!-- Custom styles for this page -->
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+    <!-- <style>
+        .icon-config{
+            color: #c3c5ce;
+        }
+        .icon-config:hover{
+            color: #9d9da3;
+        }
+    </style> -->
 {% endblock %}
 
 {% block javascript %}
