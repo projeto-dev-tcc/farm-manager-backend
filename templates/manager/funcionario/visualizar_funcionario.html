@@ -13,8 +13,10 @@
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' funcionario.fazenda.id %}">{{funcionario.fazenda.nome}}</a></li>
             <li class="breadcrumb-item"><a href="{% url 'listar_funcionarios' funcionario.fazenda.id %}">Funcionários</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{funcionario.fazenda.nome}}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{funcionario.funcionario.nome}}</li>
         </ol>
     </nav>
 

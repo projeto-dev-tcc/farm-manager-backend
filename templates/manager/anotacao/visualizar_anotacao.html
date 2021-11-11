@@ -11,15 +11,15 @@
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'visualizar_consultoria' anotacao.consultoria.id %}">Anotações</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas_consultoria' %}">Consultorias</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_consultorias' anotacao.consultoria.fazenda.id %}">{{anotacao.consultoria.fazenda.nome}}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_anotacoes' anotacao.consultoria.id %}">{{anotacao.consultoria.data}}</a></li>
             <li class="breadcrumb-item active" aria-current="page">Visualizar</li>
         </ol>
     </nav>
 
     <!-- Page Heading -->
-    <div class="row">
-        <h1 class="h3 mb-4 text-gray-800">{{anotacao.titulo}}</h1>
-    </div>
+    <h1 class="h3 mb-4 text-gray-800">{{anotacao.titulo}}</h1>
 
     <!-- Nested Row within Card Body -->
     <div class="row">
