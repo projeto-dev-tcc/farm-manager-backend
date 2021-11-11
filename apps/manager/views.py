@@ -20,8 +20,9 @@ def registrar_fazenda(request):
             fazenda = form.save(commit=False)
             fazenda.proprietario = request.user
             fazenda.save()
-            messages.success(request, f"A fazenda {fazenda.nome} foi registrada com sucesso!")
+            messages.success(request, f"A fazenda foi registrada com sucesso!")
             return redirect('listar_fazendas')
+    
     context = {
         'form': form,
         'action': "Registrar"
@@ -35,7 +36,7 @@ def editar_fazenda(request, id_fazenda):
         form = FazendaForm(request.POST, instance=fazenda)
         if form.is_valid():
             form.save()
-            messages.success(request, f"A fazenda {fazenda.nome} foi alterada com sucesso!")
+            messages.success(request, f"A fazenda foi modificada com sucesso!")
             return redirect('visualizar_fazenda', id_fazenda=id_fazenda)
 
     context = {
@@ -83,8 +84,10 @@ def visualizar_fazenda(request, id_fazenda):
 def remover_fazenda(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
     fazenda.delete()
-    messages.success(request, f"A fazenda {fazenda.nome} foi removida com sucesso!")
+    messages.success(request, f"A fazenda foi removida com sucesso!")
     return redirect("listar_fazendas")
+
+
 
 # MAQUINÁRIO
 def registrar_maquinario(request, id_fazenda, id_tipo):
@@ -97,8 +100,9 @@ def registrar_maquinario(request, id_fazenda, id_tipo):
             maquinario.fazenda = fazenda
             maquinario.tipo = id_tipo
             maquinario.save()
-            messages.success(request, f"O maquinário {maquinario.marca} {maquinario.modelo} foi registrado com sucesso!")
+            messages.success(request, f"O maquinário foi registrado com sucesso!")
             return redirect('listar_maquinarios', fazenda.id, id_tipo)
+    
     context = {
         'form': form,
         'fazenda': fazenda,
@@ -114,7 +118,7 @@ def editar_maquinario(request, id_maquinario):
         form = MaquinarioForm(request.POST, instance=maquinario)
         if form.is_valid():
             form.save()
-            messages.success(request, f"O maquinário {maquinario.marca} {maquinario.modelo} foi modificado com sucesso!")
+            messages.success(request, f"O maquinário foi modificado com sucesso!")
             return redirect('visualizar_maquinario', id_maquinario = id_maquinario)
 
     context = {
@@ -150,10 +154,9 @@ def visualizar_maquinario(request, id_maquinario):
 def remover_maquinario(request, id_maquinario):
     maquinario = Maquinario.objects.get(id=id_maquinario)
     maquinario.delete()
-    messages.success(request, f"O maquinário {maquinario.marca} {maquinario.modelo} foi removido com sucesso!")
+    messages.success(request, f"O maquinário foi removido com sucesso!")
     
     return redirect("listar_maquinarios", maquinario.fazenda.id, maquinario.tipo)
-
 
 
 
@@ -167,7 +170,7 @@ def registrar_talhao(request, id_fazenda):
             talhao = form.save(commit=False)
             talhao.fazenda = fazenda
             talhao.save()
-            messages.success(request, f"O talhão {talhao.nome} foi registrado com sucesso!")
+            messages.success(request, f"O talhão foi registrado com sucesso!")
             return redirect('listar_talhoes', id_fazenda)
     context = {
         'form': form,
@@ -183,7 +186,7 @@ def editar_talhao(request, id_talhao):
         form = TalhaoForm(request.POST, instance=talhao)
         if form.is_valid():
             form.save()
-            messages.success(request, f"O talhão {talhao.nome} foi alterado com sucesso!")
+            messages.success(request, f"O talhão foi modificado com sucesso!")
             return redirect('visualizar_talhao', id_talhao=id_talhao)
 
     context = {
@@ -215,10 +218,9 @@ def visualizar_talhao(request, id_talhao):
 def remover_talhao(request, id_talhao):
     talhao = Talhao.objects.get(id=id_talhao)
     talhao.delete()
-    messages.success(request, f"O talhão {talhao.nome} foi removido com sucesso!")
+    messages.success(request, f"O talhão foi removido com sucesso!")
     
     return redirect("listar_talhoes", talhao.fazenda.id)
-
 
 
 
@@ -233,7 +235,7 @@ def registrar_variedade(request):
                 variedade = form.save(commit=False)
                 variedade.nome = nome
                 variedade.save()
-                messages.success(request, f"A variedade {variedade.nome} foi registrada com sucesso no sistema!")
+                messages.success(request, f"A variedade foi registrada com sucesso no sistema!")
                 return redirect('listar_variedades')
     context = {
         'form': form,
@@ -249,7 +251,7 @@ def editar_variedade(request, id_variedade):
         form = VariedadeForm(request.POST, instance=variedade)
         if form.is_valid():
             form.save()
-            messages.success(request, f"A variedade {variedade.nome} foi alterada com sucesso no sistema!")
+            messages.success(request, f"A variedade foi modificada com sucesso no sistema!")
             return redirect('visualizar_variedade', id_variedade)
     context = {
         "form": form,
@@ -282,7 +284,7 @@ def visualizar_variedade(request, id_variedade):
 def remover_variedade(request, id_variedade):
     variedade = Variedade.objects.get(id=id_variedade)
     variedade.delete()
-    messages.success(request, f"A variedade {variedade.nome} foi removida com sucesso no sistema!")
+    messages.success(request, f"A variedade foi removida com sucesso no sistema!")
     return redirect("listar_variedades")
 
 
@@ -301,7 +303,7 @@ def registrar_funcionario(request, id_fazenda):
                 usuario.is_agronomo = True
                 usuario.save()
             funcionario.save()
-            messages.success(request, f"O funcionário {funcionario.funcionario.nome} foi registrado com sucesso no sistema!")
+            messages.success(request, f"O funcionário foi registrado com sucesso no sistema!")
             return redirect('listar_funcionarios', id_fazenda)
 
     context = {
@@ -319,7 +321,7 @@ def editar_funcionario(request, id_funcionario_fazenda):
         form = FuncionarioFazendaForm(request.POST, instance=funcionario)
         if form.is_valid():
             form.save()
-            messages.success(request, f"O funcionário {funcionario.funcionario.nome} foi modificado com sucesso no sistema!")
+            messages.success(request, f"O funcionário foi modificado com sucesso no sistema!")
             return redirect('visualizar_funcionario', id_funcionario_fazenda)
     context = {
         "form": form,
@@ -361,7 +363,8 @@ def remover_funcionario(request, id_funcionario_fazenda):
                 funcionario.is_agronomo = False
                 funcionario.save()
     except:
-        messages.error(request,"Ocorreu uma falha ao buscar o funcionário!")
+        messages.error(request,"Ocorreu uma falha ao tentar remover o funcionário!")
+
     funcionario_fazenda.delete()
     messages.success(request, f"O funcionário {funcionario_fazenda.funcionario.nome} foi removido com sucesso no sistema!")
     return redirect("listar_funcionarios", funcionario_fazenda.fazenda.id)
@@ -391,8 +394,9 @@ def editar_adubo(request, id_adubo):
         form = AduboForm(request.POST, instance=adubo)
         if form.is_valid():
             form.save()
-            messages.success(request, f"O adubo {adubo.nome} foi alterado com sucesso no sistema!")
+            messages.success(request, f"O adubo foi modificado com sucesso no sistema!")
             return redirect('visualizar_adubo', id_adubo)
+    
     context = {
         "form": form,
         "action": "Editar",
@@ -424,7 +428,7 @@ def visualizar_adubo(request, id_adubo):
 def remover_adubo(request, id_adubo):
     adubo = Adubo.objects.get(id=id_adubo)
     adubo.delete()
-    messages.success(request, f"O adubo {adubo.nome} foi removido com sucesso no sistema!")
+    messages.success(request, f"O adubo foi removido com sucesso no sistema!")
     return redirect("listar_adubos")
 
 
