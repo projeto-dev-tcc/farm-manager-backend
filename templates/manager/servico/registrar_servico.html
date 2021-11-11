@@ -90,7 +90,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button value="{{fazenda.id}}"  id="id_cadastrarTalhao" class="btn btn-primary">Cadastrar</button>
+                        <button type="button" value="{{fazenda.id}}" data-dismiss="modal"  id="id_cadastrarTalhao" class="btn btn-primary">Cadastrar</button>
                     </div>
                 </div>
             </div>
@@ -143,12 +143,77 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button value="{{fazenda.id}}"  id="id_cadastrarMaquinario" class="btn btn-primary">Cadastrar</button>
+                        <button type="button" value="{{fazenda.id}}" data-dismiss="modal"  id="id_cadastrarMaquinario" class="btn btn-primary">Cadastrar</button>
                     </div>
                 </div>
             </div>
         </div>
         {{form.tipo|bootstrap}}
+        <div id="id_plantio">
+            <div class="form-group">
+                <label class="control-label" for="id_numero_covas">Quantidade de mudas: </label>
+                <input type="number" name="QuantidadePlantio" placeholder="Insira a quantidade de muda..." class=" form-control" id="id_quantidadePlantio">
+            </div>
+        </div>
+        <div id="id_fertilizacao">
+            <div class="row">
+                <div class="col-11">
+                    <div class="form-group">
+                        <label class="control-label" for="id_AduboFertilizacao">Adubo: </label>
+                        <div class=" ">
+                            <select name="id_AduboFertilizacao" class="form-control" id="id_AduboFertilizacao">
+                                <option disabled selected value="">Selecione um tipo de adubo</option>
+                                {%for adubo in listAdubo%}
+                                    <option value="{{adubo.id}}">{{adubo}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 mt-4">
+                    <a class="btn btn-sm" data-toggle="modal" data-target="#ModalAdubo"><i class="material-icons fs-3 text-green-15">add_circle_outline</i></a>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="ModalAdubo" tabindex="-1" aria-labelledby="ModalAduboLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ModalAduboLabel">Cadastrar adubo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="control-label" for="id_NomeAdubo">Nome do adubo: </label>
+                                    <div class=" ">
+                                        <input type="text" name="nome_adubo" placeholder="Insira o nome do adubo..."class=" form-control" id="id_NomeAdubo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" data-dismiss="modal" id="id_cadastrarAdubo" class="btn btn-primary">Cadastrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="id_DosagemFertilizacao">Dosagem por planta: </label>
+                <input type="number" step="0.01" name="DosagemFertilizacao" placeholder="Insira a quantidade de muda..." class=" form-control" id="id_DosagemFertilizacao">
+            </div>
+        </div>
+        <div id="id_colheita">
+            <div class="form-group">
+                <label class="control-label" for="id_TipoColheita">Tipo de colheita: </label>
+                <select name="tipoColheita" class="form-control" id="id_TipoColheita">
+                    <option disabled selected value="">Selecione um tipo de colheita</option>
+                    <option value="MQ">Máquina</option>
+                    <option value="MA">Mão</option>
+                </select>
+            </div>
+        </div>
         {{form.data_inicio|bootstrap}}
         {{form.data_termino|bootstrap}}
         {{form.observacoes|bootstrap}}
@@ -174,6 +239,14 @@
     <!-- Inicialização -->
     <script>
         $(document).ready(function(){
+            listIdHide = ["id_plantio","id_fertilizacao","id_colheita"]
+            // falta colocar required nos campos abertos
+            listIdrequired = ["id_plantio","id_fertilizacao","id_colheita"]
+            listRemoveIdrequired = ["id_plantio","id_fertilizacao","id_colheita"]
+
+            for (i=0; i<listIdHide.length; i++){
+                $("#"+listIdHide[i]).hide()
+            }
             $(".form-control").attr("required", false);
 
             $( "#id_cadastrarMaquinario" ).click(function() {
@@ -208,10 +281,10 @@
                         objMaquinario.append('<option selected="" value="">Selecione uma equipe</option>');
 
                         $.each(listMaquinario, function() {
-                            objMaquinario.append('<option value="'+this.pk+'">'+this.fields.nome+'</option>');
+                            objMaquinario.append('<option value="'+this.pk+'">'+this.fields.marca + this.fields.modelo+'</option>');
                         });
                         
-                        $("#id_intervalo").trigger("chosen:updated");
+                        objMaquinario.trigger("chosen:updated");
                         objMaquinario.select2();
                         
                         marca.val("")
@@ -222,7 +295,6 @@
                     }
                 });
             });
-
 
             $( "#id_cadastrarTalhao" ).click(function() {
                 var idFazenda = this.value
@@ -264,7 +336,7 @@
                             objTalhao.append('<option value="'+this.pk+'">'+this.fields.nome+'</option>');
                         });
                         
-                        $("#id_intervalo").trigger("chosen:updated");
+                        objTalhao.trigger("chosen:updated");
                         objTalhao.select2();
 
                         $("#id_idClinica").hide()
@@ -278,6 +350,55 @@
                         idVariedade.val("");
                     }
                 });
+            });
+
+            $( "#id_cadastrarAdubo" ).click(function() {
+                var nome = $("#id_NomeAdubo").val();
+                $.ajax({
+                    url: "{% url 'Ajax_cadastrar_adubo' %}",
+
+                    data: {
+                        "nome":nome,
+                    },
+
+                    dataType: 'json',
+
+                    success: function (listAdubo) {
+                        var objAdubo = $("#id_AduboFertilizacao");
+
+                        //Limpa combo de objAdubo
+                        objAdubo.empty();
+                        
+                        objAdubo.append('<option selected="" disabled value="">Selecione um tipo de adubo </option>');
+
+                        $.each(listAdubo, function() {
+                            objAdubo.append('<option value="'+this.pk+'">'+this.fields.nome+'</option>');
+                        });
+                        objAdubo.trigger("chosen:updated");
+                        objAdubo.select2();
+                        
+                        nome.val("")
+
+                    }
+                });
+            });
+
+            $( "#id_tipo" ).change(function() {
+                valor = $(this).val()
+                
+                for (i=0; i<listIdHide.length; i++){
+                    $("#"+listIdHide[i]).hide()
+                }
+
+                if(valor==1){
+                    $("#id_plantio").show()
+                }
+                else if (valor == 2){
+                    $("#id_fertilizacao").show()
+                }
+                else{
+                    $("#id_colheita").show()
+                }
             });
         });
     </script>

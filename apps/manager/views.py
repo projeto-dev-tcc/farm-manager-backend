@@ -591,6 +591,7 @@ def cadastrarServico(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
     form = PrestacaoServicoForm()
     listVariedade = Variedade.objects.all()
+    listAdubo = Adubo.objects.all()
     if request.method == "POST":
         form = PrestacaoServicoForm(request.POST)
         if form.is_valid():
@@ -610,6 +611,8 @@ def cadastrarServico(request, id_fazenda):
         'form':form,
         'action': "Registrar",
         'listVariedade':listVariedade,
+        'listAdubo':listAdubo,
     }
     
     return render(request, "manager/servico/registrar_servico.html", context)
+
