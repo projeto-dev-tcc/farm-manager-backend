@@ -14,7 +14,7 @@
             <li class="breadcrumb-item"><a href="{% url 'listar_fazendas_consultoria' %}">Consultorias</a></li>
             <li class="breadcrumb-item"><a href="{% url 'listar_consultorias' anotacao.consultoria.fazenda.id %}">{{anotacao.consultoria.fazenda.nome}}</a></li>
             <li class="breadcrumb-item"><a href="{% url 'listar_anotacoes' anotacao.consultoria.id %}">{{anotacao.consultoria.data}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Visualizar</li>
+            <li class="breadcrumb-item active" aria-current="page">{{anotacao.titulo}}</li>
         </ol>
     </nav>
 

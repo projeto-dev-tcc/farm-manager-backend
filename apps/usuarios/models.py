@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import Group
 
 class UsuarioManager(BaseUserManager):
     def create_user(self, email, nome, sobrenome, password=None, **kwargs):
@@ -18,14 +19,28 @@ class UsuarioManager(BaseUserManager):
             **kwargs
         )
 
-        usuario.is_active = True
-        usuario.is_staff = False
-        usuario.is_superuser = False
-        usuario.is_agronomo = False
-        if password:
-            usuario.set_password(password)
-        usuario.save()
-        return usuario
+        list_groups = ["Administrador", "Cliente"]
+
+        try:
+            grupos = Group.objects.get(name__in = list_groups)
+
+            usuario.is_active = True
+            usuario.is_staff = False
+            usuario.is_superuser = False
+            usuario.is_agronomo = False
+
+            if password:
+                usuario.set_password(password)
+            usuario.save()
+
+            if grupos:
+                usuario.groups.add(list_groups)
+            return usuario
+        except Group.DoesNotExist:
+            for grupo in list_groups:
+                Group.objects.get_or_create(name = grupo)
+
+            raise ValueError('Não continha grupos no sistema, portanto, foram registrados!')
 
     def create_superuser(self, email, nome, sobrenome, password, **kwargs):
         usuario = self.create_user(

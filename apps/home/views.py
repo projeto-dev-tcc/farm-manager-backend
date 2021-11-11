@@ -18,9 +18,7 @@ def base(request):
                     list_path.append(url)
                 
         url_active = "".join(list_path)
-        
-        print(f"\n{url_path}\n")
-        
+    
         date = datetime.datetime.now().date()
         context = {
             'year': date.year,
