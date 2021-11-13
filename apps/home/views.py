@@ -33,4 +33,4 @@ def index(request):
         'fazendas': fazendas,
     }
     
-    return render(request, "manager/fazenda/listar_fazendas.html", context)
+    return render(request, "home/index.html", context)
