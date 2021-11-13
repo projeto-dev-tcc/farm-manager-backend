@@ -19,28 +19,30 @@ class UsuarioManager(BaseUserManager):
             **kwargs
         )
 
-        list_groups = ["Administrador", "Cliente"]
+        # list_groups = ["Administrador", "Cliente"]
 
-        try:
-            grupos = Group.objects.get(name__in = list_groups)
+        # try:
+            # grupos = Group.objects.get(name__in = list_groups)
 
-            usuario.is_active = True
-            usuario.is_staff = False
-            usuario.is_superuser = False
-            usuario.is_agronomo = False
+        usuario.is_active = True
+        usuario.is_staff = False
+        usuario.is_superuser = False
+        usuario.is_agronomo = False
 
-            if password:
-                usuario.set_password(password)
-            usuario.save()
+        if password:
+            usuario.set_password(password)
+        usuario.save()
 
-            if grupos:
-                usuario.groups.add(list_groups)
-            return usuario
-        except Group.DoesNotExist:
-            for grupo in list_groups:
-                Group.objects.get_or_create(name = grupo)
+            # if grupos:
+            #     usuario.groups.add(list_groups)
+            
+        return usuario
+    
+        # except Group.DoesNotExist:
+        #     for grupo in list_groups:
+        #         Group.objects.get_or_create(name = grupo)
 
-            raise ValueError('Não continha grupos no sistema, portanto, foram registrados!')
+            # raise ValueError('Não continha grupos no sistema, portanto, foram registrados!')
 
     def create_superuser(self, email, nome, sobrenome, password, **kwargs):
         usuario = self.create_user(
