@@ -125,6 +125,25 @@
                 </div>
             </div>
         </div>
+
+        <!-- Consultorias -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold fs-6 text-danger text-uppercase mb-1">
+                                Consultorias
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{consultorias|length}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -211,6 +230,24 @@
                     styles are the only things modifying the look and feel of this default card example.
                     <div class="d-flex justify-content-end">
                         <a href="{% url 'listar_servicos' fazenda.id %}" class="btn btn-warning">
+                            Ver Mais
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <!-- Default Card Example -->
+            <div class="card shadow shadow-1 mb-4">
+                <div class="card-header font-weight-bold text-warning">
+                    Consultoria
+                </div>
+                <div class="card-body">
+                    This card uses Bootstrap's default styling with no utility classes added. Global
+                    styles are the only things modifying the look and feel of this default card example.
+                    <div class="d-flex justify-content-end">
+                        <a href="{% url 'visualizar_consultoria_fazenda' fazenda.id %}" class="btn btn-warning">
                             Ver Mais
                         </a>
                     </div>
