@@ -76,13 +76,24 @@ def painel_administrativo(request, id_fazenda):
 
     return render(request, "manager/fazenda/painel_administrativo.html", context)
 
-def visualizar_consultoria_fazenda(request, id_fazenda):
+def listar_consultoria_fazenda(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
     consultorias = ConsultoriaAgronomo.objects.filter(fazenda__id = fazenda.id)
 
     context = {
         'fazenda': fazenda,
         "consultorias": consultorias,
+    }
+
+    return render(request, "manager/fazenda/listar_consultoria_fazenda.html", context)
+
+def visualizar_consultoria_fazenda(request, id_consultoria):
+    consultoria = ConsultoriaAgronomo.objects.get(id = id_consultoria)
+    anotacoes = AnotacaoConsultoria.objects.filter(fazenda__id = consultoria.id)
+
+    context = {
+        "consultoria": consultoria,
+        "anotacoes": anotacoes,
     }
 
     return render(request, "manager/fazenda/visualizar_consultoria_fazenda.html", context)
@@ -94,7 +105,6 @@ def visualizar_fazenda(request, id_fazenda):
         'fazenda': fazenda,
     }
     return render(request, "manager/fazenda/visualizar_fazenda.html", context)
-
 
 def remover_fazenda(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
