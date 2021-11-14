@@ -26,3 +26,24 @@
     background-color: #9c9d9e;
     border-color: #86898b;
 }
+
+#pagina_inicial{
+    height: 78vh;
+    width: 78vw;
+    background: url(../img/wallpaper_home.svg);
+    background-size: cover;
+    position: relative;
+
+}
+
+#pagina_inicial #frase_entrada{
+    margin: 0;
+    font-family: "Times New Roman", Times, serif; 
+    font-weight: 600;
+    font-size: 210%;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    margin-right: -20%;
+    transform: translate(-50%, -50%)
+}
