@@ -62,6 +62,7 @@ def painel_administrativo(request, id_fazenda):
     tratores = Maquinario.objects.filter(fazenda__id = fazenda.id, tipo = 1)
     emplementos = Maquinario.objects.filter(fazenda__id = fazenda.id, tipo = 2)
     servicos = PrestacaoServico.objects.filter(talhao__fazenda__id = fazenda.id)
+    consultorias = ConsultoriaAgronomo.objects.filter(fazenda__id = fazenda.id)
 
     context = {
         'fazenda': fazenda,
@@ -70,9 +71,22 @@ def painel_administrativo(request, id_fazenda):
         "tratores": tratores,
         "emplementos": emplementos,
         "servicos": servicos,
+        "consultorias": consultorias
     }
 
     return render(request, "manager/fazenda/painel_administrativo.html", context)
+
+def visualizar_consultoria_fazenda(request, id_fazenda):
+    fazenda = Fazenda.objects.get(id=id_fazenda)
+    consultorias = ConsultoriaAgronomo.objects.filter(fazenda__id = fazenda.id)
+
+    context = {
+        'fazenda': fazenda,
+        "consultorias": consultorias,
+    }
+
+    return render(request, "manager/fazenda/visualizar_consultoria_fazenda.html", context)
+
 
 def visualizar_fazenda(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
@@ -80,6 +94,7 @@ def visualizar_fazenda(request, id_fazenda):
         'fazenda': fazenda,
     }
     return render(request, "manager/fazenda/visualizar_fazenda.html", context)
+
 
 def remover_fazenda(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
@@ -230,7 +245,7 @@ def registrar_variedade(request):
     if request.method == "POST":
         form = VariedadeForm(request.POST)
         nome = request.POST.get('nome', None)
-        if validate_variedade(nome):
+        if nome != "" and validate_variedade(nome):
             if form.is_valid():
                 variedade = form.save(commit=False)
                 variedade.nome = nome

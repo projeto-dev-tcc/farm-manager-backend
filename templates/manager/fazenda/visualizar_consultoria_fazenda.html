@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block title %}
+    Visualizar Consultoria | Farm Manager
+{% endblock %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas_consultoria' %}">Consultorias</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_consultorias' consultoria.fazenda.id %}">{{consultoria.fazenda.nome}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{consultoria.data}}</li>
+        </ol>
+    </nav>
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">{{consultoria.data}}</h1>
+
+    <!-- Nested Row within Card Body -->
+    <div class="form-group">
+        <label class="control-label" for="id_data">Data</label>
+        <div class="col-sm-6">
+            <input value="{{consultoria.data}}" class="form-control" id="id_data" disabled>
+        </div>
+    </div>
+
+    <a href="{% url 'editar_consultoria' consultoria.id %}" class="btn bt-blue">
+        Editar
+    </a>
+
+    <a href="#" data-toggle="modal" data-target="#remove_consultoria_modal" class="btn bt-red">
+        Deletar
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="remove_consultoria_modal" tabindex="-1" role="dialog" aria-labelledby="example_remove_consultoria_modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="example_remove_consultoria_modal">Realmente deseja deletar essa consultoria?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Selecione "Deletar" abaixo se você estiver pronto para deletar sua consultoria atual.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn bt-red" href="{% url 'remover_consultoria' consultoria.id %}">Deletar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+{% endblock %}
