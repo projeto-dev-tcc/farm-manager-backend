@@ -95,7 +95,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold fs-6 text-secondary text-uppercase mb-1">
-                                Emplementos
+                                Implementos
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{emplementos|length}}</div>
                         </div>
@@ -128,17 +128,17 @@
 
         <!-- Consultorias -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card border-left-danger shadow h-100 py-2 op">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold fs-6 text-danger text-uppercase mb-1">
+                            <div class="text-xs font-weight-bold fs-6 text-danger text-uppercase mb-1 op">
                                 Consultorias
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{consultorias|length}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                            <i class="far fa-clipboard fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                     base em relevo e planejamento de mecanização.
                     <div class="d-flex justify-content-end">
                         <a href="{% url 'listar_talhoes' fazenda.id %}" class="btn btn-success">
-                            <img src="{% static 'img/engrenagem.svg' %}" width="25">
+                            Gerenciar
                         </a>
                     </div>
                 </div>
@@ -168,15 +168,15 @@
         <div class="col-sm-6">
             <!-- Default Card Example -->
             <div class="card shadow shadow-1 mb-4">
-                <div class="card-header font-weight-bold text-success">
+                <div class="card-header font-weight-bold text-primary">
                     Funcionários
                 </div>
                 <div class="card-body">
                     Toda pessoa física que prestar serviços de natureza não eventual 
                     a empregador, sob a dependência deste e mediante salário.
                     <div class="d-flex justify-content-end">
-                        <a href="{% url 'listar_funcionarios' fazenda.id %}" class="btn btn-success">
-                            <img src="{% static 'img/engrenagem.svg' %}" width="25">
+                        <a href="{% url 'listar_funcionarios' fazenda.id %}" class="btn btn-primary">
+                            Gerenciar
                         </a>
                     </div>
                 </div>
@@ -186,15 +186,15 @@
         <div class="col-sm-6">
             <!-- Default Card Example -->
             <div class="card shadow shadow-1 mb-4">
-                <div class="card-header font-weight-bold text-success">
+                <div class="card-header font-weight-bold text-info">
                     Maquinario
                 </div>
                 <div class="card-body">
                     Os maquinarios agrícolas são máquinas autopropelidas projetadas para tracionar, transportar e
                     fornecer potência para máquinas e implementos agrícolas.
                     <div class="d-flex justify-content-end">
-                        <a href="{% url 'listar_maquinarios' fazenda.id 1 %}" class="btn btn-success">
-                            <img src="{% static 'img/engrenagem.svg' %}" width="25">
+                        <a href="{% url 'listar_maquinarios' fazenda.id 1 %}" class="btn btn-info">
+                            Gerenciar
                         </a>
                     </div>
                 </div>
@@ -204,7 +204,7 @@
         <div class="col-sm-6">
             <!-- Default Card Example -->
             <div class="card shadow shadow-1 mb-4">
-                <div class="card-header font-weight-bold text-success">
+                <div class="card-header font-weight-bold text-secondary">
                     Implementos
                 </div>
                 <div class="card-body">
@@ -212,8 +212,8 @@
                     a um sistema de tração desenvolvidos para ajudar a otimizar 
                     a atividade agrícola.
                     <div class="d-flex justify-content-end">
-                        <a href="{% url 'listar_maquinarios' fazenda.id 2 %}" class="btn btn-success">
-                            <img src="{% static 'img/engrenagem.svg' %}" width="25">
+                        <a href="{% url 'listar_maquinarios' fazenda.id 2 %}" class="btn btn-secondary">
+                            Gerenciar
                         </a>
                     </div>
                 </div>
@@ -223,15 +223,15 @@
         <div class="col-sm-6">
             <!-- Default Card Example -->
             <div class="card shadow shadow-1 mb-4">
-                <div class="card-header font-weight-bold text-success">
+                <div class="card-header font-weight-bold text-warning">
                     Serviços
                 </div>
                 <div class="card-body">
                     Servicos realizador no ambiente agricola por 
                     funcionarios ou colaboradores em prol do plantio e administração do ambiente.
                     <div class="d-flex justify-content-end">
-                        <a href="{% url 'listar_servicos' fazenda.id %}" class="btn btn-success">
-                            <img src="{% static 'img/engrenagem.svg' %}" width="25">
+                        <a href="{% url 'listar_servicos' fazenda.id %}" class="btn btn-warning">
+                            Gerenciar
                         </a>
                     </div>
                 </div>
@@ -241,15 +241,15 @@
         <div class="col-sm-6">
             <!-- Default Card Example -->
             <div class="card shadow shadow-1 mb-4">
-                <div class="card-header font-weight-bold text-success">
-                    Consultoria
+                <div class="card-header font-weight-bold text-danger op">
+                    Consultorias
                 </div>
                 <div class="card-body">
                     A consultoria agronômica baseia-se em um atendimento preferencial, 
                     técnico e profissional aos agricultores do Brasil
                     <div class="d-flex justify-content-end">
-                        <a href="{% url 'visualizar_consultoria_fazenda' fazenda.id %}" class="btn btn-success">
-                            <img src="{% static 'img/engrenagem.svg' %}" width="25">
+                        <a href="{% url 'listar_consultoria_fazenda' fazenda.id %}" class="btn btn-danger op">
+                            Gerenciar
                         </a>
                     </div>
                 </div>
@@ -265,6 +265,9 @@
         }
         .icon-config:hover{
             color: #9d9da3;
+        }
+        .op{
+            opacity: 0.9 !important;
         }
     </style>
 {% endblock %}
