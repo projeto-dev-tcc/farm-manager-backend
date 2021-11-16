@@ -89,14 +89,14 @@ def listar_consultoria_fazenda(request, id_fazenda):
 
 def visualizar_consultoria_fazenda(request, id_consultoria):
     consultoria = ConsultoriaAgronomo.objects.get(id = id_consultoria)
-    anotacoes = AnotacaoConsultoria.objects.filter(fazenda__id = consultoria.id)
+    anotacoes = AnotacaoConsultoria.objects.filter(consultoria__id = consultoria.id)
 
     context = {
         "consultoria": consultoria,
         "anotacoes": anotacoes,
     }
 
-    return render(request, "manager/fazenda/.html", context)
+    return render(request, "manager/fazenda/visualizar_consultoria_fazenda.html", context)
 
 
 def visualizar_fazenda(request, id_fazenda):
