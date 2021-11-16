@@ -191,7 +191,7 @@ class ConsultoriaAgronomo(models.Model):
 class AnotacaoConsultoria(models.Model):
     titulo = models.CharField("Título", max_length=100)
     consultoria = models.ForeignKey(ConsultoriaAgronomo, related_name="id_consultoria_AnotacaoConsultoria", on_delete=models.CASCADE)
-    variedade = models.ManyToManyField(Variedade, related_name="id_variedade_AnotacaoConsultoria")
+    variedade = models.ForeignKey(Variedade, related_name="id_variedade_AnotacaoConsultoria", on_delete=models.CASCADE)
     litros_cova = models.FloatField("Litros por cova")
     produtividade = models.FloatField("Produtividade por pé")
     produtividade_sacas_hectare = models.FloatField("Produtividade em sacas por hectare")

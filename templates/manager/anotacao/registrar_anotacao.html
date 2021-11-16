@@ -30,15 +30,14 @@
         " class="btn bt-secondary">
             Cancelar
         </a>
-    </form> 
+    </form>
 {% endblock %}
 
 {% block javascript %}
     <!-- Inicialização -->
     <script>
         $(document).ready(function(){
-            $(".form-control").attr("required", false);
-            $("#id_variedade").attr("required", true)
+            $(".form-control").attr("required", false); 
         });
     </script>
 {% endblock %}

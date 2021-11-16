@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-
 from apps import usuarios
 from .validate import validate_variedade
 from .models import *
@@ -7,11 +6,13 @@ from .forms import *
 from usuarios.validate import group_required
 from django.contrib import messages
 from usuarios.models import Usuario
+from django.contrib.auth.decorators import login_required
 
 GPAdmin = "Administrador"
 GPCliente = "Cliente"
 
 # FAZENDA
+@login_required
 def registrar_fazenda(request):
     form = FazendaForm()
     if request.method == "POST":
@@ -29,6 +30,7 @@ def registrar_fazenda(request):
     }
     return render(request, "manager/fazenda/registrar_fazenda.html", context)
 
+@login_required
 def editar_fazenda(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
     form = FazendaForm(instance=fazenda)
@@ -47,6 +49,7 @@ def editar_fazenda(request, id_fazenda):
     
     return render(request, "manager/fazenda/registrar_fazenda.html", context)
 
+@login_required
 def listar_fazendas(request):
     fazendas = Fazenda.objects.filter(proprietario__id=request.user.id)
     context = {
@@ -55,6 +58,7 @@ def listar_fazendas(request):
     
     return render(request, "manager/fazenda/listar_fazendas.html", context)
 
+@login_required
 def painel_administrativo(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
     talhoes = Talhao.objects.filter(fazenda__id = fazenda.id)
@@ -76,6 +80,7 @@ def painel_administrativo(request, id_fazenda):
 
     return render(request, "manager/fazenda/painel_administrativo.html", context)
 
+@login_required
 def listar_consultoria_fazenda(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
     consultorias = ConsultoriaAgronomo.objects.filter(fazenda__id = fazenda.id)
@@ -87,6 +92,7 @@ def listar_consultoria_fazenda(request, id_fazenda):
 
     return render(request, "manager/fazenda/listar_consultoria_fazenda.html", context)
 
+@login_required
 def visualizar_consultoria_fazenda(request, id_consultoria):
     consultoria = ConsultoriaAgronomo.objects.get(id = id_consultoria)
     anotacoes = AnotacaoConsultoria.objects.filter(consultoria__id = consultoria.id)
@@ -98,6 +104,7 @@ def visualizar_consultoria_fazenda(request, id_consultoria):
 
     return render(request, "manager/fazenda/visualizar_consultoria_fazenda.html", context)
 
+@login_required
 def visualizar_fazenda(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
     context = {
@@ -105,6 +112,7 @@ def visualizar_fazenda(request, id_fazenda):
     }
     return render(request, "manager/fazenda/visualizar_fazenda.html", context)
 
+@login_required
 def remover_fazenda(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
     fazenda.delete()
@@ -114,6 +122,7 @@ def remover_fazenda(request, id_fazenda):
 
 
 # MAQUINÁRIO
+@login_required
 def registrar_maquinario(request, id_fazenda, id_tipo):
     fazenda = Fazenda.objects.get(id = id_fazenda)
     form = MaquinarioForm()
@@ -135,6 +144,7 @@ def registrar_maquinario(request, id_fazenda, id_tipo):
     }
     return render(request, "manager/maquinario/registrar_maquinario.html", context)
 
+@login_required
 def editar_maquinario(request, id_maquinario):
     maquinario = Maquinario.objects.get(id=id_maquinario)
     form = MaquinarioForm(instance=maquinario)
@@ -153,6 +163,7 @@ def editar_maquinario(request, id_maquinario):
     
     return render(request, "manager/maquinario/registrar_maquinario.html", context)
 
+@login_required
 def listar_maquinarios(request, id_fazenda, id_tipo):
     fazenda = Fazenda.objects.get(id = id_fazenda)
     maquinarios = Maquinario.objects.filter(fazenda__id=id_fazenda, tipo=id_tipo)
@@ -165,6 +176,7 @@ def listar_maquinarios(request, id_fazenda, id_tipo):
     
     return render(request, "manager/maquinario/listar_maquinarios.html", context)
 
+@login_required
 def visualizar_maquinario(request, id_maquinario):
     maquinario = Maquinario.objects.get(id=id_maquinario)
     form = MaquinarioForm(instance=maquinario)
@@ -175,6 +187,7 @@ def visualizar_maquinario(request, id_maquinario):
     
     return render(request, "manager/maquinario/visualizar_maquinario.html", context)
 
+@login_required
 def remover_maquinario(request, id_maquinario):
     maquinario = Maquinario.objects.get(id=id_maquinario)
     maquinario.delete()
@@ -185,6 +198,7 @@ def remover_maquinario(request, id_maquinario):
 
 
 # TALHÃO
+@login_required
 def registrar_talhao(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
     form = TalhaoForm()
@@ -194,6 +208,10 @@ def registrar_talhao(request, id_fazenda):
             talhao = form.save(commit=False)
             talhao.fazenda = fazenda
             talhao.save()
+
+            # salvar many to many
+            form.save_m2m()
+
             messages.success(request, f"O talhão foi registrado com sucesso!")
             return redirect('listar_talhoes', id_fazenda)
     context = {
@@ -203,6 +221,7 @@ def registrar_talhao(request, id_fazenda):
     }
     return render(request, "manager/talhao/registrar_talhao.html", context)
 
+@login_required
 def editar_talhao(request, id_talhao):
     talhao = Talhao.objects.get(id=id_talhao)
     form = TalhaoForm(instance=talhao)
@@ -221,6 +240,7 @@ def editar_talhao(request, id_talhao):
     
     return render(request, "manager/talhao/registrar_talhao.html", context)
 
+@login_required
 def listar_talhoes(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
     talhoes = Talhao.objects.filter(fazenda__id=id_fazenda)
@@ -232,6 +252,7 @@ def listar_talhoes(request, id_fazenda):
     
     return render(request, "manager/talhao/listar_talhoes.html", context)
 
+@login_required
 def visualizar_talhao(request, id_talhao):
     talhao = Talhao.objects.get(id=id_talhao)
     context = {
@@ -239,6 +260,7 @@ def visualizar_talhao(request, id_talhao):
     }
     return render(request, "manager/talhao/visualizar_talhao.html", context)
 
+@login_required
 def remover_talhao(request, id_talhao):
     talhao = Talhao.objects.get(id=id_talhao)
     talhao.delete()
@@ -249,6 +271,7 @@ def remover_talhao(request, id_talhao):
 
 
 # VARIEDADE
+@login_required
 def registrar_variedade(request):
     form = VariedadeForm()
     if request.method == "POST":
@@ -267,6 +290,7 @@ def registrar_variedade(request):
     }
     return render(request, "manager/variedade/registrar_variedade.html", context)
 
+@login_required
 @group_required(GPAdmin)
 def editar_variedade(request, id_variedade):
     variedade = Variedade.objects.get(id=id_variedade)
@@ -285,6 +309,7 @@ def editar_variedade(request, id_variedade):
     
     return render(request, "manager/variedade/registrar_variedade.html", context)
 
+@login_required
 def listar_variedades(request):
     variedades = Variedade.objects.all()
     
@@ -295,6 +320,7 @@ def listar_variedades(request):
     
     return render(request, "manager/variedade/listar_variedades.html", context)
 
+@login_required
 def visualizar_variedade(request, id_variedade):
     variedade = Variedade.objects.get(id=id_variedade)
     form = VariedadeForm(instance=variedade)
@@ -305,6 +331,7 @@ def visualizar_variedade(request, id_variedade):
     
     return render(request, "manager/variedade/visualizar_variedade.html", context)
 
+@login_required
 def remover_variedade(request, id_variedade):
     variedade = Variedade.objects.get(id=id_variedade)
     variedade.delete()
@@ -314,6 +341,7 @@ def remover_variedade(request, id_variedade):
 
 
 # FUNCIONÁRIO FAZENDA
+@login_required
 def registrar_funcionario(request, id_fazenda):
     form = FuncionarioFazendaForm()
     fazenda = Fazenda.objects.get(id = id_fazenda)
@@ -338,6 +366,7 @@ def registrar_funcionario(request, id_fazenda):
     
     return render(request, "manager/funcionario/registrar_funcionario.html", context)
 
+@login_required
 def editar_funcionario(request, id_funcionario_fazenda):
     funcionario = FuncionarioFazenda.objects.get(id=id_funcionario_fazenda)
     form = FuncionarioFazendaForm(instance=funcionario)
@@ -355,6 +384,7 @@ def editar_funcionario(request, id_funcionario_fazenda):
     
     return render(request, "manager/funcionario/registrar_funcionario.html", context)
 
+@login_required
 def listar_funcionarios(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
     funcionarios = FuncionarioFazenda.objects.filter(fazenda__id = fazenda.id)
@@ -367,6 +397,7 @@ def listar_funcionarios(request, id_fazenda):
     
     return render(request, "manager/funcionario/listar_funcionarios.html", context)
 
+@login_required
 def visualizar_funcionario(request, id_funcionario_fazenda):
     funcionario = FuncionarioFazenda.objects.get(id=id_funcionario_fazenda)
     form = FuncionarioFazendaForm(instance=funcionario)
@@ -377,6 +408,7 @@ def visualizar_funcionario(request, id_funcionario_fazenda):
     
     return render(request, "manager/funcionario/visualizar_funcionario.html", context)
 
+@login_required
 def remover_funcionario(request, id_funcionario_fazenda):
     funcionario_fazenda = FuncionarioFazenda.objects.get(id=id_funcionario_fazenda)
     try:
@@ -396,6 +428,7 @@ def remover_funcionario(request, id_funcionario_fazenda):
 
 
 # ADUBO
+@login_required
 def registrar_adubo(request):
     form = AduboForm()
     if request.method == "POST":
@@ -410,6 +443,7 @@ def registrar_adubo(request):
     }
     return render(request, "manager/adubo/registrar_adubo.html", context)
 
+@login_required
 @group_required(GPAdmin)
 def editar_adubo(request, id_adubo):
     adubo = Adubo.objects.get(id=id_adubo)
@@ -429,6 +463,7 @@ def editar_adubo(request, id_adubo):
     
     return render(request, "manager/adubo/registrar_adubo.html", context)
 
+@login_required
 def listar_adubos(request):
     adubos = Adubo.objects.all()
     
@@ -439,6 +474,7 @@ def listar_adubos(request):
     
     return render(request, "manager/adubo/listar_adubos.html", context)
 
+@login_required
 def visualizar_adubo(request, id_adubo):
     adubo = Adubo.objects.get(id=id_adubo)
     form = AduboForm(instance=adubo)
@@ -449,6 +485,7 @@ def visualizar_adubo(request, id_adubo):
     
     return render(request, "manager/adubo/visualizar_adubo.html", context)
 
+@login_required
 def remover_adubo(request, id_adubo):
     adubo = Adubo.objects.get(id=id_adubo)
     adubo.delete()
@@ -458,6 +495,7 @@ def remover_adubo(request, id_adubo):
 
 
 # CONSULTORIA
+@login_required
 def registrar_consultoria(request, id_fazenda):
     form = ConsultoriaAgronomoForm()
     fazenda = Fazenda.objects.get(id = id_fazenda)
@@ -468,6 +506,10 @@ def registrar_consultoria(request, id_fazenda):
             consultoria.fazenda = fazenda
             consultoria.agronomo = request.user
             consultoria.save()
+
+            # salvar many to many
+            form.save_m2m()
+
             messages.success(request, f"A consultoria foi registrada com sucesso no sistema!")
             return redirect('listar_consultorias', id_fazenda)
 
@@ -479,6 +521,7 @@ def registrar_consultoria(request, id_fazenda):
     
     return render(request, "manager/consultoria/registrar_consultoria.html", context)
 
+@login_required
 def editar_consultoria(request, id_consultoria):
     consultoria = ConsultoriaAgronomo.objects.get(id=id_consultoria)
     form = ConsultoriaAgronomoForm(instance=consultoria)
@@ -496,6 +539,7 @@ def editar_consultoria(request, id_consultoria):
     
     return render(request, "manager/consultoria/registrar_consultoria.html", context)
 
+@login_required
 def listar_fazendas_consultoria(request):
     funcionario_fazenda = FuncionarioFazenda.objects.filter(funcionario = request.user)
     id_funcionario_fazenda = [ obj.fazenda.id for obj in funcionario_fazenda ]
@@ -506,6 +550,7 @@ def listar_fazendas_consultoria(request):
 
     return render(request, "manager/consultoria/listar_fazendas_consultoria.html", context)
 
+@login_required
 def listar_consultorias(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
     consultorias = ConsultoriaAgronomo.objects.filter(fazenda__id = fazenda.id)
@@ -518,6 +563,7 @@ def listar_consultorias(request, id_fazenda):
     
     return render(request, "manager/consultoria/listar_consultorias.html", context)
 
+@login_required
 def visualizar_consultoria(request, id_consultoria):
     consultoria = ConsultoriaAgronomo.objects.get(id=id_consultoria)
     anotacoes = AnotacaoConsultoria.objects.filter(consultoria__id = consultoria.id)
@@ -528,15 +574,17 @@ def visualizar_consultoria(request, id_consultoria):
     
     return render(request, "manager/consultoria/visualizar_consultoria.html", context)
 
+@login_required
 def remover_consultoria(request, id_consultoria):
     consultoria = ConsultoriaAgronomo.objects.get(id=id_consultoria)
     consultoria.delete()
     messages.success(request, f"A consultoria foi removida com sucesso no sistema!")
-    return redirect("listar_consultorias", id_consultoria.fazenda.id)
+    return redirect("listar_consultorias", consultoria.fazenda.id)
 
 
 
 # ANOTAÇÃO
+@login_required
 def registrar_anotacao(request, id_consultoria):
     form = AnotacaoConsultoriaForm()
     consultoria = ConsultoriaAgronomo.objects.get(id = id_consultoria)
@@ -546,8 +594,9 @@ def registrar_anotacao(request, id_consultoria):
             anotacao = form.save(commit=False)
             anotacao.consultoria = consultoria
             anotacao.save()
+
             messages.success(request, f"A anotação foi registrada com sucesso no sistema!")
-            return redirect('listar_consultorias', id_consultoria)
+            return redirect('listar_anotacoes', consultoria.id)
 
     context = {
         'form': form,
@@ -557,6 +606,7 @@ def registrar_anotacao(request, id_consultoria):
     
     return render(request, "manager/anotacao/registrar_anotacao.html", context)
 
+@login_required
 def editar_anotacao(request, id_anotacao):
     anotacao = AnotacaoConsultoria.objects.get(id=id_anotacao)
     form = AnotacaoConsultoriaForm(instance=anotacao)
@@ -575,6 +625,7 @@ def editar_anotacao(request, id_anotacao):
     
     return render(request, "manager/anotacao/registrar_anotacao.html", context)
 
+@login_required
 def visualizar_anotacao(request, id_anotacao):
     anotacao = AnotacaoConsultoria.objects.get(id=id_anotacao)
     context = {
@@ -583,6 +634,7 @@ def visualizar_anotacao(request, id_anotacao):
     
     return render(request, "manager/anotacao/visualizar_anotacao.html", context)
 
+@login_required
 def listar_anotacoes(request, id_consultoria):
     consultoria = ConsultoriaAgronomo.objects.get(id = id_consultoria)
     anotacoes = AnotacaoConsultoria.objects.filter(consultoria__id = consultoria.id)
@@ -595,13 +647,17 @@ def listar_anotacoes(request, id_consultoria):
     
     return render(request, "manager/anotacao/listar_anotacoes.html", context)
 
+@login_required
 def remover_anotacao(request, id_anotacao):
     anotacao = AnotacaoConsultoria.objects.get(id=id_anotacao)
     anotacao.delete()
     messages.success(request, f"A anotação foi removida com sucesso no sistema!")
-    return redirect("visualizar_consultoria", anotacao.consultoria.id)
+    return redirect("listar_anotacoes", anotacao.consultoria.id)
+
+
 
 # SERVIÇOS
+@login_required
 def listar_servicos(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
     listServicos = PrestacaoServico.objects.filter(talhao__fazenda__id=id_fazenda).order_by("status")
@@ -614,7 +670,7 @@ def listar_servicos(request, id_fazenda):
     
     return render(request, "manager/servico/listar_servicos.html", context)
 
-
+@login_required
 def cadastrarServico(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
     form = PrestacaoServicoForm()

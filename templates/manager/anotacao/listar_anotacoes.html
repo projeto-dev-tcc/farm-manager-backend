@@ -27,7 +27,7 @@
         <div class="col-auto pe-3">
             <div class="d-flex align-items-center">
                 <a href="{% url 'visualizar_consultoria' consultoria.id %}" class="icon-config">
-                    <i class="material-icons fs-3">info</i>
+                    <i class="fas fa-info-circle fa-2x"></i>
                 </a>
             </div>
         </div>
@@ -71,14 +71,14 @@
     <!-- Custom styles for this page -->
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
 
-    <!-- <style>
+    <style>
         .icon-config{
             color: #c3c5ce;
         }
         .icon-config:hover{
             color: #9d9da3;
         }
-    </style> -->
+    </style>
 {% endblock %}
 
 {% block javascript %}

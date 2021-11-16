@@ -30,14 +30,10 @@
 
     <div class="row">
         {% for anotacao in anotacoes %}
-        <div class="form-group col-sm-12">
-            <h2 class="">{{anotacao.titulo}}</h2>
+            <div class="form-group col-sm-12">
+                <hr>
+                <h4 class="text-center">{{anotacao.titulo}}</h4>
             </div>
-            <!-- <div class="form-group col-sm-6">
-                <label class="control-label" for="id_titulo">Título</label>
-                <input value="" class="form-control" id="id_titulo" disabled>
-            </div> -->
-
             <div class="form-group col-sm-6">
                 <label class="control-label" for="id_variedade">Variedade</label>
                 <input value="{% if anotacao.variedade.all %}{% for talho in anotacao.variedade.all %}{% if not forloop.first %}, {% endif %}{{talho}}{% endfor %}{% else %}Não há variedades no momento!{% endif %}" class="form-control" id="id_variedade" disabled>
