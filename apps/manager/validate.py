@@ -80,8 +80,6 @@ def Ajax_cadastrar_talhao(request):
 
 def Ajax_cadastrar_adubo(request):
     nome = request.GET.get('nome', None)
-    print(nome)
-    print("entrei \n\n\n")
     try:
         objAdubo = Adubo()
         objAdubo.nome = nome

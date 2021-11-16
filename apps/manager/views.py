@@ -98,7 +98,6 @@ def visualizar_consultoria_fazenda(request, id_consultoria):
 
     return render(request, "manager/fazenda/visualizar_consultoria_fazenda.html", context)
 
-
 def visualizar_fazenda(request, id_fazenda):
     fazenda = Fazenda.objects.get(id=id_fazenda)
     context = {

@@ -5,7 +5,7 @@
 {% load bootstrap %}
 
 {% block title %}
-    Listar Serviços | Farm Manager
+Listar Serviços | Farm Manager
 {% endblock %}
 
 {% block content %}
@@ -14,22 +14,54 @@
             <li class="breadcrumb-item active" aria-current="page">Serviços</li>
         </ol>
     </nav>
+
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Listagem de Serviços</h1>
 
-    {% for servico in listServicos %}
-        {{servico.talhao}}
-        {{servico.get_status_display}}
-        <a href="rl ditar_funcionario' funcionario.id %}" class="btn bt-blue">
-            Mais informações
-        </a>
-        <br>
-    {% endfor %}
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for servico in listServicos %}
+                            <tr>
+                                <td><a href="rl ditar_funcionario' funcionario.id %}">{{servico.talhao}} - {{servico.get_status_display}}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% if listServicos.lenght > 5 %}
+                        <tfoot>
+                            <tr>
+                                <th>Nome</th>
+                            </tr>
+                        </tfoot>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
 
-
-
-
-    <a href="{% url 'cadastrarServico' fazenda.id %}" class="btn bt-blue">
-        Novo Serviço
+    <a href="{% url 'cadastrarServico' fazenda.id %}" class="btn bt-primary">
+        Registrar Serviço
     </a>
+{% endblock %}
+
+{% block css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
 {% endblock %}

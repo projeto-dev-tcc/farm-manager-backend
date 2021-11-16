@@ -272,7 +272,6 @@
                     dataType: 'json',
 
                     success: function (listMaquinario) {
-                        alert("sucesso!!")
                         var objMaquinario = $("#id_maquinario");
 
                         //Limpa combo de objMaquinario
@@ -306,9 +305,9 @@
                 var area = $("#id_area").val();
                 var numeroCovasHectare = $("#id_numero_covas_hectare").val();
                 var idVariedade = $("#id_variedade").val();
+
                 $.ajax({
                     url: "{% url 'Ajax_cadastrar_talhao' %}",
-
                     data: {
                         "idFazenda":idFazenda,
                         "nome":nome,
@@ -324,7 +323,6 @@
                     dataType: 'json',
 
                     success: function (listTalhao) {
-                        alert("sucesso!!")
                         var objTalhao = $("#id_talhao");
 
                         //Limpa combo de objTalhao
