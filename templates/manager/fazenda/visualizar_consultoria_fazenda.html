@@ -13,6 +13,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
             <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' consultoria.fazenda.id %}">{{consultoria.fazenda.nome}}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_consultoria_fazenda' consultoria.fazenda.id %}">Consultorias</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{consultoria.data}}</li>
         </ol>
     </nav>
@@ -28,38 +29,46 @@
         </div>
     </div>
 
-    <div class="row">
-        {% for anotacao in anotacoes %}
-            <div class="form-group col-sm-12">
-                <hr>
-                <h4 class="text-center">{{anotacao.titulo}}</h4>
-            </div>
-            <div class="form-group col-sm-6">
-                <label class="control-label" for="id_variedade">Variedade</label>
-                <input value="{% if anotacao.variedade.all %}{% for talho in anotacao.variedade.all %}{% if not forloop.first %}, {% endif %}{{talho}}{% endfor %}{% else %}Não há variedades no momento!{% endif %}" class="form-control" id="id_variedade" disabled>
-            </div>
+    {% if anotacoes %}
+        <div class="row">
+            {% for anotacao in anotacoes %}
+                <div class="form-group col-sm-12">
+                    <hr>
+                    <h4 class="text-center">{{anotacao.titulo}}</h4>
+                </div>
+                
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="id_variedade">Variedade</label>
+                    <input value="{{anotacao.variedade.nome}}" class="form-control" id="id_variedade" disabled>
+                </div>
 
-            <div class="form-group col-sm-6">
-                <label class="control-label" for="id_litros_cova">Litros por Cova</label>
-                <input value="{{anotacao.litros_cova}}" class="form-control" id="id_litros_cova" disabled>
-            </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="id_litros_cova">Litros por Cova</label>
+                    <input value="{{anotacao.litros_cova}}" class="form-control" id="id_litros_cova" disabled>
+                </div>
 
-            <div class="form-group col-sm-6">
-                <label class="control-label" for="id_produtividade">Produtividade</label>
-                <input value="{{anotacao.produtividade}}" class="form-control" id="id_produtividade" disabled>
-            </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="id_produtividade">Produtividade</label>
+                    <input value="{{anotacao.produtividade}}" class="form-control" id="id_produtividade" disabled>
+                </div>
 
-            <div class="form-group col-sm-6">
-                <label class="control-label" for="id_produtividade_sacas_hectare">Produtividade de Sacas por Hectare</label>
-                <input value="{{anotacao.produtividade_sacas_hectare}}" class="form-control" id="id_produtividade_sacas_hectare" disabled>
-            </div>
-            
-            <div class="form-group col-sm-12 mb-5">
-                <label class="control-label" for="id_descricao">Descrição: </label>
-                <span id="id_descricao" class="form-control h-100 text-justify pt-3 px-3 disabled">{{anotacao.descricao}}</span>
-            </div>
-        {% endfor %}
-    </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="id_produtividade_sacas_hectare">Produtividade de Sacas por Hectare</label>
+                    <input value="{{anotacao.produtividade_sacas_hectare}}" class="form-control" id="id_produtividade_sacas_hectare" disabled>
+                </div>
+                
+                <div class="form-group col-sm-12 mb-5">
+                    <label class="control-label" for="id_descricao">Descrição: </label>
+                    <span id="id_descricao" class="form-control h-100 text-justify pt-3 px-3 disabled">{{anotacao.descricao}}</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="form-group col-sm-12 mt-5">
+            <h5 class="text-center text-secondary mt-5">Atualmente não existem anotações registradas!</h5>
+        </div>
+    {% endif %}
+    
 {% endblock %}
 
 {% block css %}

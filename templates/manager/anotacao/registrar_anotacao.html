@@ -21,10 +21,10 @@
         </button>
         <a href="
             {% if action == 'Registrar' %}
-                {% url 'visualizar_consultoria' id_consultoria %}
+                {% url 'listar_anotacoes' consultoria.id %}
             {% else %}
                 {% if anotacao %}
-                    {% url 'visualizar_consultoria' anotacao.consultoria.id  %}
+                    {% url 'visualizar_anotacao' anotacao.id  %}
                 {% endif %}
             {% endif %}
         " class="btn bt-secondary">

@@ -13,6 +13,8 @@
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' talhao.fazenda.id %}">{{talhao.fazenda.nome}}</a></li>
             <li class="breadcrumb-item"><a href="{% url 'listar_talhoes' talhao.fazenda.id %}">Talhões</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{talhao.nome}}</li>
         </ol>

@@ -13,6 +13,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'listar_fazendas_consultoria' %}">Consultorias</a></li>
             <li class="breadcrumb-item"><a href="{% url 'listar_consultorias' consultoria.fazenda.id %}">{{consultoria.fazenda.nome}}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_anotacoes' consultoria.id %}">{{consultoria.data}}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{consultoria.data}}</li>
         </ol>
     </nav>

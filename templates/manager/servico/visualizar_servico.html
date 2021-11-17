@@ -2,60 +2,151 @@
 
 {% load static %}
 
-{% load usuario_extras %}
-
 {% load bootstrap %}
 
 {% block title %}
-    Visualizar Funcionário | Farm Manager
+    Visualizar Serviço | Farm Manager
 {% endblock %}
 
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'listar_funcionarios' funcionario.fazenda.id %}">Funcionários</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{funcionario.fazenda.nome}}</li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' prestacao_servico.talhao.fazenda.id %}">{{prestacao_servico.talhao.fazenda.nome}}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_servicos' prestacao_servico.talhao.fazenda.id %}">Serviços</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{prestacao_servico.talhao}} - {{prestacao_servico.get_tipo_display}}</li>
         </ol>
     </nav>
 
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800"></h1>
+
     <div class="row">
+<!-- 
+        trator = models.ManyToManyField(Maquinario, related_name="id_trator_ServicoMaquinario")
+        implemento = models.ManyToManyField(Maquinario, related_name="id_implemento_ServicoMaquinario")
+        tipo = models.IntegerField('Tipo de Serviço', choices = TIPO_SERVICO_CHOICE)
+        data_inicio = models.DateField("Data de Inicio", auto_now = False)
+        data_termino = models.DateField("Data de Término", auto_now = False)
+        status = models.CharField("Status", max_length= 2, choices = STATUS_CHOICE, default="A")
+        observacoes = models.TextField("Observações") -->
+
         <!-- Nested Row within Card Body -->
-        <div class="form-group col-sm-6">
-            <label class="control-label" for="id_nome">Funcionário</label>
-            <input value="{{funcionario.funcionario.get_full_name}}" class="form-control" id="id_nome" disabled>
+        <div class="form-group col-sm-4">
+            <label class="control-label" for="id_talhao">Talhão:</label>
+            <input value="{{prestacao_servico.talhao}}" class="form-control" id="id_talhao" disabled>
         </div>
 
-        <div class="form-group col-sm-6">
-            <label class="control-label" for="id_nome">Tipo</label>
-            <input value="{{funcionario.get_tipo_display}}" class="form-control" id="id_nome" disabled>
+        <div class="form-group col-sm-4">
+            <label class="control-label" for="id_tipo">Serviço:</label>
+            <input value="{{prestacao_servico.get_tipo_display}}" class="form-control" id="id_tipo" disabled>
+        </div>
+        {% if prestacao_servico.tipo == 1 %}
+            <div class="form-group col-sm-4">
+                <label class="control-label" for="id_quantidade">Quantidade Plantada:</label>
+                <input value="{{tipo_servico.quantidade}}" class="form-control" id="id_quantidade" disabled>
+            </div>
+        {% elif prestacao_servico.tipo == 2 %}
+            <div class="form-group col-sm-4">
+                <label class="control-label" for="id_adubo">Adubo:</label>
+                <input value="{{tipo_servico.adubo}}" class="form-control" id="id_adubo" disabled>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label class="control-label" for="id_dosagem">Dosagem:</label>
+                <input value="{{tipo_servico.dosagem}}" class="form-control" id="id_dosagem" disabled>
+            </div>
+        {% elif prestacao_servico.tipo == 3 %}
+            <div class="form-group col-sm-4">
+                <label class="control-label" for="id_data">Data:</label>
+                <input value="{{tipo_servico.data}}" class="form-control" id="id_data" disabled>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label class="control-label" for="id_tipo">Tipo de Colheita:</label>
+                <input value="{{tipo_servico.tipo}}" class="form-control" id="id_tipo" disabled>
+            </div>
+        {% endif %}
+
+        <div class="form-group col-sm-4">
+            <label class="control-label" for="id_funcionario">Funcionário:</label>
+            <input value="{{prestacao_servico.funcionario}}" class="form-control" id="id_funcionario" disabled>
+        </div>
+
+        <div class="form-group col-sm-4">
+            <label class="control-label" for="id_trator">Trator:</label>
+            <input value="{{prestacao_servico.trator}}" class="form-control" id="id_trator" disabled>
+        </div>
+
+        <div class="form-group col-sm-4">
+            <label class="control-label" for="id_implemento">Implemento:</label>
+            <input value="{{prestacao_servico.implemento}}" class="form-control" id="id_implemento" disabled>
+        </div>
+
+        <div class="form-group col-sm-4">
+            <label class="control-label" for="id_data_inicio">Data de Ínicio:</label>
+            <input value="{{prestacao_servico.data_inicio}}" class="form-control" id="id_data_inicio" disabled>
+        </div>
+
+        <div class="form-group col-sm-4">
+            <label class="control-label" for="id_data_termino">Data de Término:</label>
+            <input value="{{prestacao_servico.data_termino}}" class="form-control" id="id_data_termino" disabled>
+        </div>
+
+        <div class="form-group col-sm-4">
+            <label class="control-label" for="id_status">Status:</label>
+            <input value="{{prestacao_servico.get_status_display}}" class="form-control" id="id_status" disabled>
+        </div>
+
+        <div class="form-group col-sm-12 mb-5">
+            <label class="control-label" for="id_observacoes">Observações:</label>
+            <span id="id_observacoes" class="form-control h-100 text-justify p-3 disabled">{{prestacao_servico.observacoes}}</span>
         </div>
     </div>
 
-    <a href="{% url 'editar_funcionario' funcionario.id %}" class="btn bt-blue">
+    <a href="ur ditar_consultoria' consultoria.id %}" class="btn bt-blue">
         Editar
     </a>
 
-    <a class="btn bt-red" href="#" data-toggle="modal" data-target="#deleteFuncionarioModal">
+    <a href="#" data-toggle="modal" data-target="#remove_servico_modal" class="btn bt-red">
         Deletar
     </a>
 
-    <!-- Delete Modal-->
-    <div class="modal fade" id="deleteFuncionarioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <!-- Logout Modal-->
+    <div class="modal fade" id="remove_servico_modal" tabindex="-1" role="dialog" aria-labelledby="example_remove_servico_modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Realmente deseja continuar essa ação?</h5>
+                    <h5 class="modal-title" id="example_remove_servico_modal">Realmente deseja deletar essa serviço?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Selecione "Deletar" abaixo se você estiver pronto para deletar o funcionário atual.</div>
+                <div class="modal-body">Selecione "Deletar" abaixo se você estiver pronto para deletar sua serviço atual.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn bt-red" href="{% url 'remover_funcionario' funcionario.id %}">Deletar</a>
+                    <a class="btn bt-red" href="{% url 'remover_servico' prestacao_servico.id %}">Deletar</a>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .disabled{
+            background-color: #EAECF4;
+        }
+    </style>
+    <!-- Custom styles for this page -->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
 {% endblock %}

@@ -15,35 +15,31 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
             <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' maquinario.fazenda.id %}">{{maquinario.fazenda.nome}}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'listar_maquinarios' maquinario.fazenda.id maquinario.tipo %}">Maquinários</a></li>
             <li class="breadcrumb-item active" aria-current="page">Maquinários</li>
         </ol>
     </nav>
 
     <div class="row">
         <!-- Nested Row within Card Body -->
-        <div class="form-group col-sm-6">
-            <label class="control-label" for="id_fazenda">Fazenda</label>
-            <input value="{{maquinario.fazenda.nome}}" class="form-control" id="id_fazenda" disabled>
-        </div>
-        
-        <div class="form-group col-sm-6">
-            <label class="control-label" for="id_tipo">Tipo</label>
-            <input value="{{maquinario.get_tipo_display}}" class="form-control" id="id_tipo" disabled>
-        </div>
-
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-3">
             <label class="control-label" for="id_marca">Marca</label>
             <input value="{{maquinario.marca}}" class="form-control" id="id_marca" disabled>
         </div>
 
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-3">
             <label class="control-label" for="id_modelo">Modelo</label>
             <input value="{{maquinario.modelo}}" class="form-control" id="id_modelo" disabled>
         </div>
 
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-3">
             <label class="control-label" for="id_ano_fabricacao">Ano de Fabricação</label>
             <input value="{{maquinario.ano_fabricacao}}" class="form-control" id="id_ano_fabricacao" disabled>
+        </div>
+
+        <div class="form-group col-sm-3">
+            <label class="control-label" for="id_tipo">Tipo</label>
+            <input value="{{maquinario.get_tipo_display}}" class="form-control" id="id_tipo" disabled>
         </div>
 
         <div class="form-group col-sm-12 mb-5">

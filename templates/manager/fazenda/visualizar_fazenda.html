@@ -13,7 +13,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'listar_fazendas' %}">Fazendas</a></li>
             <li class="breadcrumb-item"><a href="{% url 'painel_administrativo' fazenda.id %}">{{fazenda.nome}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Visualizar</li>
+            <li class="breadcrumb-item active" aria-current="page">{{fazenda.nome}}</li>
         </ol>
     </nav>
 

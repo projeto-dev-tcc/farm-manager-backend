@@ -31,7 +31,7 @@ Listar Serviços | Farm Manager
                     <tbody>
                         {% for servico in listServicos %}
                             <tr>
-                                <td><a href="rl ditar_funcionario' funcionario.id %}">{{servico.talhao}} - {{servico.get_status_display}}</a></td>
+                                <td><a href="{% url 'visualizar_servico' servico.id %}">{{servico.talhao}} - {{servico.get_status_display}}</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

@@ -180,6 +180,7 @@ def listar_maquinarios(request, id_fazenda, id_tipo):
 def visualizar_maquinario(request, id_maquinario):
     maquinario = Maquinario.objects.get(id=id_maquinario)
     form = MaquinarioForm(instance=maquinario)
+
     context = {
         'maquinario': maquinario,
         'form': form
@@ -601,9 +602,9 @@ def registrar_anotacao(request, id_consultoria):
     context = {
         'form': form,
         'action': "Registrar",
-        'id_consultoria': id_consultoria
+        'consultoria': consultoria
     }
-    
+
     return render(request, "manager/anotacao/registrar_anotacao.html", context)
 
 @login_required
@@ -665,7 +666,7 @@ def listar_servicos(request, id_fazenda):
     context = {
         'messagem_screen': "Estão sendo carregados os serviços da fazenda...",
         'fazenda': fazenda,
-        'listServicos':listServicos
+        'listServicos': listServicos
     }
     
     return render(request, "manager/servico/listar_servicos.html", context)
@@ -700,3 +701,31 @@ def cadastrarServico(request, id_fazenda):
     
     return render(request, "manager/servico/registrar_servico.html", context)
 
+@login_required
+def visualizar_servico(request, id_servico):
+    prestacao_servico = PrestacaoServico.objects.get(id=id_servico)
+    
+    tipo_servico = None
+    
+    if prestacao_servico == 1:
+        tipo_servico = Plantio.objects.get(prestacao_servico__id = prestacao_servico.id)
+    elif prestacao_servico == 2:
+        tipo_servico = Fertilizacao.objects.get(prestacao_servico__id = prestacao_servico.id)
+    elif prestacao_servico == 3:
+        tipo_servico = Colheita.objects.get(prestacao_servico__id = prestacao_servico.id)
+
+    context = {
+        'prestacao_servico': prestacao_servico,
+        'tipo_servico': tipo_servico
+    }
+    
+    return render(request, "manager/servico/visualizar_servico.html", context)
+
+@login_required
+def remover_servico(request, id_servico):
+    prestacao_servico = PrestacaoServico.objects.get(id=id_servico)
+    tipo_servico = Plantio.objects.get(prestacao_servico__id = prestacao_servico.id)
+    tipo_servico.delete()
+    prestacao_servico.delete()
+    messages.success(request, f"O servico foi removido com sucesso no sistema!")
+    return redirect("listar_servicos", prestacao_servico.talhao.fazenda.id)

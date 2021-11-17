@@ -68,5 +68,7 @@ urlpatterns = [
 
     # SERVIÇO
     path("fazenda/servico/listar/<int:id_fazenda>", listar_servicos, name="listar_servicos"),
-    path("fazenda/servico/cadastrar/<int:id_fazenda>", cadastrarServico, name="cadastrarServico"),
+    path("fazenda/servico/registrar/<int:id_fazenda>", cadastrarServico, name="cadastrarServico"),
+    path("fazenda/servico/visualizar/<int:id_servico>", visualizar_servico, name="visualizar_servico"),
+    path("fazenda/servico/remover/<int:id_servico>", remover_servico, name="remover_servico"),
 ]
