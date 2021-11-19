@@ -238,3 +238,50 @@ class PrestacaoServicoForm(forms.ModelForm):
         model = PrestacaoServico
         fields = ('__all__')
         exclude = ['status']
+        
+        error_messages = {
+            "talhao": {
+                "required": "Por favor, insira um talhao para validar o registro!",
+                "invalid": "Por favor, insira um talhao válido!",
+            },
+            "funcionario": {
+                "required": "Por favor, insira um funcionario para validar o registro!",
+                "invalid": "Por favor, insira um funcionario válido!",
+            },
+            "trator": {
+                "required": "Por favor, insira um trator para validar o registro!",
+                "invalid": "Por favor, insira um trator válido!",
+            },
+            "implemento": {
+                "required": "Por favor, insira um implemento para validar o registro!",
+                "invalid": "Por favor, insira um implemento válido!",
+            },
+            "tipo": {
+                "required": "Por favor, insira um tipo para validar o registro!",
+                "invalid": "Por favor, insira um tipo válido!",
+            },
+            "data_inicio": {
+                "required": "Por favor, insira uma data de ínicio para validar o registro!",
+                "invalid": "Por favor, insira uma data de ínicio válida!",
+            },
+            "data_termino": {
+                "required": "Por favor, insira uma data de término para validar o registro!",
+                "invalid": "Por favor, insira uma data de término válida!",
+            },
+            "observacoes": {
+                "required": "Por favor, insira uma observação para validar o registro!",
+                "invalid": "Por favor, insira uma observação válida!",
+            },
+        }
+        
+        labels = {
+            "talhao": "Talhão: ",
+            "funcionario": "Funcionário: ",
+            "trator": "Trator: ",
+            "implemento": "Implemento: ",
+            "tipo": "Tipo: ",
+            "data_inicio": "Data de Ínicio: ",
+            "data_termino": "Data de Término: ",
+            "observacoes": "Observações: ",
+        }
+        

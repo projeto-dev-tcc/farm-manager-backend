@@ -100,11 +100,17 @@
 
         <div class="form-group col-sm-12 mb-5">
             <label class="control-label" for="id_observacoes">Observações:</label>
-            <span id="id_observacoes" class="form-control h-100 text-justify p-3 disabled">{{prestacao_servico.observacoes}}</span>
+            <span id="id_observacoes" class="form-control h-100 text-justify p-3 disabled">{% if prestacao_servico.observacoes %}{{prestacao_servico.observacoes}}{% else %}Atualmente, não foi registrado nenhuma observação.{% endif %}</span>
         </div>
     </div>
 
-    <a href="ur ditar_consultoria' consultoria.id %}" class="btn bt-blue">
+    {% ifequal prestacao_servico "A" %}
+        <a href="{% url 'concluir_servico' prestacao_servico.id %}" class="btn bt-primary">
+            Concluir
+        </a>
+    {% endifequal %}
+
+    <a href="{% url 'editar_servico' prestacao_servico.id %}" class="btn bt-blue">
         Editar
     </a>
 

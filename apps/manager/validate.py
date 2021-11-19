@@ -1,12 +1,10 @@
 from .models import Adubo, Fazenda, Maquinario, Talhao, Variedade
 from django.core import serializers
 from django.http import HttpResponse
+
 def validate_variedade(nome):
     try:
         variedade = Variedade.objects.get(nome__contains = nome)
-        
-        print(variedade)
-        
         if variedade:
             return False
         return True
@@ -34,12 +32,9 @@ def Ajax_cadastrar_maquinario(request):
     except:
         pass
 
-    listMaquinarios = Maquinario.objects.filter(fazenda = objFazenda)
-
+    listMaquinarios = Maquinario.objects.filter(fazenda = objFazenda, tipo = tipoMaquinario)
     data = serializers.serialize('json', listMaquinarios)
     return HttpResponse(data, content_type="application/json")
-
-
 
 def Ajax_cadastrar_talhao(request):
     idFazenda = request.GET.get('idFazenda', None)
@@ -53,8 +48,6 @@ def Ajax_cadastrar_talhao(request):
     numeroCovasHectare = request.GET.get('numeroCovasHectare', None)
     listIdsVariedade = request.GET.getlist('idVariedade[]', None)
     listVariedade = Variedade.objects.filter(pk__in=listIdsVariedade)
-
-
 
     try:
         objTalhao = Talhao()
@@ -77,7 +70,6 @@ def Ajax_cadastrar_talhao(request):
     data = serializers.serialize('json', listTalhoes)
     return HttpResponse(data, content_type="application/json")
 
-
 def Ajax_cadastrar_adubo(request):
     nome = request.GET.get('nome', None)
     try:
@@ -92,5 +84,3 @@ def Ajax_cadastrar_adubo(request):
 
     data = serializers.serialize('json', listAdubo)
     return HttpResponse(data, content_type="application/json")
-
-

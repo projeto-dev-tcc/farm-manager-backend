@@ -5,6 +5,7 @@ from .models import *
 admin.site.register(Fazenda)
 admin.site.register(Talhao)
 admin.site.register(FuncionarioFazenda)
+admin.site.register(Fertilizacao)
 admin.site.register(Maquinario)
 admin.site.register(Variedade)
 admin.site.register(PrestacaoServico)

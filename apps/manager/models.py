@@ -117,7 +117,7 @@ class PrestacaoServico(models.Model):
     data_inicio = models.DateField("Data de Inicio", auto_now = False)
     data_termino = models.DateField("Data de Término", auto_now = False)
     status = models.CharField("Status", max_length= 2, choices = STATUS_CHOICE, default="A")
-    observacoes = models.TextField("Observações")
+    observacoes = models.TextField("Observações", max_length = 600, null = True, blank = True)
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
     class Meta:
@@ -139,13 +139,13 @@ class Plantio(models.Model):
         app_label = 'manager'
 
     def __str__(self):
-        return str(self.servico)
+        return str(self.prestacao_servico)
 
 class Fertilizacao(models.Model):
-    prestacao_servico = models.ForeignKey(PrestacaoServico, on_delete=models.CASCADE, related_name="id_servico_Fertilizacao")
-    adubo = models.ForeignKey(Adubo, on_delete=models.CASCADE, related_name="id_adubo_Fertilizacao")
-    dosagem = models.FloatField("Quantidade")
-    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
+    prestacao_servico = models.ForeignKey(PrestacaoServico, on_delete = models.CASCADE, related_name = "id_servico_Fertilizacao")
+    adubo = models.ForeignKey(Adubo, on_delete=models.CASCADE, related_name = "id_adubo_Fertilizacao")
+    dosagem = models.FloatField(verbose_name = "Quantidade")
+    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add = True)
 
     class Meta:
         verbose_name = "Fertilização"
@@ -153,7 +153,7 @@ class Fertilizacao(models.Model):
         app_label = 'manager'
 
     def __str__(self):
-        return str(self.servico + self.adubo)
+        return str(self.prestacao_servico)
 
 class Colheita(models.Model):
     TIPO_COLHEITA_CHOICE = [
@@ -161,10 +161,10 @@ class Colheita(models.Model):
         ("MA", "Mão"),
     ]
 
-    prestacao_servico = models.ForeignKey(PrestacaoServico, on_delete=models.CASCADE, related_name="id_servico_Colheita")
+    prestacao_servico = models.ForeignKey(PrestacaoServico, on_delete = models.CASCADE, related_name = "id_servico_Colheita")
     data = models.DateField("Data", auto_now = False)
-    tipo = models.IntegerField('Tipo de Serviço', choices=TIPO_COLHEITA_CHOICE)
-    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
+    tipo = models.IntegerField('Tipo de Serviço', choices = TIPO_COLHEITA_CHOICE)
+    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add = True)
 
     class Meta:
         verbose_name = "Colheita"
@@ -175,10 +175,10 @@ class Colheita(models.Model):
         return str(self.servico + self.turma_colheita)
 
 class ConsultoriaAgronomo(models.Model):
-    agronomo = models.ForeignKey("usuarios.Usuario", on_delete=models.CASCADE, related_name="id_agronomo_ConsultoriaAgronomo")
+    agronomo = models.ForeignKey("usuarios.Usuario", on_delete = models.CASCADE, related_name = "id_agronomo_ConsultoriaAgronomo")
     data = models.DateField("Data", auto_now = False)
-    fazenda = models.ForeignKey(Fazenda, related_name="id_fazenda_ConsultoriaAgronomo", on_delete=models.CASCADE)
-    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
+    fazenda = models.ForeignKey(Fazenda, related_name = "id_fazenda_ConsultoriaAgronomo", on_delete = models.CASCADE)
+    data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add = True)
 
     class Meta:
         verbose_name = "Consultoria do Agrônomo"
@@ -190,7 +190,7 @@ class ConsultoriaAgronomo(models.Model):
         return message
 
 class AnotacaoConsultoria(models.Model):
-    titulo = models.CharField("Título", max_length=100)
+    titulo = models.CharField("Título", max_length = 100)
     consultoria = models.ForeignKey(ConsultoriaAgronomo, related_name="id_consultoria_AnotacaoConsultoria", on_delete=models.CASCADE)
     variedade = models.ForeignKey(Variedade, related_name="id_variedade_AnotacaoConsultoria", on_delete=models.CASCADE)
     litros_cova = models.FloatField("Litros por cova")
@@ -208,9 +208,9 @@ class AnotacaoConsultoria(models.Model):
         return self.titulo
 
 class ArquivoDigitalizado(models.Model):
-    descricao = models.CharField("Descricao", max_length=340)
+    descricao = models.CharField("Descricao", max_length = 340)
     # arquivo = models.ForeignKey(ConsultoriaAgronomo, related_name="id_consultoria_AnotacaoConsultoria", on_delete=models.CASCADE)
-    data_hora_registrado = models.DateTimeField("Horário registrado", auto_now_add=True)
+    data_hora_registrado = models.DateTimeField("Horário registrado", auto_now_add = True)
 
     class Meta:
         verbose_name = "Anotação da Consultoria"
@@ -218,4 +218,4 @@ class ArquivoDigitalizado(models.Model):
         app_label = 'manager'
 
     def __str__(self):
-        return self.titulo
+        return self.descricao

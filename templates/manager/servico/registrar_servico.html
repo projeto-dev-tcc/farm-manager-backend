@@ -28,7 +28,17 @@
 
         <div class="row">
             <div class="col-11">
-                {{form.trator|bootstrap}}
+                <div class="form-group">
+                    <label class="control-label  " for="id_trator">Trator: </label>
+                        <div class=" ">
+                            <select name="trator" class=" form-control" id="id_trator">
+                            <option value="" selected="">---------</option>
+                            {% for trator in tratores %}
+                                <option value="{{trator.id}}">{{trator}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div> 
             </div>
             <div class="col-1 pt-4">
                 <a class="btn btn-sm" data-toggle="modal" data-target="#ModalMaquinario"><i class="material-icons fs-3">add_circle_outline</i></a>
@@ -37,7 +47,17 @@
 
         <div class="row">
             <div class="col-11">
-                {{form.implemento|bootstrap}}
+                <div class="form-group">
+                    <label class="control-label" for="id_implemento">Implemento: </label>
+                        <div class=" ">
+                        <select name="implemento" class=" form-control" id="id_implemento">
+                            <option value="">---------</option>
+                            {% for implemento in implementos %}
+                                <option value="{{implemento.id}}">{{implemento}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="col-1 pt-4">
                 <a class="btn btn-sm" data-toggle="modal" data-target="#ModalMaquinario"><i class="material-icons fs-3">add_circle_outline</i></a>
@@ -49,7 +69,7 @@
         <div id="id_plantio">
             <div class="form-group">
                 <label class="control-label" for="id_numero_covas">Quantidade de mudas: </label>
-                <input type="number" name="QuantidadePlantio" placeholder="Insira a quantidade de muda..." class=" form-control" id="id_quantidadePlantio">
+                <input type="number" name="QuantidadePlantio" placeholder="Insira a quantidade de muda..." class="form-control" id="id_quantidadePlantio">
             </div>
         </div>
 
@@ -59,6 +79,7 @@
                     <div class="form-group">
                         <label class="control-label" for="id_AduboFertilizacao">Adubo: </label>
                         <select name="id_AduboFertilizacao" class="form-control" id="id_AduboFertilizacao">
+                            <option value="">---------</option>
                             {% for adubo in listAdubo %}
                                 <option value="{{adubo.id}}">{{adubo}}</option>
                             {% endfor %}
@@ -106,132 +127,132 @@
         " class="btn bt-secondary">
             Cancelar
         </a>
+
+        <!-- Modal Maquinário -->
+        <div class="modal fade" id="ModalMaquinario" tabindex="-1" aria-labelledby="ModalMaquinarioLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalMaquinarioLabel">Registrar Maquinário</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body container">
+                        <div class="form-group">
+                            <label class="control-label" for="id_marca">Marca: </label>
+                            <input type="text" name="marca" placeholder="Insira a marca..." maxlength="200" class=" form-control" id="id_marca" required> 
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="id_modelo">Modelo: </label>
+                            <input type="text" name="modelo" placeholder="Insira o modelo..." maxlength="200" class=" form-control" id="id_modelo" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="id_ano_fabricacao">Ano de Fabricação: </label>
+                            <input type="text" name="ano_fabricacao" placeholder="Insira o ano de fabricacao..." maxlength="4" class=" form-control" id="id_ano_fabricacao" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="id_observacoes">Observações: </label>
+                            <textarea name="observacoes" cols="40" rows="10" class=" form-control" id="id_observacoes"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="id_tipoMaquinario">Tipo de Maquinário: </label>
+                            <select id="id_tipoMaquinario" class="custom-select form-control" required>
+                                <option value="" disabled selected>Selecione um tipo de Maquinário</option>
+                                <option value="1">Trator</option>
+                                <option value="2">Implemento</option>
+                            </select>
+                        </div>
+                        <button type="button" value="{{fazenda.id}}" data-dismiss="modal" id="id_cadastrarMaquinario" class="btn bt-primary">Registrar Maquinário</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Talhão -->
+        <div class="modal fade" id="ModalTalhao" tabindex="-1" aria-labelledby="ModalTalhaoLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalTalhaoLabel">Registrar Talhão</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body container"> 
+                        <div class="form-group">
+                            <label class="control-label" for="id_nomeTalhao">Nome: </label>
+                            <input type="text" name="nome" placeholder="Insira o nome..." maxlength="200" class=" form-control" id="id_nomeTalhao">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="id_ano_plantio">Ano do Plantio: </label>
+                            <input type="text" name="ano_plantio" placeholder="Insira o ano do plantio..." maxlength="10" class=" form-control" id="id_ano_plantio">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="id_numero_covas">Número de Covas: </label>
+                            <input type="text" name="numero_covas" placeholder="Insira o numero de covas..." class=" form-control" id="id_numero_covas">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="id_espacamento_rua">Espaçamento das Ruas: </label>
+                            <input type="text" name="espacamento_rua" placeholder="Insira o espacamento das ruas..." class=" form-control" id="id_espacamento_rua"> 
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="id_espacamento_cova">Espaçamento das Covas: </label>
+                            <input type="text" name="espacamento_cova" placeholder="Insira o espacamento das covas..." class=" form-control" id="id_espacamento_cova">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="id_area">Área em hectare: </label>
+                            <input type="text" name="area" placeholder="Insira a área em hectare..." class=" form-control" id="id_area">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="id_numero_covas_hectare">Número de Covas por Hectare: </label>
+                            <input type="text" name="numero_covas_hectare" placeholder="Insira o numero de covas por hectare..." class=" form-control" id="id_numero_covas_hectare">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="id_variedade">Variedade: </label>
+                            <select name="variedade" class=" form-control" id="id_variedade" multiple="">
+                                {%  for variedade in listVariedade  %}
+                                    <option value="{{variedade.id}}">{{variedade}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="button" value="{{fazenda.id}}" data-dismiss="modal" id="id_cadastrarTalhao" class="btn bt-primary">Registrar Talhão</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Adubo -->
+        <div class="modal fade" id="ModalAdubo" tabindex="-1" aria-labelledby="ModalAduboLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalAduboLabel">Registrar Adubo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body container">
+                        <div class="form-group">
+                            <label class="control-label" for="id_NomeAdubo">Nome: </label>
+                            <input type="text" name="nome_adubo" placeholder="Insira o nome do adubo..."class=" form-control" id="id_NomeAdubo">
+                        </div>
+                        <button type="button" data-dismiss="modal" id="id_cadastrarAdubo" class="btn bt-primary">Registrar Adubo</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
-
-    <!-- Modal Maquinário -->
-    <div class="modal fade" id="ModalMaquinario" tabindex="-1" aria-labelledby="ModalMaquinarioLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ModalMaquinarioLabel">Registrar Maquinário</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body container">
-                    <div class="form-group">
-                        <label class="control-label" for="id_marca">Marca: </label>
-                        <input type="text" name="marca" placeholder="Insira a marca..." maxlength="200" class=" form-control" id="id_marca" required> 
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="id_modelo">Modelo: </label>
-                        <input type="text" name="modelo" placeholder="Insira o modelo..." maxlength="200" class=" form-control" id="id_modelo" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="id_ano_fabricacao">Ano de Fabricação: </label>
-                        <input type="text" name="ano_fabricacao" placeholder="Insira o ano de fabricacao..." maxlength="4" class=" form-control" id="id_ano_fabricacao" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="id_observacoes">Observações: </label>
-                        <textarea name="observacoes" cols="40" rows="10" class=" form-control" id="id_observacoes"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="id_tipoMaquinario">Tipo de Maquinário: </label>
-                        <select id="id_tipoMaquinario" class="custom-select form-control" required>
-                            <option value="" disabled selected>Selecione um tipo de Maquinário</option>
-                            <option value="1">Trator</option>
-                            <option value="2">Implemento</option>
-                        </select>
-                    </div>
-                    <button type="button" value="{{fazenda.id}}" data-dismiss="modal" id="id_cadastrarMaquinario" class="btn bt-primary">Registrar Maquinário</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Talhão -->
-    <div class="modal fade" id="ModalTalhao" tabindex="-1" aria-labelledby="ModalTalhaoLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ModalTalhaoLabel">Registrar Talhão</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body container"> 
-                    <div class="form-group">
-                        <label class="control-label" for="id_nomeTalhao">Nome: </label>
-                        <input type="text" name="nome" placeholder="Insira o nome..." maxlength="200" class=" form-control" id="id_nomeTalhao">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="id_ano_plantio">Ano do Plantio: </label>
-                        <input type="text" name="ano_plantio" placeholder="Insira o ano do plantio..." maxlength="10" class=" form-control" id="id_ano_plantio">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="id_numero_covas">Número de Covas: </label>
-                        <input type="text" name="numero_covas" placeholder="Insira o numero de covas..." class=" form-control" id="id_numero_covas">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="id_espacamento_rua">Espaçamento das Ruas: </label>
-                        <input type="text" name="espacamento_rua" placeholder="Insira o espacamento das ruas..." class=" form-control" id="id_espacamento_rua"> 
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="id_espacamento_cova">Espaçamento das Covas: </label>
-                        <input type="text" name="espacamento_cova" placeholder="Insira o espacamento das covas..." class=" form-control" id="id_espacamento_cova">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="id_area">Área em hectare: </label>
-                        <input type="text" name="area" placeholder="Insira a área em hectare..." class=" form-control" id="id_area">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="id_numero_covas_hectare">Número de Covas por Hectare: </label>
-                        <input type="text" name="numero_covas_hectare" placeholder="Insira o numero de covas por hectare..." class=" form-control" id="id_numero_covas_hectare">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="id_variedade">Variedade: </label>
-                        <select name="variedade" class=" form-control" id="id_variedade" multiple="">
-                            {%  for variedade in listVariedade  %}
-                                <option value="{{variedade.id}}">{{variedade}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <button type="button" value="{{fazenda.id}}" data-dismiss="modal" id="id_cadastrarTalhao" class="btn bt-primary">Registrar Talhão</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Adubo -->
-    <div class="modal fade" id="ModalAdubo" tabindex="-1" aria-labelledby="ModalAduboLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ModalAduboLabel">Registrar Adubo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body container">
-                    <div class="form-group">
-                        <label class="control-label" for="id_NomeAdubo">Nome: </label>
-                        <input type="text" name="nome_adubo" placeholder="Insira o nome do adubo..."class=" form-control" id="id_NomeAdubo">
-                    </div>
-                    <button type="button" data-dismiss="modal" id="id_cadastrarAdubo" class="btn bt-primary">Registrar Adubo</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
 
 {% block javascript %}
@@ -248,15 +269,15 @@
                 $("#"+listIdHide[i]).hide()
             }
 
-            $(".form-control").attr("required", true);
+            $(".form-control").attr("required", false);
 
             $("#id_cadastrarMaquinario").click(function() {
-                var idFazenda = this.value
-                var marca = $("#id_marca").val();
-                var modelo = $("#id_modelo").val();
-                var anoFabricacao = $("#id_ano_fabricacao").val();
-                var observacoes = $("#id_observacoes").val();
-                var tipoMaquinario = $("#id_tipoMaquinario").val();
+                let idFazenda = this.value
+                let marca = $("#id_marca").val();
+                let modelo = $("#id_modelo").val();
+                let anoFabricacao = $("#id_ano_fabricacao").val();
+                let observacoes = $("#id_observacoes").val();
+                let tipoMaquinario = $("#id_tipoMaquinario").val();
 
                 $.ajax({
                     url: "{% url 'Ajax_cadastrar_maquinario' %}",
@@ -286,7 +307,6 @@
                         marca.val("")
                         modelo.val("")
                         anoFabricacao.val("")
-                        observacoes.val("")
                         tipoMaquinario.val("")
                     }
                 });
@@ -355,9 +375,7 @@
                     data: {
                         "nome":nome,
                     },
-
                     dataType: 'json',
-
                     success: function (listAdubo) {
                         var objAdubo = $("#id_AduboFertilizacao");
 
@@ -373,7 +391,6 @@
                         objAdubo.select2();
                         
                         nome.val("")
-
                     }
                 });
             });

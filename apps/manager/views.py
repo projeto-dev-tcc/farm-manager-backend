@@ -674,21 +674,48 @@ def listar_servicos(request, id_fazenda):
 @login_required
 def cadastrarServico(request, id_fazenda):
     fazenda = Fazenda.objects.get(id = id_fazenda)
-    form = PrestacaoServicoForm()
+    tratores = Maquinario.objects.filter(fazenda__id = fazenda.id, tipo = 1)
+    implementos = Maquinario.objects.filter(fazenda__id = fazenda.id, tipo = 2)
     listVariedade = Variedade.objects.all()
     listAdubo = Adubo.objects.all()
+    
+    form = PrestacaoServicoForm()
     if request.method == "POST":
         form = PrestacaoServicoForm(request.POST)
         if form.is_valid():
             objPrestacaoServico = form.save()
-            messages.success(request, f"Prestação de serviço cadastrado com sucesso!!!")
+            objPrestacaoServico.save()
             if objPrestacaoServico.tipo == 1:
-                return redirect('cadastrar_plantio', objPrestacaoServico.id)
-            elif  objPrestacaoServico.tipo == 2:
-                return redirect('cadastrar_fertilizacao', objPrestacaoServico.id)
+                quantidade = request.POST.get('QuantidadePlantio', None)
+                
+                plantio = Plantio()
+                plantio.prestacao_servico = objPrestacaoServico
+                plantio.quantidade = int(quantidade)
+                plantio.save()
+            
+            elif objPrestacaoServico.tipo == 2:
+                id_adubo = request.POST.get('id_AduboFertilizacao', None)
+                dosagem = request.POST.get('id_DosagemFertilizacao', None)
+                adubo = Adubo.objects.get(id = int(id_adubo))
+                
+                print(f"{dosagem}\n\n\n\n\n\n\n")
+                
+                fertilizacao = Fertilizacao()
+                fertilizacao.prestacao_servico = objPrestacaoServico
+                fertilizacao.adubo = adubo
+                fertilizacao.dosagem = 12.0
+                fertilizacao.save()
             else:
-                return redirect('cadastrar_preparacao_solo', objPrestacaoServico.id)
-
+                tipo = request.POST.get('id_TipoColheita', None)
+                
+                colheita = Colheita()
+                colheita.prestacao_servico = objPrestacaoServico
+                # colheita.data = 
+                colheita.tipo = tipo
+                colheita.save()
+                
+        messages.success(request, f"Prestação de serviço cadastrado com sucesso!!!")
+        return redirect('listar_servicos', fazenda.id)
 
     context = {
         'messagem_screen': "",
@@ -697,21 +724,47 @@ def cadastrarServico(request, id_fazenda):
         'action': "Registrar",
         'listVariedade':listVariedade,
         'listAdubo':listAdubo,
+        'tratores': tratores,
+        'implementos': implementos,
     }
     
     return render(request, "manager/servico/registrar_servico.html", context)
 
 @login_required
+def editar_servico(request, id_servico):
+    listVariedade = Variedade.objects.all()
+    listAdubo = Adubo.objects.all()
+    prestacao_servico = PrestacaoServico.objects.get(id=id_servico)
+    tratores = Maquinario.objects.filter(fazenda__id = prestacao_servico.talhao.fazenda.id, tipo = 1)
+    implementos = Maquinario.objects.filter(fazenda__id = prestacao_servico.talhao.fazenda.id, tipo = 2)
+    form = PrestacaoServicoForm(instance=prestacao_servico)
+    if request.method == "POST":
+        form = PrestacaoServicoForm(request.POST, instance=prestacao_servico)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"O serviço foi modificado com sucesso no sistema!")
+            return redirect('visualizar_servico', id_servico)
+    context = {
+        "form": form,
+        "action": "Editar",
+        'fazenda': prestacao_servico.talhao.fazenda,
+        'listVariedade':listVariedade,
+        'listAdubo':listAdubo,
+        'tratores': tratores,
+        'implementos': implementos,
+    }
+    
+    return render(request, "manager/servico/registrar_servico.html", context)
+
+
+@login_required
 def visualizar_servico(request, id_servico):
     prestacao_servico = PrestacaoServico.objects.get(id=id_servico)
-    
-    tipo_servico = None
-    
-    if prestacao_servico == 1:
+    if prestacao_servico.tipo == 1:
         tipo_servico = Plantio.objects.get(prestacao_servico__id = prestacao_servico.id)
-    elif prestacao_servico == 2:
+    elif prestacao_servico.tipo == 2:
         tipo_servico = Fertilizacao.objects.get(prestacao_servico__id = prestacao_servico.id)
-    elif prestacao_servico == 3:
+    else:
         tipo_servico = Colheita.objects.get(prestacao_servico__id = prestacao_servico.id)
 
     context = {
@@ -722,10 +775,20 @@ def visualizar_servico(request, id_servico):
     return render(request, "manager/servico/visualizar_servico.html", context)
 
 @login_required
+def concluir_servico(request, id_servico):
+    prestacao_servico = PrestacaoServico.objects.get(id=id_servico)
+    if prestacao_servico.status == "A":
+        messages.error(request, f"O servico já foi concluído!")
+        return redirect("visualizar_servico", prestacao_servico.id)
+    else:
+        prestacao_servico.status = "C"
+        prestacao_servico.save()
+        messages.success(request, f"O servico foi concluído com sucesso!")
+        return redirect("visualizar_servico", prestacao_servico.id)
+
+@login_required
 def remover_servico(request, id_servico):
     prestacao_servico = PrestacaoServico.objects.get(id=id_servico)
-    tipo_servico = Plantio.objects.get(prestacao_servico__id = prestacao_servico.id)
-    tipo_servico.delete()
     prestacao_servico.delete()
     messages.success(request, f"O servico foi removido com sucesso no sistema!")
     return redirect("listar_servicos", prestacao_servico.talhao.fazenda.id)
