@@ -24,37 +24,37 @@
         <!-- Nested Row within Card Body -->
         <div class="form-group col-sm-6">
             <label class="control-label" for="id_nome">Nome</label>
-            <input value="{{talhao.nome}}" class="form-control" id="id_nome" disabled>
+            <input value="{% if talhao.nome %}{{talhao.nome}}{% else %}Não há dados registrados.{% endif %}" class="form-control" id="id_nome" disabled>
         </div>
 
         <div class="form-group col-sm-6">
             <label class="control-label" for="id_ano_plantio">Ano do Plantio</label>
-            <input value="{{talhao.ano_plantio}}" class="form-control" id="id_ano_plantio" disabled>
+            <input value="{% if talhao.ano_plantio %}{{talhao.ano_plantio}}{% else %}Não há dados registrados.{% endif %}" class="form-control" id="id_ano_plantio" disabled>
         </div>
 
         <div class="form-group col-sm-6">
             <label class="control-label" for="id_numero_covas">Número de Covas</label>
-            <input value="{{talhao.numero_covas}}" class="form-control" id="id_numero_covas" disabled>
+            <input value="{% if talhao.numero_covas %}{{talhao.numero_covas}}{% else %}Não há dados registrados.{% endif %}" class="form-control" id="id_numero_covas" disabled>
         </div>
 
         <div class="form-group col-sm-6">
             <label class="control-label" for="id_espacamento_rua">Espaçamento das Ruas</label>
-            <input value="{{talhao.espacamento_rua}}" class="form-control" id="id_espacamento_rua" disabled>
+            <input value="{% if talhao.espacamento_rua %}{{talhao.espacamento_rua}}{% else %}Não há dados registrados.{% endif %}" class="form-control" id="id_espacamento_rua" disabled>
         </div>
 
         <div class="form-group col-sm-6">
             <label class="control-label" for="id_espacamento_cova">Espaçamento das Covas</label>
-            <input value="{{talhao.espacamento_cova}}" class="form-control" id="id_espacamento_cova" disabled>
+            <input value="{% if talhao.espacamento_cova %}{{talhao.espacamento_cova}}{% else %}Não há dados registrados.{% endif %}" class="form-control" id="id_espacamento_cova" disabled>
         </div>
 
         <div class="form-group col-sm-6">
             <label class="control-label" for="id_area">Área em Hectare</label>
-            <input value="{{talhao.area}}" class="form-control" id="id_area" disabled>
+            <input value="{% if talhao.area %}{{talhao.area}}{% else %}Não há dados registrados.{% endif %}" class="form-control" id="id_area" disabled>
         </div>
 
         <div class="form-group col-sm-6">
             <label class="control-label" for="id_numero_covas_hectare">Número de Covas por Hectare</label>
-            <input value="{{talhao.numero_covas_hectare}}" class="form-control" id="id_numero_covas_hectare" disabled>
+            <input value="{% if talhao.numero_covas_hectare %}{{talhao.numero_covas_hectare}}{% else %}Não há dados registrados.{% endif %}" class="form-control" id="id_numero_covas_hectare" disabled>
         </div>
         
         <div class="form-group col-sm-6">
