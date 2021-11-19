@@ -694,24 +694,23 @@ def cadastrarServico(request, id_fazenda):
                 plantio.save()
             
             elif objPrestacaoServico.tipo == 2:
-                id_adubo = request.POST.get('id_AduboFertilizacao', None)
-                dosagem = request.POST.get('id_DosagemFertilizacao', None)
+                id_adubo = request.POST.get('id_objFertilizacao', None)
+                dosagem = request.POST.get('DosagemFertilizacao', None)
                 adubo = Adubo.objects.get(id = int(id_adubo))
-                
-                print(f"{dosagem}\n\n\n\n\n\n\n")
                 
                 fertilizacao = Fertilizacao()
                 fertilizacao.prestacao_servico = objPrestacaoServico
                 fertilizacao.adubo = adubo
-                fertilizacao.dosagem = 12.0
+                fertilizacao.dosagem = dosagem
                 fertilizacao.save()
             else:
-                tipo = request.POST.get('id_TipoColheita', None)
-                
+                tipo = request.POST.get('tipoColheita', None)
+                quantidade = request.POST.get('QuantidadeColheita', None)
                 colheita = Colheita()
                 colheita.prestacao_servico = objPrestacaoServico
-                # colheita.data = 
                 colheita.tipo = tipo
+                if quantidade:
+                    colheita.quantidade = quantidade
                 colheita.save()
                 
         messages.success(request, f"Prestação de serviço cadastrado com sucesso!!!")

@@ -162,8 +162,8 @@ class Colheita(models.Model):
     ]
 
     prestacao_servico = models.ForeignKey(PrestacaoServico, on_delete = models.CASCADE, related_name = "id_servico_Colheita")
-    data = models.DateField("Data", auto_now = False)
-    tipo = models.IntegerField('Tipo de Serviço', choices = TIPO_COLHEITA_CHOICE)
+    quantidade = models.FloatField("Quantidade colhida",null=True,blank=True)
+    tipo = models.CharField('Tipo de Serviço', choices = TIPO_COLHEITA_CHOICE,max_length=3)
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add = True)
 
     class Meta:
@@ -172,7 +172,8 @@ class Colheita(models.Model):
         app_label = 'manager'
 
     def __str__(self):
-        return str(self.servico + self.turma_colheita)
+
+        return f"{self.prestacao_servico.talhao} - {self.get_tipo_display()}"
 
 class ConsultoriaAgronomo(models.Model):
     agronomo = models.ForeignKey("usuarios.Usuario", on_delete = models.CASCADE, related_name = "id_agronomo_ConsultoriaAgronomo")

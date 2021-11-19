@@ -11,14 +11,39 @@ def validate_variedade(nome):
     except Variedade.DoesNotExist:
         return True
 
-def Ajax_cadastrar_maquinario(request):
+def Ajax_cadastrar_trator(request):
     idFazenda = request.GET.get('idFazenda', None)
     objFazenda = Fazenda.objects.get(pk = idFazenda)
     marca = request.GET.get('marca', None)
     modelo = request.GET.get('modelo', None)
     anoFabricacao = request.GET.get('anoFabricacao', None)
     observacoes = request.GET.get('observacoes', None)
-    tipoMaquinario = int(request.GET.get('tipoMaquinario', None))
+    
+    try:
+        objMaquinario = Maquinario()
+        objMaquinario.fazenda = objFazenda
+        objMaquinario.marca = marca
+        objMaquinario.modelo = modelo
+        objMaquinario.ano_fabricacao = anoFabricacao
+        objMaquinario.observacoes = observacoes
+        objMaquinario.tipo = 1
+        objMaquinario.save()
+    except:
+        pass
+        
+
+    listMaquinarios = Maquinario.objects.filter(fazenda = objFazenda, tipo = 1)
+    data = serializers.serialize('json', listMaquinarios)
+    return HttpResponse(data, content_type="application/json")
+
+
+def Ajax_cadastrar_implemento(request):
+    idFazenda = request.GET.get('idFazenda', None)
+    objFazenda = Fazenda.objects.get(pk = idFazenda)
+    marca = request.GET.get('marca', None)
+    modelo = request.GET.get('modelo', None)
+    anoFabricacao = request.GET.get('anoFabricacao', None)
+    observacoes = request.GET.get('observacoes', None)
 
     try:
         objMaquinario = Maquinario()
@@ -27,14 +52,16 @@ def Ajax_cadastrar_maquinario(request):
         objMaquinario.modelo = modelo
         objMaquinario.ano_fabricacao = anoFabricacao
         objMaquinario.observacoes = observacoes
-        objMaquinario.tipo = tipoMaquinario
+        objMaquinario.tipo = 2
         objMaquinario.save()
     except:
         pass
+        
 
-    listMaquinarios = Maquinario.objects.filter(fazenda = objFazenda, tipo = tipoMaquinario)
+    listMaquinarios = Maquinario.objects.filter(fazenda = objFazenda, tipo = 2)
     data = serializers.serialize('json', listMaquinarios)
     return HttpResponse(data, content_type="application/json")
+
 
 def Ajax_cadastrar_talhao(request):
     idFazenda = request.GET.get('idFazenda', None)

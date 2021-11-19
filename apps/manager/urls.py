@@ -19,7 +19,8 @@ urlpatterns = [
     path("fazenda/maquinario/visualizar/<int:id_maquinario>/", visualizar_maquinario, name="visualizar_maquinario"),
     path("fazenda/maquinario/listar/<int:id_fazenda>/<int:id_tipo>/", listar_maquinarios, name="listar_maquinarios"),
     path("fazenda/maquinario/remover/<int:id_maquinario>/", remover_maquinario, name="remover_maquinario"),
-    path("fazenda/maquinario/cadastrar/ajax/", Ajax_cadastrar_maquinario, name="Ajax_cadastrar_maquinario"),
+    path("fazenda/trator/cadastrar/ajax/",Ajax_cadastrar_trator, name="Ajax_cadastrar_trator"),
+    path("fazenda/implemento/cadastrar/ajax/",Ajax_cadastrar_implemento, name="Ajax_cadastrar_implemento"),
 
     # TALHÕES
     path("fazenda/talhao/registrar/<int:id_fazenda>/", registrar_talhao, name="registrar_talhao"),
