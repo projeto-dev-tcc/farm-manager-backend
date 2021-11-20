@@ -47,8 +47,8 @@ class UsuarioForm(forms.ModelForm):
             },
             
             "telefone":{
-                "required": "O telefone é obrigatório para realizar o registro!",
-                "invalid": "Por favor, insira um telefone válido!",
+                "required": "O celular é obrigatório para realizar o registro!",
+                "invalid": "Por favor, insira um celular válido!",
             },
             
             "password":{
@@ -65,7 +65,7 @@ class UsuarioForm(forms.ModelForm):
             "email": forms.TextInput(attrs={'placeholder':'Insira o e-mail...'}),
             "nome": forms.TextInput(attrs={'placeholder':'Insira o nome...'}),
             "sobrenome": forms.TextInput(attrs={'placeholder':'Insira o sobrenome...'}),
-            "telefone": forms.TextInput(attrs={'placeholder':'Insira o telefone...'}),
+            "telefone": forms.TextInput(attrs={'placeholder':'Insira o celular...'}),
             "data_nascimento": forms.TextInput(attrs={'placeholder':'Insira a data de nascimento...'}),
             "password": forms.TextInput(attrs={'placeholder':'Insira a senha...'}),
         }
@@ -74,7 +74,7 @@ class UsuarioForm(forms.ModelForm):
             "email": 'E-mail: ',
             "nome": 'Nome: ',
             "sobrenome": 'Sobrenome: ',
-            "telefone": 'Telefone: ',
+            "telefone": 'Celular: ',
             "data_nascimento": 'Data de Nascimento: ',
             "password": 'Senha: ',
         }
