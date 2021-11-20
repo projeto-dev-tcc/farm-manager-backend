@@ -84,6 +84,12 @@ python manage.py makemigrations manager
 
 python manage.py migrate
 
+python manage.py shell
+
+exec(open('scripts/grupos.py').read())
+
+exit()
+
 python manage.py runserver
 ```
 
@@ -107,13 +113,10 @@ http://127.0.0.1:8000/admin/
 
 <h3 id="autor">:bust_in_silhouette: Autores</h3>
 
-<div align="left"> 
-	<a href="https://github.com/LucasSantus">
-		<img style="border-radius: 50%;" src="https://github.com/LucasSantus.png" width="100px;" alt=""/>
-		<br />
-		Lucas Santus
-	</a>
-</div>
+- **Lucas Santos:** [GitHub](https://github.com/LucasSantus)
+- **Albert Ramos:** [GitHub](https://github.com/albertallan-rar)
+- **Fernanda Thomaz:** [GitHub](https://github.com/FernandaThomaz)
+ 
 <br />
 Feito com ❤️ por Lucas Santus!<br />
 Obrigado por visitar e boa codificação!<br />
