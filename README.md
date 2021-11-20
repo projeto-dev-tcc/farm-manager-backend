@@ -116,7 +116,3 @@ http://127.0.0.1:8000/admin/
 - **Lucas Santos:** [GitHub](https://github.com/LucasSantus)
 - **Albert Ramos:** [GitHub](https://github.com/albertallan-rar)
 - **Fernanda Thomaz:** [GitHub](https://github.com/FernandaThomaz)
- 
-<br />
-Feito com ❤️ por Lucas Santus!<br />
-Obrigado por visitar e boa codificação!<br />
