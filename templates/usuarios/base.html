@@ -65,11 +65,7 @@
         <!-- Inicialização -->
         <script>
             $(document).ready(function(){
-                $("#btn-login").attr("disabled", true);
-                $("#btn_reset_password").attr("disabled", true);
-                $("#btn_signup_signup").attr("disabled", true);
-
-                $(window).bind('beforeunload', function() {
+                 $(window).bind('beforeunload', function() {
                     var options = {
                         theme: "sk-cube-grid",
                         message: '{% if messagem_screen %}{{messagem_screen}}{% else %}Por favor, aguarde...{% endif %}',

@@ -75,8 +75,6 @@
 {% block javascript %}
     <script>
         $(document).ready(function(){
-            //
-
             $(".form-control").attr("required", false)
             
             $("#id_username").attr("placeholder", "Insira o e-mail...");
@@ -94,11 +92,7 @@
                 dataType: 'json',
                 success: function (data) {
                     if(!data.is_user){
-                        $("#btn-login").attr("disabled", true);
                         $("#toast_login").toast('show');
-                    }
-                    else{
-                        $("#btn-login").attr("disabled", false);
                     }
                 }
             });

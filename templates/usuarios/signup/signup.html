@@ -20,7 +20,7 @@
                             <div class="d-flex align-items-stretch">
                                 <img src="{% static 'img/sign-up.svg' %}" class="col-lg-6 d-none d-lg-block bg-primary h-100 figure-img p-5 img-fluid rounded" alt="reset-password">
                                 <div class="col-lg-6">
-                                    <div class="pt-3 px-5 pb-3">
+                                    <div class="pt-3 ps-2 pe-3 pb-3">
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900">Criar uma conta!</h1>
                                             <hr>
@@ -42,16 +42,16 @@
                                             <div class="col-sm-6">
                                                 {{form.data_nascimento|bootstrap}}
                                             </div>
-                                            <div class="form-group row">
-                                                <div class="text-center w-100 pb-3">
-                                                    <span class="text-center">
-                                                        A senha deve conter pelo menos 8 caracteres. <br>
-                                                        A senha deve conter pelo menos uma letra maiúscula <br>
-                                                        A senha deve conter pelo menos uma letra minúscula. <br>
-                                                        A senha deve conter caracteres especiais. <br>
-                                                        A senha não pode ser totalmente numérica.
-                                                    </span>
-                                                </div>
+                                            <!-- <div class="text-center w-100 pb-3">
+                                                <span class="text-center">
+                                                    A senha deve conter pelo menos 8 caracteres. <br>
+                                                    A senha deve conter pelo menos uma letra maiúscula <br>
+                                                    A senha deve conter pelo menos uma letra minúscula. <br>
+                                                    A senha deve conter caracteres especiais. <br>
+                                                    A senha não pode ser totalmente numérica.
+                                                </span>
+                                            </div> --> 
+                                            <div class="row ps-2 pe-3">
                                                 <div class="col-sm-6">
                                                     {{form.password|bootstrap}}
                                                 </div>
@@ -65,7 +65,7 @@
                                                     <label class="form-check-label" for="check_register">Mostrar senha</label>
                                                 </div>
                                             </div>
-                                            <button id="btn_signup_signup" class="btn bt-primary  btn-block">
+                                            <button class="btn bt-primary btn-block">
                                                 Registrar
                                             </button>
                                         </form>
@@ -190,21 +190,10 @@
             var confirm_password = $("#id_confirm_password").val();
             var password_size = password.length;
 
-            let regex = /^(?=.*[@!#$%^&*()/\\])[@!#$%^&*()/\\a-zA-Z0-9]{8,16}$/;
+            // let regex = /^(?=.*[@!#$%^&*()/\\])[@!#$%^&*()/\\a-zA-Z0-9]{8,16}$/;
 
             if (password != "" && confirm_password != "" && password === confirm_password){
-                if(!regex.test(password)){
-                    $("#btn_signup_signup").attr("disabled", true);
-                }
-                if(password_size < 8){
-                    $("#toast_invalid_min").toast('show');
-                }
-                else if(password_size > 16){
-                    $("#toast_invalid_max").toast('show');
-                }
-                else if(regex.test(password)){
-                    $("#btn_signup_signup").attr("disabled", false);
-                }
+                
             }
             else{
                 $("#toast_invalid_identify").toast('show');

@@ -16,7 +16,7 @@ class UsuarioForm(forms.ModelForm):
     )
     
     def save(self, commit=True):
-        group = Group.objects.get(nome = "Cliente")
+        group = Group.objects.get(name = "Cliente")
         user = super(UsuarioForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password'])
         user.is_active = True
