@@ -22,7 +22,7 @@ _"Criar um Prototipo de Sistema para gerenciamento de uma propriedade rural."_
 **Clonando o Repositório**
 
 ```
-git clone git@github.com:projeto-dev-tcc/backend.git
+git clone git@github.com:projeto-dev-tcc/farm-manager-backend.git
 
 cd backend
 ```
