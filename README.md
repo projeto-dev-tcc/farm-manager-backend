@@ -9,11 +9,11 @@
 
 <h3 id="sobre">:information_source: Sobre</h3>
 
-> Este projeto foi desenvolvido utilizando o Django como framework back-end. 
+> Este projeto foi desenvolvido utilizando o Django como framework back-end e bootstrap como framework front-end. 
 
 A ideia é:
 
-_"Criar um Prototipo de Sistema back-end para gerenciamento de uma fazenda."_
+_"Criar um Prototipo de Sistema para gerenciamento de uma propriedade rural."_
 
 --------------------------------------------------------------------------------------
 
@@ -27,13 +27,11 @@ git clone git@github.com:projeto-dev-tcc/backend.git
 cd backend
 ```
 
-#### Preparando o Projeto
+#### Rodando o Projeto
 
 #### Windows
 
 > **Observação:** Foi utilizado o Windows(versão 10), caso ocorra algum problema na instalação, pesquise por conta própria a resolução do mesmo!
-
-**Preparando Ambiente Virtual**
 
 ```
 python -m venv env
@@ -43,13 +41,27 @@ env\Scripts\activate
 python -m pip install --upgrade pip
 
 pip install -r requirements.txt
+
+python manage.py makemigrations home
+
+python manage.py makemigrations usuarios
+
+python manage.py makemigrations manager
+
+python manage.py migrate
+
+python manage.py shell
+
+exec(open('scripts/grupos.py').read())
+
+exit()
+
+python manage.py runserver
 ```
 
 #### Linux
 
 > **Observação:** Foi utilizado a distro Linux Mint(versão 20.1), caso ocorra algum problema na instalação, pesquise por conta própria a resolução do mesmo!
-
-**Instalando Ambiente Virtual**
 
 Caso não tenha um ambiente virtual instalado, digite no terminal:
 
@@ -69,13 +81,7 @@ source env/bin/activate
 python -m pip install --upgrade pip
 
 pip install -r requirements.txt
-```
 
-<h3 id="rodando">:zap: Rodando</h3>
-
-**Iniciando**
-
-```
 python manage.py makemigrations home
 
 python manage.py makemigrations usuarios
@@ -102,8 +108,7 @@ python manage.py createsuperuser
 
 para visualizar o projeto: http://127.0.0.1:8000/
 
-
-**Acessando o Admin**
+**Acessando o Painel Administrativo do Django**
 
 Com o projeto rodando, adicione o 'admin/' dps da URL:
 
