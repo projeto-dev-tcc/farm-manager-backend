@@ -776,7 +776,7 @@ def visualizar_servico(request, id_servico):
 @login_required
 def concluir_servico(request, id_servico):
     prestacao_servico = PrestacaoServico.objects.get(id=id_servico)
-    if prestacao_servico.status == "A":
+    if prestacao_servico.status == "C":
         messages.error(request, f"O servico já foi concluído!")
         return redirect("visualizar_servico", prestacao_servico.id)
     else:

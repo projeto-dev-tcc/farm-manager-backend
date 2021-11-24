@@ -25,8 +25,8 @@ class FuncionarioFazenda(models.Model):
     data_hora_registrado = models.DateTimeField("Horário Registrado", auto_now_add=True)
 
     class Meta:
-        verbose_name = "Funcionario da Fazenda"
-        verbose_name_plural = "Funcionarios da Fazenda"
+        verbose_name = "Funcionário da Fazenda"
+        verbose_name_plural = "Funcionários das Fazendas"
         app_label = 'manager'
 
     def __str__(self):
@@ -208,15 +208,15 @@ class AnotacaoConsultoria(models.Model):
     def __str__(self):
         return self.titulo
 
-class ArquivoDigitalizado(models.Model):
-    descricao = models.CharField("Descricao", max_length = 340)
+# class ArquivoDigitalizado(models.Model):
+#     descricao = models.CharField("Descricao", max_length = 340)
     # arquivo = models.ForeignKey(ConsultoriaAgronomo, related_name="id_consultoria_AnotacaoConsultoria", on_delete=models.CASCADE)
-    data_hora_registrado = models.DateTimeField("Horário registrado", auto_now_add = True)
+    # data_hora_registrado = models.DateTimeField("Horário registrado", auto_now_add = True)
 
-    class Meta:
-        verbose_name = "Anotação da Consultoria"
-        verbose_name_plural = "Anotações da Consultoria"
-        app_label = 'manager'
+    # class Meta:
+    #     verbose_name = "Anotação da Consultoria"
+    #     verbose_name_plural = "Anotações da Consultoria"
+    #     app_label = 'manager'
 
-    def __str__(self):
-        return self.descricao
+    # def __str__(self):
+    #     return self.descricao

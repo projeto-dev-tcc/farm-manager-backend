@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <label class="control-label" for="id_implemento">Implemento: </label>
                         <div class=" ">
-                        <select name="implemento" class=" form-control" id="id_implemento">
+                        <select name="implemento" class="form-control" id="id_implemento">
                             <option value="">---------</option>
                             {% for implemento in implementos %}
                                 <option value="{{implemento.id}}">{{implemento}}</option>
@@ -65,7 +65,6 @@
         </div>
 
         {{form.tipo|bootstrap}}
-
 
         <div id="id_tipoServico">
             <div id="id_plantio">
@@ -109,7 +108,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="id_QuantidadeColheita">Quantidade colhida: </label>
-                    <input type="number" step="0.01" name="QuantidadeColheita" placeholder="Insira a quantidade colhida ..." class=" form-control" id="id_QuantidadeColheita">
+                    <input type="number" step="0.01" name="QuantidadeColheita" placeholder="Insira a quantidade colhida..." class=" form-control" id="id_QuantidadeColheita">
                 </div>
             </div>
 
@@ -117,7 +116,7 @@
         {{form.data_inicio|bootstrap}}
         {{form.data_termino|bootstrap}}
         {{form.observacoes|bootstrap}}
-
+        
         <button class="btn bt-primary">
             {{action}}
         </button>
@@ -159,7 +158,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="id_observacao_trator">Observações: </label>
-                            <textarea name="observacoes" cols="40" rows="10" class=" form-control modalzinho" id="id_observacao_trator"></textarea>
+                            <textarea name="observacoes_trator" cols="40" rows="10" class=" form-control modalzinho" id="id_observacao_trator"></textarea>
                         </div>
                         
                         <button type="button" value="{{fazenda.id}}" data-dismiss="modal" id="id_cadastrarTrator" class="btn bt-primary">Registrar Trator</button>
@@ -174,7 +173,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalImplementoLabel">Registrar implemento</h5>
+                        <h5 class="modal-title" id="ModalImplementoLabel">Registrar Implemento</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -194,9 +193,9 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="id_observacao_implemento">Observações: </label>
-                            <textarea name="observacoes" cols="40" rows="10" class=" form-control modalzinho" id="id_observacao_implemento"></textarea>
+                            <textarea name="observacoes_implemento" cols="40" rows="10" class=" form-control modalzinho" id="id_observacao_implemento"></textarea>
                         </div>
-                        <button type="button" value="{{fazenda.id}}" data-dismiss="modal" id="id_cadastrarImplemento" class="btn bt-primary">Registrar Maquinário</button>
+                        <button type="button" value="{{fazenda.id}}" data-dismiss="modal" id="id_cadastrarImplemento" class="btn bt-primary">Registrar Implemento</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
@@ -329,14 +328,10 @@
                             objTrator.append('<option value="'+this.pk+'">'+this.fields.marca + " - " + this.fields.modelo+'</option>');
                         });
                         
-                        objTrator.trigger("chosen:updated");
-                        objTrator.select2();
-                        
-                        marca.val("")
-                        modelo.val("")
-                        anoFabricacao.val("")
-                        observacoes.val("")
-
+                        $("#id_marca_trator").val("");
+                        $("#id_modelo_trator").val("");
+                        $("#id_ano_fabricacao_trator").val("");
+                        $("#id_observacao_trator").val("");
                     }
                 });
             });
@@ -347,7 +342,6 @@
                 let modelo = $("#id_modelo_implemento").val();
                 let anoFabricacao = $("#id_ano_fabricacao_implemento").val();
                 let observacoes = $("#id_observacao_implemento").val();
-
 
                 $.ajax({
                     url: "{% url 'Ajax_cadastrar_implemento' %}",
@@ -370,26 +364,24 @@
                             objImplemento.append('<option value="'+this.pk+'">'+this.fields.marca + " - " + this.fields.modelo+'</option>');
                         });
                         
-                        objImplemento.trigger("chosen:updated");
-                        objImplemento.select2();
-                        marca.val("")
-                        modelo.val("")
-                        anoFabricacao.val("")
-                        observacoes.val("")
+                        $("#id_marca_implemento").val("");
+                        $("#id_modelo_implemento").val("");
+                        $("#id_ano_fabricacao_implemento").val("");
+                        $("#id_observacao_implemento").val("");
                     }
                 });
             });
 
             $("#id_cadastrarTalhao").click(function() {
-                var idFazenda = this.value
-                var nome = $("#id_nomeTalhao").val();
-                var anoPlantio = $("#id_ano_plantio").val();
-                var numueroCovas = $("#id_numero_covas").val();
-                var espacamentoRua = $("#id_espacamento_rua").val();
-                var espacamentoCova = $("#id_espacamento_cova").val();
-                var area = $("#id_area").val();
-                var numeroCovasHectare = $("#id_numero_covas_hectare").val();
-                var idVariedade = $("#id_variedade").val();
+                let idFazenda = this.value
+                let nome = $("#id_nomeTalhao").val();
+                let anoPlantio = $("#id_ano_plantio").val();
+                let numueroCovas = $("#id_numero_covas").val();
+                let espacamentoRua = $("#id_espacamento_rua").val();
+                let espacamentoCova = $("#id_espacamento_cova").val();
+                let area = $("#id_area").val();
+                let numeroCovasHectare = $("#id_numero_covas_hectare").val();
+                let idVariedade = $("#id_variedade").val();
 
                 $.ajax({
                     url: "{% url 'Ajax_cadastrar_talhao' %}",
@@ -418,19 +410,17 @@
                         $.each(listTalhao, function() {
                             objTalhao.append('<option value="'+this.pk+'">'+this.fields.nome+'</option>');
                         });
-                        
-                        objTalhao.trigger("chosen:updated");
-                        objTalhao.select2();
 
                         $("#id_idClinica").hide()
-                        nome.val("");
-                        anoPlantio.val("");
-                        numueroCovas.val("");
-                        espacamentoRua.val("");
-                        espacamentoCova.val("");
-                        area.val("");
-                        numeroCovasHectare.val("");
-                        idVariedade.val("");
+
+                        $("#id_nomeTalhao").val("");
+                        $("#id_ano_plantio").val("");
+                        $("#id_numero_covas").val("");
+                        $("#id_espacamento_rua").val("");
+                        $("#id_espacamento_cova").val("");
+                        $("#id_area").val("");
+                        $("#id_numero_covas_hectare").val("");
+                        $("#id_variedade").val("");
                     }
                 });
             });
@@ -455,10 +445,8 @@
                         $.each(listAdubo, function() {
                             objAdubo.append('<option value="'+this.pk+'">'+this.fields.nome+'</option>');
                         });
-                        objAdubo.trigger("chosen:updated");
-                        objAdubo.select2();
                         
-                        nome.val("")
+                        $("#id_NomeAdubo").val("")
                     }
                 });
             });
@@ -469,7 +457,6 @@
                 for(i=0; i<tipoServico.length; i++){
                     if(tipoServico[i].required == true ){
                         $("#"+tipoServico[i].id).removeAttr("required")
-                        alert(`tem um corninho aqui ${tipoServico[i].name}`)
                     }
                 }
 
@@ -501,7 +488,6 @@
                     }
                 }
             });
-        
         });
     </script>
 {% endblock %}
