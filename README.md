@@ -24,7 +24,7 @@ _"Criar um Prototipo de Sistema para gerenciamento de uma propriedade rural."_
 ```
 git clone git@github.com:projeto-dev-tcc/farm-manager-backend.git
 
-cd backend
+cd farm-manager-backend
 ```
 
 #### Rodando o Projeto
